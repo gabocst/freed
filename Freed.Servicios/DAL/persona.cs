@@ -12,28 +12,32 @@ namespace Freed.Servicios.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class cliente
+    public partial class persona
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public cliente()
+        public persona()
         {
-            this.configuracionCliente = new HashSet<configuracionCliente>();
-            this.factura = new HashSet<factura>();
-            this.persona = new HashSet<persona>();
+            this.infoAdicional = new HashSet<infoAdicional>();
+            this.personaPaquete = new HashSet<personaPaquete>();
         }
     
         public int id { get; set; }
         public System.DateTime fechaCreacion { get; set; }
         public string nombre { get; set; }
-        public string correo { get; set; }
-        public int idEstado { get; set; }
+        public string apellido { get; set; }
+        public string dni { get; set; }
+        public System.DateTime fechaNacimiento { get; set; }
+        public bool sexo { get; set; }
+        public int idCliente { get; set; }
+        public int idRol { get; set; }
     
-        public virtual estado estado { get; set; }
+        public virtual cliente cliente { get; set; }
+        public virtual empleado empleado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<configuracionCliente> configuracionCliente { get; set; }
+        public virtual ICollection<infoAdicional> infoAdicional { get; set; }
+        public virtual rol rol { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<factura> factura { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<persona> persona { get; set; }
+        public virtual ICollection<personaPaquete> personaPaquete { get; set; }
+        public virtual tipoNomina tipoNomina { get; set; }
     }
 }

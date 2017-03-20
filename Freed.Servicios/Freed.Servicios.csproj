@@ -113,6 +113,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\actividad.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\cliente.cs">
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
@@ -122,7 +125,16 @@
     <Compile Include="DAL\configuracionCliente.cs">
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\costo.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\empleado.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\estado.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\factura.cs">
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\freedModel.Context.cs">
@@ -141,6 +153,39 @@
       <DependentUpon>freedModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="DAL\grupo.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\infoAdicional.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\paquete.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\paqueteActividad.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\paqueteRegla.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\permiso.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\persona.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\personaPaquete.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\regla.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\rol.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\rolPermiso.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\tipoNomina.cs">
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO\clienteDTO.cs" />

@@ -30,5 +30,20 @@ namespace Freed.Servicios.DAL
         public virtual DbSet<configuracionCliente> configuracionCliente { get; set; }
         public virtual DbSet<estado> estado { get; set; }
         public virtual DbSet<grupo> grupo { get; set; }
+        public virtual DbSet<actividad> actividad { get; set; }
+        public virtual DbSet<costo> costo { get; set; }
+        public virtual DbSet<empleado> empleado { get; set; }
+        public virtual DbSet<factura> factura { get; set; }
+        public virtual DbSet<infoAdicional> infoAdicional { get; set; }
+        public virtual DbSet<paquete> paquete { get; set; }
+        public virtual DbSet<paqueteActividad> paqueteActividad { get; set; }
+        public virtual DbSet<paqueteRegla> paqueteRegla { get; set; }
+        public virtual DbSet<permiso> permiso { get; set; }
+        public virtual DbSet<persona> persona { get; set; }
+        public virtual DbSet<personaPaquete> personaPaquete { get; set; }
+        public virtual DbSet<regla> regla { get; set; }
+        public virtual DbSet<rol> rol { get; set; }
+        public virtual DbSet<rolPermiso> rolPermiso { get; set; }
+        public virtual DbSet<tipoNomina> tipoNomina { get; set; }
     }
 }

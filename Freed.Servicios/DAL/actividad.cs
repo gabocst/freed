@@ -12,28 +12,19 @@ namespace Freed.Servicios.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class cliente
+    public partial class actividad
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public cliente()
+        public actividad()
         {
-            this.configuracionCliente = new HashSet<configuracionCliente>();
-            this.factura = new HashSet<factura>();
-            this.persona = new HashSet<persona>();
+            this.paqueteActividad = new HashSet<paqueteActividad>();
         }
     
         public int id { get; set; }
         public System.DateTime fechaCreacion { get; set; }
         public string nombre { get; set; }
-        public string correo { get; set; }
-        public int idEstado { get; set; }
     
-        public virtual estado estado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<configuracionCliente> configuracionCliente { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<factura> factura { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<persona> persona { get; set; }
+        public virtual ICollection<paqueteActividad> paqueteActividad { get; set; }
     }
 }
