@@ -188,6 +188,7 @@
     <Compile Include="DAL\tipoNomina.cs">
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DTO\configuracionClienteDTO.cs" />
     <Compile Include="DTO\clienteDTO.cs" />
     <Compile Include="DTO\configuracionDTO.cs" />
     <Compile Include="DTO\grupoDTO.cs" />
@@ -197,6 +198,8 @@
     <Compile Include="IFreedServices.cs" />
     <Compile Include="Models\cliente\clienteListResponse.cs" />
     <Compile Include="Models\cliente\clienteReadResponse.cs" />
+    <Compile Include="Models\configuracionCliente\configuracionClienteListResponse.cs" />
+    <Compile Include="Models\configuracionCliente\configuracionClienteReadResponse.cs" />
     <Compile Include="Models\configuracion\configuracionListResponse.cs" />
     <Compile Include="Models\configuracion\configuracionReadResponse.cs" />
     <Compile Include="Models\grupo\grupoListResponse.cs" />

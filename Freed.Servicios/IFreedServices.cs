@@ -2,6 +2,7 @@
 using Freed.Servicios.DTO;
 using Freed.Servicios.Models.cliente;
 using Freed.Servicios.Models.configuracion;
+using Freed.Servicios.Models.configuracionCliente;
 using Freed.Servicios.Models.grupo;
 using Freed.Servicios.Utils;
 using System;
@@ -71,5 +72,24 @@ namespace Freed.Servicios
         responseClass eliminarCliente(int id);
 
         #endregion
+
+        #region ConfiguracionCliente
+        [OperationContract]
+        configuracionClienteListResponse listarConfiguracionCliente();
+
+        [OperationContract]
+        responseClass crearConfiguracionCliente(configuracionClienteDTO config);
+
+        [OperationContract]
+        responseClass actualizarConfiguracionCliente(configuracionClienteDTO config);
+
+        [OperationContract]
+        configuracionClienteReadResponse leerConfiguracionCliente(int id);
+
+        [OperationContract]
+        responseClass eliminarConfiguracionCliente(int id);
+
+        #endregion
+
     }
 }
