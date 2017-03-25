@@ -27,7 +27,7 @@ namespace Freed.Servicios.DAL
         public string apellido { get; set; }
         public string dni { get; set; }
         public System.DateTime fechaNacimiento { get; set; }
-        public bool sexo { get; set; }
+        public string sexo { get; set; }
         public int idCliente { get; set; }
         public int idRol { get; set; }
     

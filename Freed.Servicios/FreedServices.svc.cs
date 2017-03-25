@@ -11,6 +11,9 @@ using Freed.Servicios.DTO;
 using Freed.Servicios.Models.configuracion;
 using Freed.Servicios.Models.cliente;
 using Freed.Servicios.Models.configuracionCliente;
+using Freed.Servicios.Models.actividad;
+using Freed.Servicios.Models.persona;
+using Freed.Servicios.Models.rol;
 
 namespace Freed.Servicios
 {
@@ -431,6 +434,364 @@ namespace Freed.Servicios
             return response;
         }
         #endregion
+
+        #region Actividad
+        public actividadListResponse listarActividad()
+        {
+            actividadListResponse gl;
+            List<actividadDTO> activity_list = new List<actividadDTO>();
+            try
+            {
+                var actividades = db.actividad.ToList();
+                foreach (var i in actividades)
+                { 
+                    actividadDTO g = new actividadDTO(i);
+                    activity_list.Add(g);
+                }
+                gl = new actividadListResponse(200, "OK", null, activity_list);
+            }
+            catch (Exception ex)
+            {
+                gl = new actividadListResponse(500, "Error listando las actividades", ex.InnerException.Message + " " + ex.StackTrace, null);
+            }
+
+            return gl;
+
+        }
+
+        public responseClass crearActividad(actividadDTO activity)
+        {
+            responseClass response;
+            try
+            {
+                actividad a = new actividad();
+                a.nombre = activity.nombre;
+                a.fechaCreacion = DateTime.Now;
+                db.actividad.Add(a);
+                db.SaveChanges();
+                response = new responseClass(201, a.id, "Actividad creada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error creando la actividad", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public responseClass actualizarActividad(actividadDTO activity)
+        {
+            responseClass response;
+            try
+            {
+                var a = db.grupo.Find(activity.id);
+                if (a == null)
+                    response = new responseClass(404, activity.id, "No se encontro la actividad", null);
+
+                a.nombre = activity.nombre;
+                db.SaveChanges();
+                response = new responseClass(200, a.id, "Actividad actualizada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error actualizando la actividad", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public actividadReadResponse leerActividad(int id)
+        {
+            actividadReadResponse response;
+            try
+            {
+                var a = db.actividad.Find(id);
+                if (a == null)
+                    response = new actividadReadResponse(404, "No se encontro la actividad", null, null);
+
+                actividadDTO aDTO = new actividadDTO(a);
+                response = new actividadReadResponse(200, "OK", null, aDTO);
+            }
+            catch (Exception ex)
+            {
+                response = new actividadReadResponse(500, "Error obteniendo la actividad", ex.InnerException.Message + " " + ex.StackTrace, null);
+            }
+            return response;
+        }
+
+        public responseClass eliminarActividad(int id)
+        {
+            responseClass response;
+            try
+            {
+                var a = db.actividad.Find(id);
+                if (a == null)
+                    response = new responseClass(404, id, "No se encontro la actividad", null);
+                db.actividad.Remove(a);
+                //Aqui hay que realizar las operaciones correspondientes para las configuraciones asociadas (o no permitir si hay asociadas)
+                db.SaveChanges();
+                response = new responseClass(200, id, "Actividad eliminada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error eliminando la actividad", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+        #endregion
+
+        #region PaqueteActividad
+        public responseClass crearPaqueteActividad(paqueteActividadDTO packageActiviy)
+        {
+            responseClass response;
+            try
+            {
+                paqueteActividad pa = new paqueteActividad();
+                pa.idActividad = packageActiviy.idActividad;
+                pa.idPaquete = packageActiviy.idPaquete;
+                db.paqueteActividad.Add(pa);
+                db.SaveChanges();
+                response = new responseClass(201, pa.id, "Actividad asociada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error asociado la actividad", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+        #endregion
+
+        #region Persona
+        public personaListResponse listarPersona()
+        {
+            personaListResponse gl;
+            List<personaDTO> person_list = new List<personaDTO>();
+            try
+            {
+                var personas = db.persona.ToList();
+                foreach (var i in personas)
+                {
+                    personaDTO p = new personaDTO(i);
+                    person_list.Add(p);
+                }
+                gl = new personaListResponse(200, "OK", null, person_list);
+            }
+            catch (Exception ex)
+            {
+                gl = new personaListResponse(500, "Error listando a las personas", ex.InnerException.Message + " " + ex.StackTrace, null);
+            }
+
+            return gl;
+
+        }
+
+        //public responseClass crearPersona(personaDTO person)
+        //{
+        //    responseClass response;
+        //    try
+        //    {
+        //        grupo g = new grupo();
+        //        g.nombre = group.nombre;
+        //        g.fechaCreacion = DateTime.Now;
+        //        db.grupo.Add(g);
+        //        db.SaveChanges();
+        //        response = new responseClass(201, g.id, "Grupo creado exitosamente", null);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        response = new responseClass(500, null, "Error creando el grupo", ex.InnerException.Message + " " + ex.StackTrace);
+        //    }
+        //    return response;
+        //}
+
+        //public responseClass actualizarPersona(personaDTO person)
+        //{
+        //    responseClass response;
+        //    try
+        //    {
+        //        var g = db.grupo.Find(group.id);
+        //        if (g == null)
+        //            response = new responseClass(404, group.id, "No se encontro el grupo", null);
+
+        //        g.nombre = group.nombre;
+        //        db.SaveChanges();
+        //        response = new responseClass(200, g.id, "Grupo actualizado exitosamente", null);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        response = new responseClass(500, null, "Error actualizando el grupo", ex.InnerException.Message + " " + ex.StackTrace);
+        //    }
+        //    return response;
+        //}
+
+        //public personaReadResponse leerPersona(int id)
+        //{
+        //    grupoReadResponse response;
+        //    try
+        //    {
+        //        var g = db.grupo.Find(id);
+        //        if (g == null)
+        //            response = new grupoReadResponse(404, "No se encontro el grupo", null, null);
+
+        //        grupoDTO gDTO = new grupoDTO(g);
+        //        response = new grupoReadResponse(200, "OK", null, gDTO);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        response = new grupoReadResponse(500, "Error obteniendo el grupo", ex.InnerException.Message + " " + ex.StackTrace, null);
+        //    }
+        //    return response;
+        //}
+
+        //public responseClass eliminarPersona(int id)
+        //{
+        //    responseClass response;
+        //    try
+        //    {
+        //        var g = db.grupo.Find(id);
+        //        if (g == null)
+        //            response = new responseClass(404, id, "No se encontro el grupo", null);
+        //        db.grupo.Remove(g);
+        //        //Aqui hay que realizar las operaciones correspondientes para las configuraciones asociadas (o no permitir si hay asociadas)
+        //        db.SaveChanges();
+        //        response = new responseClass(200, id, "Grupo eliminado exitosamente", null);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        response = new responseClass(500, null, "Error eliminando el grupo", ex.InnerException.Message + " " + ex.StackTrace);
+        //    }
+        //    return response;
+        //}
+        #endregion
+
+        #region Rol
+        public rolListResponse listarRol()
+        {
+            rolListResponse response;
+            List<rolDTO> rol_list = new List<rolDTO>();
+            try
+            {
+                var rol = db.rol.ToList();
+                foreach (var i in rol)
+                {
+                    rolDTO r = new rolDTO(i);
+                    rol_list.Add(r);
+                }
+                response = new rolListResponse(200, "OK", null, rol_list);
+            }
+            catch (Exception ex)
+            {
+                response = new rolListResponse(500, "Error listando los roles", ex.InnerException.Message + " " + ex.StackTrace, null);
+            }
+
+            return response;
+        }
+
+        public responseClass crearRol(rolDTO rol)
+        {
+            responseClass response;
+            try
+            {
+                rol r = new rol();
+                r.fechaCreacion = DateTime.Now;
+                r.nombre = rol.nombre;
+                db.rol.Add(r);
+                db.SaveChanges();
+                foreach (var i in rol.permisos)
+                {
+                    rolPermiso rp = new rolPermiso();
+                    rp.idRol = r.id;
+                    rp.idPermiso = i.id;
+                    db.rolPermiso.Add(rp);
+                }
+                db.SaveChanges();
+
+                
+                response = new responseClass(201, r.id, "Rol creado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error creando el rol", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public responseClass actualizarRol(rolDTO rol)
+        {
+            responseClass response;
+            try
+            {
+                var r = db.rol.Find(rol.id);
+                if (r == null)
+                    response = new responseClass(404, rol.id, "No se encontro el rol", null);
+                r.nombre = rol.nombre;
+
+                //foreach (var i in r.rolPermiso)
+                //{
+                //    if (!rol.permisos.Any(x => x.id == i.idPermiso))
+                //    {
+                //        var rolp = db.rolPermiso.SingleOrDefault(x => x.id == )
+                //    }
+                //}
+
+                db.SaveChanges();
+                response = new responseClass(200, r.id, "Rol actualizado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error actualizando el rol", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public rolReadResponse leerRol(int id)
+        {
+            rolReadResponse response;
+            try
+            {
+                var r = db.rol.Find(id);
+                if (r == null)
+                    response = new rolReadResponse(404, "No se encontro el rol", null, null, null);
+                rolDTO rDTO = new rolDTO(r);
+                List<permisoDTO> permisos = new List<permisoDTO>();
+                foreach (var i in r.rolPermiso)
+                {
+                    permisoDTO p = new permisoDTO(i.permiso);
+                    permisos.Add(p);
+                }
+                response = new rolReadResponse(200, "OK", null, rDTO, permisos);
+            }
+            catch (Exception ex)
+            {
+                response = new rolReadResponse(500, "Error obteniendo el rol", ex.InnerException.Message + " " + ex.StackTrace, null, null);
+            }
+            return response;
+        }
+
+        public responseClass eliminarRol(int id)
+        {
+            responseClass response;
+            try
+            {
+                var r = db.rol.Find(id);
+                if (r == null)
+                    response = new responseClass(404, id, "No se encontro el rol", null);
+
+                var query = db.rolPermiso.Where(x => x.idRol == r.id).ToList();
+                foreach (var i in query) 
+                    db.rolPermiso.Remove(i);
+
+                db.rol.Remove(r);
+                db.SaveChanges();
+                response = new responseClass(200, id, "Rol eliminado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error eliminando el rol", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+        #endregion
+
+
 
 
     }

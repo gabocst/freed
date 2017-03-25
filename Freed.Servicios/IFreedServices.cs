@@ -1,9 +1,12 @@
 ﻿using Freed.Servicios.DAL;
 using Freed.Servicios.DTO;
+using Freed.Servicios.Models.actividad;
 using Freed.Servicios.Models.cliente;
 using Freed.Servicios.Models.configuracion;
 using Freed.Servicios.Models.configuracionCliente;
 using Freed.Servicios.Models.grupo;
+using Freed.Servicios.Models.persona;
+using Freed.Servicios.Models.rol;
 using Freed.Servicios.Utils;
 using System;
 using System.Collections.Generic;
@@ -88,6 +91,60 @@ namespace Freed.Servicios
 
         [OperationContract]
         responseClass eliminarConfiguracionCliente(int id);
+
+        #endregion
+
+        #region Actividad
+        [OperationContract]
+        actividadListResponse listarActividad();
+
+        [OperationContract]
+        responseClass crearActividad(actividadDTO activity);
+
+        [OperationContract]
+        responseClass actualizarActividad(actividadDTO activity);
+
+        [OperationContract]
+        actividadReadResponse leerActividad(int id);
+
+        [OperationContract]
+        responseClass eliminarActividad(int id);
+
+        #endregion
+
+        #region Persona
+        [OperationContract]
+        personaListResponse listarPersona();
+
+        //[OperationContract]
+        //responseClass crearPersona(personaDTO person);
+
+        //[OperationContract]
+        //responseClass actualizarPersona(personaDTO person);
+
+        //[OperationContract]
+        //personaReadResponse leerPersona(int id);
+
+        //[OperationContract]
+        //responseClass eliminarPersona(int id);
+
+        #endregion
+
+        #region rol
+        [OperationContract]
+        rolListResponse listarRol();
+
+        [OperationContract]
+        responseClass crearRol(clienteDTO config);
+
+        [OperationContract]
+        responseClass actualizarRol(clienteDTO config);
+
+        [OperationContract]
+        rolReadResponse leerRol(int id);
+
+        [OperationContract]
+        responseClass eliminarRol(int id);
 
         #endregion
 

@@ -153,7 +153,7 @@
           <Property Name="apellido" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="dni" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fechaNacimiento" Type="date" Nullable="false" />
-          <Property Name="sexo" Type="bit" Nullable="false" />
+          <Property Name="sexo" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="idCliente" Type="int" Nullable="false" />
           <Property Name="idRol" Type="int" Nullable="false" />
         </EntityType>
@@ -861,7 +861,7 @@
           <Property Name="apellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="dni" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="sexo" Type="Boolean" Nullable="false" />
+          <Property Name="sexo" Type="String" Nullable="false" />
           <Property Name="idCliente" Type="Int32" Nullable="false" />
           <Property Name="idRol" Type="Int32" Nullable="false" />
           <NavigationProperty Name="cliente" Relationship="freedModel.fk_persona_cliente" FromRole="persona" ToRole="cliente" />
