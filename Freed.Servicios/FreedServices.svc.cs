@@ -14,6 +14,7 @@ using Freed.Servicios.Models.configuracionCliente;
 using Freed.Servicios.Models.actividad;
 using Freed.Servicios.Models.persona;
 using Freed.Servicios.Models.rol;
+using Freed.Servicios.Models.factura;
 
 namespace Freed.Servicios
 {
@@ -804,7 +805,33 @@ namespace Freed.Servicios
         }
         #endregion
 
+        #region factura
+        /*public facturaListResponse listarFactura()
+        {
 
+        }
+
+        public responseClass crearFactura(facturaDTO factura)
+        {
+
+        }
+
+        public responseClass actualizarFactura(facturaDTO factura)
+        {
+
+        }
+
+        public facturaReadResponse leerFactura(int id)
+        {
+
+        }
+
+        public responseClass eliminarFactura(int id)
+        {
+
+        }
+        */
+        #endregion
 
 
     }

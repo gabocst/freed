@@ -135,16 +135,34 @@ namespace Freed.Servicios
         rolListResponse listarRol();
 
         [OperationContract]
-        responseClass crearRol(clienteDTO config);
+        responseClass crearRol(rolDTO rol);
 
         [OperationContract]
-        responseClass actualizarRol(clienteDTO config);
+        responseClass actualizarRol(rolDTO rol);
 
         [OperationContract]
         rolReadResponse leerRol(int id);
 
         [OperationContract]
         responseClass eliminarRol(int id);
+
+        #endregion
+
+        #region factura
+        [OperationContract]
+        rolListResponse listarFactura();
+
+        [OperationContract]
+        responseClass crearFactura(facturaDTO factura);
+
+        [OperationContract]
+        responseClass actualizarFactura(facturaDTO factura);
+
+        [OperationContract]
+        rolReadResponse leerFactura(int id);
+
+        [OperationContract]
+        responseClass eliminarFactura(int id);
 
         #endregion
 
