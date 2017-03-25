@@ -724,14 +724,27 @@ namespace Freed.Servicios
                     response = new responseClass(404, rol.id, "No se encontro el rol", null);
                 r.nombre = rol.nombre;
 
-                //foreach (var i in r.rolPermiso)
-                //{
-                //    if (!rol.permisos.Any(x => x.id == i.idPermiso))
-                //    {
-                //        var rolp = db.rolPermiso.SingleOrDefault(x => x.id == )
-                //    }
-                //}
-
+                var selectedP = new HashSet<int>(rol.permisos.Select(x => x.id));
+                var currentP = new HashSet<int>(r.rolPermiso.Select(c => c.idPermiso));
+                foreach (var p in db.permiso.ToList())
+                {
+                    if (selectedP.Contains(p.id))
+                    {
+                        if (!currentP.Contains(p.id))
+                        {
+                            rolPermiso rp = new rolPermiso();
+                            rp.idPermiso = p.id;
+                            r.rolPermiso.Add(rp);
+                        }
+                    }
+                    else
+                    {
+                        if (currentP.Contains(p.id))
+                        {
+                            r.rolPermiso.Remove(r.rolPermiso.SingleOrDefault(x => x.idPermiso == p.id));
+                        }
+                    }
+                }
                 db.SaveChanges();
                 response = new responseClass(200, r.id, "Rol actualizado exitosamente", null);
             }
