@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\Twins\Documents\Visual Studio 2013\Projects\Freed\freed\Freed.Servicios\DAL\freedModel.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\Jose Castro\Documents\Gregorio\FreeLance\freed\Freed.Servicios\DAL\freedModel.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

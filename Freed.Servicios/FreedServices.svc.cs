@@ -29,9 +29,9 @@ namespace Freed.Servicios
         private freedEntities db = new freedEntities();
 
         #region Grupo
-        public grupoListResponse listarGrupo()
-        {  
-            grupoListResponse gl;
+        public response listarGrupo()
+        {
+            response gl;
             List<grupoDTO> group_list = new List<grupoDTO>();
             try {
                 var grupos = db.grupo.ToList();
@@ -43,20 +43,20 @@ namespace Freed.Servicios
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 string json = js.Serialize(group_list);
 
-                List<grupoDTO> listGroup = (List<grupoDTO>)js.Deserialize(json, typeof(List<grupoDTO>));
-                gl = new grupoListResponse(200, "OK", null, json);
+                /*List<grupoDTO> listGroup = (List<grupoDTO>)js.Deserialize(json, typeof(List<grupoDTO>));*/
+                gl = new response(200, json, "OK", null);
             }
             catch (Exception ex) {
-                gl = new grupoListResponse(500, "Error listando los grupos", ex.InnerException.Message + " " + ex.StackTrace, null);
+                gl = new response(500, "", "Error listando los grupos", ex.InnerException.Message + " " + ex.StackTrace);
             }
 
             return gl;
 
         }
 
-        public responseClass crearGrupo(grupoDTO group)
+        public response crearGrupo(grupoDTO group)
         {
-            responseClass response;
+            response response;
             try
             {
                 grupo g = new grupo();
@@ -64,79 +64,87 @@ namespace Freed.Servicios
                 g.fechaCreacion = DateTime.Now;
                 db.grupo.Add(g);
                 db.SaveChanges();
-                response = new responseClass(201, g.id, "Grupo creado exitosamente", null);
+
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(g);
+                response = new response(201, json, "Grupo creado exitosamente", null);
             }
             catch(Exception ex)
             {
-                response = new responseClass(500, null, "Error creando el grupo", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error creando el grupo", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass actualizarGrupo(grupoDTO group)
+        public response actualizarGrupo(grupoDTO group)
         {
-            responseClass response;
+            response response;
             try
             {
                 var g = db.grupo.Find(group.id);
                 if (g == null) 
-                    response = new responseClass(404, group.id, "No se encontro el grupo", null);
+                    response = new response(404, group.id.ToString(), "No se encontro el grupo", null);
                 
                 g.nombre = group.nombre;
                 db.SaveChanges();
-                response = new responseClass(200, g.id, "Grupo actualizado exitosamente", null);
+                grupoDTO gro = new grupoDTO(g);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(gro);
+                response = new response(200, json, "Grupo actualizado exitosamente", null);
             }
             catch(Exception ex)
             {
-                response = new responseClass(500, null, "Error actualizando el grupo", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error actualizando el grupo", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public grupoReadResponse leerGrupo(int id)
+        public response leerGrupo(int id)
         {
-            grupoReadResponse response;
+            response response;
             try
             {
                 var g = db.grupo.Find(id);
                 if (g==null)
-                    response = new grupoReadResponse(404,"No se encontro el grupo", null, null);
+                    response = new response(404, id.ToString(),"No se encontro el grupo", null);
 
                 grupoDTO gDTO = new grupoDTO(g);
-                response = new grupoReadResponse(200, "OK", null, gDTO);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(gDTO);
+                response = new response(200, json, "OK", null);
             }
             catch(Exception ex)
             {
-                response = new grupoReadResponse(500, "Error obteniendo el grupo", ex.InnerException.Message + " " + ex.StackTrace, null);
+                response = new response(500, "", "Error obteniendo el grupo", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass eliminarGrupo(int id)
+        public response eliminarGrupo(int id)
         {
-            responseClass response;
+            response response;
             try
             {
                 var g = db.grupo.Find(id);
                 if (g == null)
-                    response = new responseClass(404, id, "No se encontro el grupo", null);
+                    response = new response(404, id.ToString(), "No se encontro el grupo", null);
                 db.grupo.Remove(g);
                 //Aqui hay que realizar las operaciones correspondientes para las configuraciones asociadas (o no permitir si hay asociadas)
                 db.SaveChanges();
-                response = new responseClass(200, id, "Grupo eliminado exitosamente", null);
+                response = new response(200, id.ToString(), "Grupo eliminado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error eliminando el grupo", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error eliminando el grupo", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
         #endregion
 
         #region Configuracion
-        public configuracionListResponse listarConfiguracion()
+        public response listarConfiguracion()
         {
-            configuracionListResponse response;
+            response response;
             List<configuracionDTO> configuration_list = new List<configuracionDTO>();
             try
             {
@@ -146,19 +154,21 @@ namespace Freed.Servicios
                     configuracionDTO c = new configuracionDTO(i);
                     configuration_list.Add(c);
                 }
-                response = new configuracionListResponse(200, "OK", null, configuration_list);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(configuration_list);
+                response = new response(200,json, "OK", null);
             }
             catch (Exception ex)
             {
-                response = new configuracionListResponse(500, "Error listando las configuraciones", ex.InnerException.Message + " " + ex.StackTrace, null);
+                response = new response(500, "", "Error listando las configuraciones", ex.InnerException.Message + " " + ex.StackTrace);
             }
 
             return response;
         }
 
-        public responseClass crearConfiguracion(configuracionDTO configuration)
+        public response crearConfiguracion(configuracionDTO configuration)
         {
-            responseClass response;
+            response response;
             try
             {
                 configuracion c = new configuracion();
@@ -171,81 +181,89 @@ namespace Freed.Servicios
                 c.tipoValor = configuration.tipoValor;
                 db.configuracion.Add(c);
                 db.SaveChanges();
-                response = new responseClass(201, c.id, "Configuración creada exitosamente", null);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(c);
+                response = new response(201, json, "Configuración creada exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error creando la configuración", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error creando la configuración", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass actualizarConfiguracion(configuracionDTO config)
+        public response actualizarConfiguracion(configuracionDTO config)
         {
-            responseClass response;
+            response response;
             try
             {
                 var c = db.configuracion.Find(config.id);
                 if (c == null)
-                    response = new responseClass(404, config.id, "No se encontro la configuracion", null);
+                    response = new response(404, config.id.ToString(), "No se encontro la configuracion", null);
                 c.atributo = config.atributo;
                 c.descripcion = config.descripcion;
                 c.idGrupo = config.idGrupo;
                 c.requerido = config.requerido;
                 c.tipoValor = config.tipoValor;
                 db.SaveChanges();
-                response = new responseClass(200, c.id, "Configuración actualizada exitosamente", null);
+                configuracionDTO con = new configuracionDTO(c);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(con);
+                response = new response(200, json, "Configuración actualizada exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error actualizando la configuración", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error actualizando la configuración", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public configuracionReadResponse leerConfiguracion(int id)
+        public response leerConfiguracion(int id)
         {
-            configuracionReadResponse response;
+            response response;
             try
             {
                 var c = db.configuracion.Find(id);
                 if (c == null)
-                    response = new configuracionReadResponse(404, "No se encontro la configuracion", null, null);
+                    response = new response(404, id.ToString(), "No se encontro la configuracion", null);
                 configuracionDTO cDTO = new configuracionDTO(c);
-                response = new configuracionReadResponse(200, "OK", null, cDTO);
+
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(cDTO);
+                response = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                response = new configuracionReadResponse(500, "Error obteniendo la configuración", ex.InnerException.Message + " " + ex.StackTrace, null);
+                response = new response(500, "", "Error obteniendo la configuración", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass eliminarConfiguracion(int id)
+        public response eliminarConfiguracion(int id)
         {
-            responseClass response;
+            response response;
             try
             {
                 var c = db.configuracion.Find(id);
                 if (c == null)
-                    response = new responseClass(404,id, "No se encontro la configuracion", null);
+                    response = new response(404,id.ToString(), "No se encontro la configuracion", null);
                 db.configuracion.Remove(c);
                 //Aqui hay que realizar las operaciones correspondientes para eliminar las configuracionCliente asociadas
                 db.SaveChanges();
-                response = new responseClass(200, id, "Configuración eliminado exitosamente", null);
+                response = new response(200, id.ToString(), "Configuración eliminado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error eliminando la configuración", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error eliminando la configuración", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
         #endregion
 
         #region Cliente
-        public clienteListResponse listarCliente()
+        public response listarCliente()
         {
-            clienteListResponse response;
+            response response;
             List<clienteDTO> client_list = new List<clienteDTO>();
             try
             {
@@ -255,19 +273,21 @@ namespace Freed.Servicios
                     clienteDTO c = new clienteDTO(i);
                     client_list.Add(c);
                 }
-                response = new clienteListResponse(200, "OK", null, client_list);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(client_list);
+                response = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                response = new clienteListResponse(500, "Error listando los clientes", ex.InnerException.Message + " " + ex.StackTrace, null);
+                response = new response(500, "", "Error listando los clientes", ex.InnerException.Message + " " + ex.StackTrace);
             }
 
             return response;
         }
 
-        public responseClass crearCliente(clienteDTO client)
+        public response crearCliente(clienteDTO client)
         {
-            responseClass response;
+            response response;
             try
             {
                 cliente c = new cliente();
@@ -277,79 +297,86 @@ namespace Freed.Servicios
                 c.nombre = client.nombre;
                 db.cliente.Add(c);
                 db.SaveChanges();
-                response = new responseClass(201, c.id, "Cliente creado exitosamente", null);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(c);
+                response = new response(201, json, "Cliente creado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error creando al cliente", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error creando al cliente", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass actualizarCliente(clienteDTO client)
+        public response actualizarCliente(clienteDTO client)
         {
-            responseClass response;
+            response response;
             try
             {
                 var c = db.cliente.Find(client.id);
                 if (c == null)
-                    response = new responseClass(404, client.id, "No se encontro al cliente", null);
+                    response = new response(404, client.id.ToString(), "No se encontro al cliente", null);
                 c.correo = client.correo;
                 c.idEstado = client.idEstado;
                 c.nombre = client.nombre;
                 db.SaveChanges();
-                response = new responseClass(200, c.id, "Cliente actualizado exitosamente", null);
+                clienteDTO cli = new clienteDTO(c);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(cli);
+                response = new response(200, json, "Cliente actualizado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error actualizando al cliente", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error actualizando al cliente", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public clienteReadResponse leerCliente(int id)
+        public response leerCliente(int id)
         {
-            clienteReadResponse response;
+            response response;
             try
             {
                 var c = db.cliente.Find(id);
                 if (c == null)
-                    response = new clienteReadResponse(404, "No se encontro al cliente", null, null);
+                    response = new response(404, id.ToString(), "No se encontro al cliente", null);
                 clienteDTO cDTO = new clienteDTO(c);
-                response = new clienteReadResponse(200, "OK", null, cDTO);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(cDTO);
+                response = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                response = new clienteReadResponse(500, "Error obteniendo al cliente", ex.InnerException.Message + " " + ex.StackTrace, null);
+                response = new response(500, "", "Error obteniendo al cliente", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass eliminarCliente(int id)
+        public response eliminarCliente(int id)
         {
-            responseClass response;
+            response response;
             try
             {
                 var c = db.cliente.Find(id);
                 if (c == null)
-                    response = new responseClass(404, id, "No se encontro al cliente", null);
+                    response = new response(404, id.ToString(), "No se encontro al cliente", null);
                 c.idEstado = db.estado.SingleOrDefault(x => x.nombre == "Inactivo").id;
                 //Aqui hay que realizar las operaciones correspondientes de cuando se inactiva un cliente
                 db.SaveChanges();
-                response = new responseClass(200, id, "Cliente inactivado exitosamente", null);
+                response = new response(200, id.ToString(), "Cliente inactivado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error inactivando al cliente", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error inactivando al cliente", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
         #endregion
 
         #region ConfiguracionCliente
-        public configuracionClienteListResponse listarConfiguracionCliente()
+        public response listarConfiguracionCliente()
         {
-            configuracionClienteListResponse response;
+            response response;
             List<configuracionClienteDTO> configuration_list = new List<configuracionClienteDTO>();
             try
             {
@@ -359,19 +386,21 @@ namespace Freed.Servicios
                     configuracionClienteDTO c = new configuracionClienteDTO(i);
                     configuration_list.Add(c);
                 }
-                response = new configuracionClienteListResponse(200, "OK", null, configuration_list);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(configuration_list);
+                response = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                response = new configuracionClienteListResponse(500, "Error listando las configuraciones", ex.InnerException.Message + " " + ex.StackTrace, null);
+                response = new response(500, "", "Error listando las configuraciones", ex.InnerException.Message + " " + ex.StackTrace);
             }
 
             return response;
         }
 
-        public responseClass crearConfiguracionCliente(configuracionClienteDTO configuration)
+        public response crearConfiguracionCliente(configuracionClienteDTO configuration)
         {
-            responseClass response;
+            response response;
             try
             {
                 configuracionCliente c = new configuracionCliente();
@@ -380,74 +409,81 @@ namespace Freed.Servicios
                 c.valor = configuration.valor;
                 db.configuracionCliente.Add(c);
                 db.SaveChanges();
-                response = new responseClass(201, c.id, "Configuración creada exitosamente", null);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(c);
+                response = new response(201, json, "Configuración creada exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error creando la configuración", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error creando la configuración", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass actualizarConfiguracionCliente(configuracionClienteDTO config)
+        public response actualizarConfiguracionCliente(configuracionClienteDTO config)
         {
-            responseClass response;
+            response response;
             try
             {
                 var c = db.configuracionCliente.Find(config.id);
                 if (c == null)
-                    response = new responseClass(404, config.id, "No se encontro la configuracion", null);
+                    response = new response(404, config.id.ToString(), "No se encontro la configuracion", null);
                 c.valor = config.valor;
                 db.SaveChanges();
-                response = new responseClass(200, c.id, "Configuración actualizada exitosamente", null);
+                configuracionClienteDTO conf = new configuracionClienteDTO(c);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(conf);
+                response = new response(200, json, "Configuración actualizada exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error actualizando la configuración", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error actualizando la configuración", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public configuracionClienteReadResponse leerConfiguracionCliente(int id)
+        public response leerConfiguracionCliente(int id)
         {
-            configuracionClienteReadResponse response;
+            response response;
             try
             {
                 var c = db.configuracionCliente.Find(id);
                 if (c == null)
-                    response = new configuracionClienteReadResponse(404, "No se encontro la configuracion", null, null);
+                    response = new response(404, id.ToString(), "No se encontro la configuracion", null);
                 configuracionClienteDTO cDTO = new configuracionClienteDTO(c);
-                response = new configuracionClienteReadResponse(200, "OK", null, cDTO);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(cDTO);
+                response = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                response = new configuracionClienteReadResponse(500, "Error obteniendo la configuración", ex.InnerException.Message + " " + ex.StackTrace, null);
+                response = new response(500, "", "Error obteniendo la configuración", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass eliminarConfiguracionCliente(int id)
+        public response eliminarConfiguracionCliente(int id)
         {
-            responseClass response;
+            response response;
             try
             {
                 var c = db.configuracionCliente.Find(id);
                 db.configuracionCliente.Remove(c);
                 db.SaveChanges();
-                response = new responseClass(200, id, "Configuración eliminado exitosamente", null);
+                response = new response(200, id.ToString(), "Configuración eliminado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error eliminando la configuración", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error eliminando la configuración", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
         #endregion
 
         #region Actividad
-        public actividadListResponse listarActividad()
+        public response listarActividad()
         {
-            actividadListResponse gl;
+            response gl;
             List<actividadDTO> activity_list = new List<actividadDTO>();
             try
             {
@@ -457,20 +493,22 @@ namespace Freed.Servicios
                     actividadDTO g = new actividadDTO(i);
                     activity_list.Add(g);
                 }
-                gl = new actividadListResponse(200, "OK", null, activity_list);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(activity_list);
+                gl = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                gl = new actividadListResponse(500, "Error listando las actividades", ex.InnerException.Message + " " + ex.StackTrace, null);
+                gl = new response(500, "", "Error listando las actividades", ex.InnerException.Message + " " + ex.StackTrace);
             }
 
             return gl;
 
         }
 
-        public responseClass crearActividad(actividadDTO activity)
+        public response crearActividad(actividadDTO activity)
         {
-            responseClass response;
+            response response;
             try
             {
                 actividad a = new actividad();
@@ -478,79 +516,86 @@ namespace Freed.Servicios
                 a.fechaCreacion = DateTime.Now;
                 db.actividad.Add(a);
                 db.SaveChanges();
-                response = new responseClass(201, a.id, "Actividad creada exitosamente", null);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(a);
+                response = new response(201, json, "Actividad creada exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error creando la actividad", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error creando la actividad", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass actualizarActividad(actividadDTO activity)
+        public response actualizarActividad(actividadDTO activity)
         {
-            responseClass response;
+            response response;
             try
             {
-                var a = db.grupo.Find(activity.id);
+                var a = db.actividad.Find(activity.id);
                 if (a == null)
-                    response = new responseClass(404, activity.id, "No se encontro la actividad", null);
+                    response = new response(404, activity.id.ToString(), "No se encontro la actividad", null);
 
                 a.nombre = activity.nombre;
                 db.SaveChanges();
-                response = new responseClass(200, a.id, "Actividad actualizada exitosamente", null);
+                actividadDTO act = new actividadDTO(a);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(act);
+                response = new response(200, json, "Actividad actualizada exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error actualizando la actividad", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error actualizando la actividad", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public actividadReadResponse leerActividad(int id)
+        public response leerActividad(int id)
         {
-            actividadReadResponse response;
+            response response;
             try
             {
                 var a = db.actividad.Find(id);
                 if (a == null)
-                    response = new actividadReadResponse(404, "No se encontro la actividad", null, null);
+                    response = new response(404, id.ToString(), "No se encontro la actividad", null);
 
                 actividadDTO aDTO = new actividadDTO(a);
-                response = new actividadReadResponse(200, "OK", null, aDTO);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(aDTO);
+                response = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                response = new actividadReadResponse(500, "Error obteniendo la actividad", ex.InnerException.Message + " " + ex.StackTrace, null);
+                response = new response(500, "", "Error obteniendo la actividad", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass eliminarActividad(int id)
+        public response eliminarActividad(int id)
         {
-            responseClass response;
+            response response;
             try
             {
                 var a = db.actividad.Find(id);
                 if (a == null)
-                    response = new responseClass(404, id, "No se encontro la actividad", null);
+                    response = new response(404, id.ToString(), "No se encontro la actividad", null);
                 db.actividad.Remove(a);
                 //Aqui hay que realizar las operaciones correspondientes para las configuraciones asociadas (o no permitir si hay asociadas)
                 db.SaveChanges();
-                response = new responseClass(200, id, "Actividad eliminada exitosamente", null);
+                response = new response(200, id.ToString(), "Actividad eliminada exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error eliminando la actividad", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error eliminando la actividad", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
         #endregion
 
         #region Persona
-        public personaListResponse listarPersona()
+        public response listarPersona()
         {
-            personaListResponse gl;
+            response gl;
             List<personaDTO> person_list = new List<personaDTO>();
             try
             {
@@ -560,11 +605,13 @@ namespace Freed.Servicios
                     personaDTO p = new personaDTO(i);
                     person_list.Add(p);
                 }
-                gl = new personaListResponse(200, "OK", null, person_list);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(person_list);
+                gl = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                gl = new personaListResponse(500, "Error listando a las personas", ex.InnerException.Message + " " + ex.StackTrace, null);
+                gl = new response(500, "", "Error listando a las personas", ex.InnerException.Message + " " + ex.StackTrace);
             }
 
             return gl;
@@ -651,9 +698,9 @@ namespace Freed.Servicios
         #endregion
 
         #region Rol
-        public rolListResponse listarRol()
+        public response listarRol()
         {
-            rolListResponse response;
+            response response;
             List<rolDTO> rol_list = new List<rolDTO>();
             try
             {
@@ -663,19 +710,21 @@ namespace Freed.Servicios
                     rolDTO r = new rolDTO(i);
                     rol_list.Add(r);
                 }
-                response = new rolListResponse(200, "OK", null, rol_list);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(rol_list);
+                response = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                response = new rolListResponse(500, "Error listando los roles", ex.InnerException.Message + " " + ex.StackTrace, null);
+                response = new response(500, "", "Error listando los roles", ex.InnerException.Message + " " + ex.StackTrace);
             }
 
             return response;
         }
 
-        public responseClass crearRol(rolDTO rol)
+        public response crearRol(rolDTO rol)
         {
-            responseClass response;
+            response response;
             try
             {
                 rol r = new rol();
@@ -692,24 +741,25 @@ namespace Freed.Servicios
                 }
                 db.SaveChanges();
 
-                
-                response = new responseClass(201, r.id, "Rol creado exitosamente", null);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(r);
+                response = new response(201, json, "Rol creado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error creando el rol", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error creando el rol", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass actualizarRol(rolDTO rol)
+        public response actualizarRol(rolDTO rol)
         {
-            responseClass response;
+            response response;
             try
             {
                 var r = db.rol.Find(rol.id);
                 if (r == null)
-                    response = new responseClass(404, rol.id, "No se encontro el rol", null);
+                    response = new response(404, rol.id.ToString(), "No se encontro el rol", null);
                 r.nombre = rol.nombre;
 
                 var selectedP = new HashSet<int>(rol.permisos.Select(x => x.id));
@@ -734,23 +784,26 @@ namespace Freed.Servicios
                     }
                 }
                 db.SaveChanges();
-                response = new responseClass(200, r.id, "Rol actualizado exitosamente", null);
+                rolDTO ro = new rolDTO(r);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(ro);
+                response = new response(200, json, "Rol actualizado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error actualizando el rol", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error actualizando el rol", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public rolReadResponse leerRol(int id)
+        public response leerRol(int id)
         {
-            rolReadResponse response;
+            response response;
             try
             {
                 var r = db.rol.Find(id);
                 if (r == null)
-                    response = new rolReadResponse(404, "No se encontro el rol", null, null, null);
+                    response = new response(404, id.ToString(), "No se encontro el rol", null);
                 rolDTO rDTO = new rolDTO(r);
                 List<permisoDTO> permisos = new List<permisoDTO>();
                 foreach (var i in r.rolPermiso)
@@ -758,23 +811,26 @@ namespace Freed.Servicios
                     permisoDTO p = new permisoDTO(i.permiso);
                     permisos.Add(p);
                 }
-                response = new rolReadResponse(200, "OK", null, rDTO, permisos);
+                rDTO.permisos = new List<permisoDTO>(permisos);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(rDTO);
+                response = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                response = new rolReadResponse(500, "Error obteniendo el rol", ex.InnerException.Message + " " + ex.StackTrace, null, null);
+                response = new response(500, "", "Error obteniendo el rol", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass eliminarRol(int id)
+        public response eliminarRol(int id)
         {
-            responseClass response;
+            response response;
             try
             {
                 var r = db.rol.Find(id);
                 if (r == null)
-                    response = new responseClass(404, id, "No se encontro el rol", null);
+                    response = new response(404, id.ToString(), "No se encontro el rol", null);
 
                 var query = db.rolPermiso.Where(x => x.idRol == r.id).ToList();
                 foreach (var i in query) 
@@ -782,20 +838,20 @@ namespace Freed.Servicios
 
                 db.rol.Remove(r);
                 db.SaveChanges();
-                response = new responseClass(200, id, "Rol eliminado exitosamente", null);
+                response = new response(200, id.ToString(), "Rol eliminado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error eliminando el rol", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error eliminando el rol", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
         #endregion
 
         #region Factura
-        public facturaListResponse listarFactura()
+        public response listarFactura()
         {
-            facturaListResponse pack;
+            response pack;
             List<facturaDTO> invoice_list = new List<facturaDTO>();
             try
             {
@@ -805,19 +861,21 @@ namespace Freed.Servicios
                     facturaDTO p = new facturaDTO(i);
                     invoice_list.Add(p);
                 }
-                pack = new facturaListResponse(200, "OK", null, invoice_list);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(invoice_list);
+                pack = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                pack = new facturaListResponse(500, "Error listando las facturas", ex.InnerException.Message + " " + ex.StackTrace, null);
+                pack = new response(500, "", "Error listando las facturas", ex.InnerException.Message + " " + ex.StackTrace);
             }
 
             return pack;
         }
 
-        public responseClass crearFactura(facturaDTO invoice)
+        public response crearFactura(facturaDTO invoice)
         {
-            responseClass response;
+            response response;
             try
             {
                 factura f = new factura();
@@ -829,23 +887,25 @@ namespace Freed.Servicios
                 f.fechaCreacion = DateTime.Now;
                 db.factura.Add(f);
                 db.SaveChanges();
-                response = new responseClass(201, f.id, "Factura creada exitosamente", null);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(f);
+                response = new response(201, json, "Factura creada exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error creando la factura", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error creando la factura", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass actualizarFactura(facturaDTO invoice)
+        public response actualizarFactura(facturaDTO invoice)
         {
-            responseClass response;
+            response response;
             try
             {
                 var f = db.factura.Find(invoice.id);
                 if (f == null)
-                    response = new responseClass(404, invoice.id, "No se encontro la factura", null);
+                    response = new response(404, invoice.id.ToString(), "No se encontro la factura", null);
 
                 f.desde = f.desde;
                 f.hasta = f.hasta;
@@ -853,50 +913,55 @@ namespace Freed.Servicios
                 f.numero = f.numero;
                 f.fechaPago = f.fechaPago;
                 db.SaveChanges();
-                response = new responseClass(200, f.id, "Factura actualizada exitosamente", null);
+                facturaDTO fact = new facturaDTO(f);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(fact);
+                response = new response(200, json, "Factura actualizada exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error actualizando la factura", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error actualizando la factura", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public facturaReadResponse leerFactura(int id)
+        public response leerFactura(int id)
         {
-            facturaReadResponse response;
+            response response;
             try
             {
                 var f = db.factura.Find(id);
                 if (f == null)
-                    response = new facturaReadResponse(404, "No se encontro la factura", null, null);
+                    response = new response(404, id.ToString(), "No se encontro la factura", null);
 
                 facturaDTO fDTO = new facturaDTO(f);
-                response = new facturaReadResponse(200, "OK", null, fDTO);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(fDTO);
+                response = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                response = new facturaReadResponse(500, "Error obteniendo la factura", ex.InnerException.Message + " " + ex.StackTrace, null);
+                response = new response(500, "", "Error obteniendo la factura", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass eliminarFactura(int id)
+        public response eliminarFactura(int id)
         {
-            responseClass response;
+            response response;
             try
             {
                 var f = db.factura.Find(id);
                 if (f == null)
-                    response = new responseClass(404, id, "No se encontro la factura", null);
+                    response = new response(404, id.ToString(), "No se encontro la factura", null);
                 db.factura.Remove(f);
                 //Aqui hay que realizar las operaciones correspondientes para las relaciones (o no permitir si hay asociadas)
                 db.SaveChanges();
-                response = new responseClass(200, id, "Factura eliminada exitosamente", null);
+                response = new response(200, id.ToString(), "Factura eliminada exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error eliminando la factura", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error eliminando la factura", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
@@ -904,9 +969,9 @@ namespace Freed.Servicios
         #endregion
 
         #region Paquete
-        public paqueteListResponse listarPaquete(int id)
+        public response listarPaquete(int id)
         {
-            paqueteListResponse pack;
+            response pack;
             List<paqueteDTO> package_list = new List<paqueteDTO>();
             try
             {
@@ -921,20 +986,22 @@ namespace Freed.Servicios
                     }
                     package_list.Add(p);
                 }
-                pack = new paqueteListResponse(200, "OK", null, package_list);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(package_list);
+                pack = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                pack = new paqueteListResponse(500, "Error listando los paquetes", ex.InnerException.Message + " " + ex.StackTrace, null);
+                pack = new response(500, "", "Error listando los paquetes", ex.InnerException.Message + " " + ex.StackTrace);
             }
 
             return pack;
 
         }
 
-        public responseClass crearPaquete(paqueteDTO package)
+        public response crearPaquete(paqueteDTO package)
         {
-            responseClass response;
+            response response;
             try
             {
                 paquete p = new paquete();
@@ -951,23 +1018,25 @@ namespace Freed.Servicios
                     db.paqueteActividad.Add(pa);
                 }
                 db.SaveChanges();
-                response = new responseClass(201, p.id, "Paquete creado exitosamente", null);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(p);
+                response = new response(201, json, "Paquete creado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error creando el paquete", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error creando el paquete", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass actualizarPaquete(paqueteDTO package)
+        public response actualizarPaquete(paqueteDTO package)
         {
-            responseClass response;
+            response response;
             try
             {
                 var p = db.paquete.Find(package.id);
                 if (p == null)
-                    response = new responseClass(404, package.id, "No se encontro el paquete", null);
+                    response = new response(404, package.id.ToString(), "No se encontro el paquete", null);
 
                 p.nombre = package.nombre;
                 var selectedP = new HashSet<int>(package.actividades.Select(x => x.id));
@@ -992,23 +1061,26 @@ namespace Freed.Servicios
                     }
                 }
                 db.SaveChanges();
-                response = new responseClass(200, p.id, "Paquete actualizado exitosamente", null);
+                paqueteDTO paq = new paqueteDTO(p);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(paq);
+                response = new response(200, json, "Paquete actualizado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error actualizando el paquete", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error actualizando el paquete", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public paqueteReadResponse leerPaquete(int id)
+        public response leerPaquete(int id)
         {
-            paqueteReadResponse response;
+            response response;
             try
             {
                 var p = db.paquete.Find(id);
                 if (p == null)
-                    response = new paqueteReadResponse(404, "No se encontro el paquete", null, null);
+                    response = new response(404, id.ToString(), "No se encontro el paquete", null);
 
                 paqueteDTO pDTO = new paqueteDTO(p);
                 List<actividadDTO> activity_list = new List<actividadDTO>();
@@ -1023,40 +1095,42 @@ namespace Freed.Servicios
                 {
                     pDTO.costo = new costoDTO(p.costo.SingleOrDefault(x => x.inicio < now && x.fin > now));
                 }
-                response = new paqueteReadResponse(200, "OK", null, pDTO);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(pDTO);
+                response = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                response = new paqueteReadResponse(500, "Error obteniendo el paquete", ex.InnerException.Message + " " + ex.StackTrace, null);
+                response = new response(500, "", "Error obteniendo el paquete", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass eliminarPaquete(int id)
+        public response eliminarPaquete(int id)
         {
-            responseClass response;
+            response response;
             try
             {
                 var p = db.paquete.Find(id);
                 if (p == null)
-                    response = new responseClass(404, id, "No se encontro el paquete", null);
+                    response = new response(404, id.ToString(), "No se encontro el paquete", null);
                 db.paquete.Remove(p);
                 //Aqui hay que realizar las operaciones correspondientes para las relaciones (o no permitir si hay asociadas)
                 db.SaveChanges();
-                response = new responseClass(200, id, "Paquete eliminado exitosamente", null);
+                response = new response(200, id.ToString(), "Paquete eliminado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error eliminando el paquete", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error eliminando el paquete", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
         #endregion
 
         #region Costo
-        public costoListResponse listarCosto(int id)
+        public response listarCosto(int id)
         {
-            costoListResponse c;
+            response c;
             List<costoDTO> cost_list = new List<costoDTO>();
             try
             {
@@ -1066,33 +1140,35 @@ namespace Freed.Servicios
                     costoDTO co = new costoDTO(i);
                     cost_list.Add(co);
                 }
-                c = new costoListResponse(200, "OK", null, cost_list);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(cost_list);
+                c = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                c = new costoListResponse(500, "Error listando los costos", ex.InnerException.Message + " " + ex.StackTrace, null);
+                c = new response(500, "", "Error listando los costos", ex.InnerException.Message + " " + ex.StackTrace);
             }
 
             return c;
 
         }
 
-        public responseClass crearCosto(costoDTO cost)
+        public response crearCosto(costoDTO cost)
         {
-            responseClass response;
+            response response;
             try
             {
                 if (cost.fin < cost.inicio)
                 {
-                    return response = new responseClass(400, null, "La fecha de fin debe ser mayor a la fecha de inicio", null);
+                    return response = new response(400, "", "La fecha de fin debe ser mayor a la fecha de inicio", null);
                 }
                 else if (cost.costo1 < 0)
                 {
-                    return response = new responseClass(400, null, "El costo debe ser mayor a 0", null);
+                    return response = new response(400, "", "El costo debe ser mayor a 0", null);
                 }
                 else if (db.costo.Any(x => (x.inicio < cost.inicio && x.fin > cost.inicio) || (x.inicio < cost.fin && x.fin > cost.fin)))
                 {
-                    return response = new responseClass(400, null, "El rango de fecha del costo coincide con un costo ya creado", null);
+                    return response = new response(400, "", "El rango de fecha del costo coincide con un costo ya creado", null);
                 }
                 costo c = new costo();
                 c.idPaquete = cost.idPaquete;
@@ -1102,80 +1178,87 @@ namespace Freed.Servicios
                 c.fin = cost.fin;
                 db.costo.Add(c);
                 db.SaveChanges();
-                response = new responseClass(201, c.id, "Costo creado exitosamente", null);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(c);
+                response = new response(201, json, "Costo creado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error creando el costo", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error creando el costo", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass actualizarCosto(costoDTO cost)
+        public response actualizarCosto(costoDTO cost)
         {
-            responseClass response;
+            response response;
             try
             {
                 var c = db.costo.Find(cost.id);
                 if (c == null)
-                    response = new responseClass(404, cost.id, "No se encontro el costo", null);
+                    response = new response(404, cost.id.ToString(), "No se encontro el costo", null);
 
                 c.costo1 = cost.costo1;
                 c.inicio = cost.inicio;
                 c.fin = cost.fin;
                 db.SaveChanges();
-                response = new responseClass(200, c.id, "Costo actualizado exitosamente", null);
+                costoDTO cos = new costoDTO(c);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(cos);
+                response = new response(200, json, "Costo actualizado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error actualizando el costo", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error actualizando el costo", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public costoReadResponse leerCosto(int id)
+        public response leerCosto(int id)
         {
-            costoReadResponse response;
+            response response;
             try
             {
                 var c = db.costo.Find(id);
                 if (c == null)
-                    response = new costoReadResponse(404, "No se encontro el costo", null, null);
+                    response = new response(404, id.ToString(), "No se encontro el costo", null);
 
                 costoDTO cDTO = new costoDTO(c);
-                response = new costoReadResponse(200, "OK", null, cDTO);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(cDTO);
+                response = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                response = new costoReadResponse(500, "Error obteniendo el costo", ex.InnerException.Message + " " + ex.StackTrace, null);
+                response = new response(500, "", "Error obteniendo el costo", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
 
-        public responseClass eliminarCosto(int id)
+        public response eliminarCosto(int id)
         {
-            responseClass response;
+            response response;
             try
             {
                 var c = db.costo.Find(id);
                 if (c == null)
-                    response = new responseClass(404, id, "No se encontro el costo", null);
+                    response = new response(404, id.ToString(), "No se encontro el costo", null);
                 db.costo.Remove(c);
                 db.SaveChanges();
-                response = new responseClass(200, id, "Costo eliminado exitosamente", null);
+                response = new response(200, id.ToString(), "Costo eliminado exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new responseClass(500, null, "Error eliminando el costo", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error eliminando el costo", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
         #endregion
 
         #region informacionAfiliado
-        public infoAfiListResponse listarInfoAfiliado(int id)
+        public response listarInfoAfiliado(int id)
         {
-            infoAfiListResponse response;
+            response response;
             List<infoAfiDTO> info_list = new List<infoAfiDTO>();
             try
             {
@@ -1185,37 +1268,107 @@ namespace Freed.Servicios
                     infoAfiDTO info = new infoAfiDTO(i);
                     info_list.Add(info);
                 }
-                response = new infoAfiListResponse(200, "OK", null, info_list);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(info_list);
+                response = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                response = new infoAfiListResponse(500, "Error listando la informacion de los afiliados", ex.InnerException.Message + " " + ex.StackTrace, null);
+                response = new response(500, "", "Error listando la informacion de los afiliados", ex.InnerException.Message + " " + ex.StackTrace);
             }
 
             return response;
         }
 
-        /*
-        public responseClass crearInfoAfiliado(infoAfiDTO info)
+        public response crearInfoAfiliado(infoAfiDTO info)
         {
-
+            response response;
+            try
+            {
+                informacionAfiliado ia = new informacionAfiliado();
+                ia.atributo = info.atributo;
+                ia.tipoValor = info.tipoValor;
+                ia.requerido = info.requerido;
+                ia.vigente = info.vigente;
+                ia.idCliente = info.idCliente;
+                db.informacionAfiliado.Add(ia);
+                db.SaveChanges();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(ia);
+                response = new response(201, json, "informacion de afiliado creada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error creando la informacion de afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
         }
 
-        public responseClass actualizarInfoAfiliado(infoAfiDTO info)
+        public response actualizarInfoAfiliado(infoAfiDTO info)
         {
-
+            response response;
+            try
+            {
+                var ia = db.informacionAfiliado.Find(info.id);
+                if (ia == null)
+                    response = new response(404, info.id.ToString(), "No se encontro la informacion de afiliado", null);
+                ia.atributo = info.atributo;
+                ia.requerido = info.requerido;
+                ia.vigente = info.vigente;
+                db.SaveChanges();
+                infoAfiDTO infAf = new infoAfiDTO(ia);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(infAf);
+                response = new response(200, json, "Configuración actualizada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error actualizando la informacion de afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
         }
 
-        public paqueteReadResponse leerInfoAfiliado(int id)
-        {
 
+        public response leerInfoAfiliado(int id)
+        {
+            response response;
+            try
+            {
+                var ia = db.informacionAfiliado.Find(id);
+                if (ia == null)
+                    response = new response(404, id.ToString(), "No se encontro la informacion del afiliado", null);
+                infoAfiDTO iaDTO = new infoAfiDTO(ia);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(iaDTO);
+                response = new response(200, json, "OK", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error obteniendo la informacion del afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
         }
 
-        public responseClass eliminarInfoAfiliado(int id)
+        public response eliminarInfoAfiliado(int id)
         {
-
+            response response;
+            try
+            {
+                var ia = db.informacionAfiliado.Find(id);
+                if (ia == null)
+                    response = new response(404, id.ToString(), "No se encontro la informacion del afiliado", null);
+                db.informacionAfiliado.Remove(ia);
+                //Aqui hay que realizar las operaciones correspondientes para eliminar las configuracionCliente asociadas
+                db.SaveChanges();
+                response = new response(200, id.ToString(), "informacion de afiliado eliminada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error eliminando la informacion del afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
         }
-         */
+
 
         #endregion
 

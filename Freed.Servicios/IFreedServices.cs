@@ -28,97 +28,97 @@ namespace Freed.Servicios
 
         #region Grupo
         [OperationContract]
-        grupoListResponse listarGrupo();
+        response listarGrupo();
 
         [OperationContract]
-        responseClass crearGrupo(grupoDTO group);
+        response crearGrupo(grupoDTO group);
 
         [OperationContract]
-        responseClass actualizarGrupo(grupoDTO group);
+        response actualizarGrupo(grupoDTO group);
 
         [OperationContract]
-        grupoReadResponse leerGrupo(int id);
+        response leerGrupo(int id);
 
         [OperationContract]
-        responseClass eliminarGrupo(int id);
+        response eliminarGrupo(int id);
 
         #endregion
 
         #region Configuracion
         [OperationContract]
-        configuracionListResponse listarConfiguracion();
+        response listarConfiguracion();
 
         [OperationContract]
-        responseClass crearConfiguracion(configuracionDTO config);
+        response crearConfiguracion(configuracionDTO config);
 
         [OperationContract]
-        responseClass actualizarConfiguracion(configuracionDTO config);
+        response actualizarConfiguracion(configuracionDTO config);
 
         [OperationContract]
-        configuracionReadResponse leerConfiguracion(int id);
+        response leerConfiguracion(int id);
 
         [OperationContract]
-        responseClass eliminarConfiguracion(int id);
+        response eliminarConfiguracion(int id);
 
         #endregion
 
         #region Cliente
         [OperationContract]
-        clienteListResponse listarCliente();
+        response listarCliente();
 
         [OperationContract]
-        responseClass crearCliente(clienteDTO config);
+        response crearCliente(clienteDTO config);
 
         [OperationContract]
-        responseClass actualizarCliente(clienteDTO config);
+        response actualizarCliente(clienteDTO config);
 
         [OperationContract]
-        clienteReadResponse leerCliente(int id);
+        response leerCliente(int id);
 
         [OperationContract]
-        responseClass eliminarCliente(int id);
+        response eliminarCliente(int id);
 
         #endregion
 
         #region ConfiguracionCliente
         [OperationContract]
-        configuracionClienteListResponse listarConfiguracionCliente();
+        response listarConfiguracionCliente();
 
         [OperationContract]
-        responseClass crearConfiguracionCliente(configuracionClienteDTO config);
+        response crearConfiguracionCliente(configuracionClienteDTO config);
 
         [OperationContract]
-        responseClass actualizarConfiguracionCliente(configuracionClienteDTO config);
+        response actualizarConfiguracionCliente(configuracionClienteDTO config);
 
         [OperationContract]
-        configuracionClienteReadResponse leerConfiguracionCliente(int id);
+        response leerConfiguracionCliente(int id);
 
         [OperationContract]
-        responseClass eliminarConfiguracionCliente(int id);
+        response eliminarConfiguracionCliente(int id);
 
         #endregion
 
         #region Actividad
         [OperationContract]
-        actividadListResponse listarActividad();
+        response listarActividad();
 
         [OperationContract]
-        responseClass crearActividad(actividadDTO activity);
+        response crearActividad(actividadDTO activity);
 
         [OperationContract]
-        responseClass actualizarActividad(actividadDTO activity);
+        response actualizarActividad(actividadDTO activity);
 
         [OperationContract]
-        actividadReadResponse leerActividad(int id);
+        response leerActividad(int id);
 
         [OperationContract]
-        responseClass eliminarActividad(int id);
+        response eliminarActividad(int id);
 
         #endregion
 
         #region Persona
         [OperationContract]
-        personaListResponse listarPersona();
+        response listarPersona();
 
         //[OperationContract]
         //responseClass crearPersona(personaDTO person);
@@ -136,91 +136,91 @@ namespace Freed.Servicios
 
         #region rol
         [OperationContract]
-        rolListResponse listarRol();
+        response listarRol();
 
         [OperationContract]
-        responseClass crearRol(rolDTO rol);
+        response crearRol(rolDTO rol);
 
         [OperationContract]
-        responseClass actualizarRol(rolDTO rol);
+        response actualizarRol(rolDTO rol);
 
         [OperationContract]
-        rolReadResponse leerRol(int id);
+        response leerRol(int id);
 
         [OperationContract]
-        responseClass eliminarRol(int id);
+        response eliminarRol(int id);
 
         #endregion
 
         #region factura
         [OperationContract]
-        facturaListResponse listarFactura();
+        response listarFactura();
 
         [OperationContract]
-        responseClass crearFactura(facturaDTO invoice);
+        response crearFactura(facturaDTO invoice);
 
         [OperationContract]
-        responseClass actualizarFactura(facturaDTO invoice);
+        response actualizarFactura(facturaDTO invoice);
 
         [OperationContract]
-        facturaReadResponse leerFactura(int id);
+        response leerFactura(int id);
 
         [OperationContract]
-        responseClass eliminarFactura(int id);
+        response eliminarFactura(int id);
 
         #endregion
 
         #region Paquete
         [OperationContract]
-        paqueteListResponse listarPaquete(int id);
+        response listarPaquete(int id);
 
         [OperationContract]
-        responseClass crearPaquete(paqueteDTO package);
+        response crearPaquete(paqueteDTO package);
 
         [OperationContract]
-        responseClass actualizarPaquete(paqueteDTO package);
+        response actualizarPaquete(paqueteDTO package);
 
         [OperationContract]
-        paqueteReadResponse leerPaquete(int id);
+        response leerPaquete(int id);
 
         [OperationContract]
-        responseClass eliminarPaquete(int id);
+        response eliminarPaquete(int id);
 
         #endregion
 
         #region Costo
         [OperationContract]
-        costoListResponse listarCosto(int id);
+        response listarCosto(int id);
 
         [OperationContract]
-        responseClass crearCosto(costoDTO cost);
+        response crearCosto(costoDTO cost);
 
         [OperationContract]
-        responseClass actualizarCosto(costoDTO cost);
+        response actualizarCosto(costoDTO cost);
 
         [OperationContract]
-        costoReadResponse leerCosto(int id);
+        response leerCosto(int id);
 
         [OperationContract]
-        responseClass eliminarCosto(int id);
+        response eliminarCosto(int id);
 
         #endregion
 
         #region informacionAfiliado
         [OperationContract]
-        infoAfiListResponse listarInfoAfiliado(int id);
+        response listarInfoAfiliado(int id);
 
         [OperationContract]
-        responseClass crearInfoAfiliado(infoAfiDTO info);
+        response crearInfoAfiliado(infoAfiDTO info);
 
         [OperationContract]
-        responseClass actualizarInfoAfiliado(infoAfiDTO info);
+        response actualizarInfoAfiliado(infoAfiDTO info);
 
         [OperationContract]
-        infoAfiReadResponse leerInfoAfiliado(int id);
+        response leerInfoAfiliado(int id);
 
         [OperationContract]
-        responseClass eliminarInfoAfiliado(int id);
+        response eliminarInfoAfiliado(int id);
 
         #endregion
 
