@@ -1,15 +1,14 @@
-﻿using Freed.Servicios.DAL;
-using Freed.Servicios.DTO;
+﻿using Freed.Servicios.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 
-namespace Freed.Servicios.Models.grupo
+namespace Freed.Servicios.Models.informacionEmpleado
 {
     [DataContract]
-    public class grupoListResponse
+    public class infoEmpleReadResponse
     {
         [DataMember]
         public int code { get; set; }
@@ -20,13 +19,10 @@ namespace Freed.Servicios.Models.grupo
         [DataMember]
         public String messageException { get; set; }
 
-        //[DataMember]
-        //public List<grupoDTO> data { get; set; }
-
         [DataMember]
-        public string data { get; set; }
+        public infoEmpleDTO data { get; set; }
 
-        public grupoListResponse(int code, String messageDetail, String messageException, string data)
+        public infoEmpleReadResponse(int code, String messageDetail, String messageException, infoEmpleDTO data)
         {
             this.code = code;
             this.messageDetail = messageDetail;

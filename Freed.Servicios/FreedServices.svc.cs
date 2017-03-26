@@ -18,6 +18,7 @@ using Freed.Servicios.Models.factura;
 using Freed.Servicios.Models.paquete;
 using Freed.Servicios.Models.costo;
 using Freed.Servicios.Models.informacionAfiliado;
+using System.Web.Script.Serialization;
 
 namespace Freed.Servicios
 {
@@ -39,7 +40,8 @@ namespace Freed.Servicios
                     grupoDTO g = new grupoDTO(i);
                     group_list.Add(g);
                 }
-                gl = new grupoListResponse(200, "OK", null, group_list);
+                var json = new JavaScriptSerializer().Serialize(group_list);
+                gl = new grupoListResponse(200, "OK", null, json);
             }
             catch (Exception ex) {
                 gl = new grupoListResponse(500, "Error listando los grupos", ex.InnerException.Message + " " + ex.StackTrace, null);
