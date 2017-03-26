@@ -1190,27 +1190,89 @@ namespace Freed.Servicios
             return response;
         }
 
-        /*
+        
         public responseClass crearInfoAfiliado(infoAfiDTO info)
         {
-
+            responseClass response;
+            try
+            {
+                informacionAfiliado ia = new informacionAfiliado();
+                ia.atributo = info.atributo;
+                ia.tipoValor = info.tipoValor;
+                ia.requerido = info.requerido;
+                ia.vigente = info.vigente;
+                ia.idCliente = info.idCliente;
+                db.informacionAfiliado.Add(ia);
+                db.SaveChanges();
+                response = new responseClass(201, ia.id, "informacion de afiliado creada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error creando la informacion de afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
         }
 
         public responseClass actualizarInfoAfiliado(infoAfiDTO info)
         {
-
+            responseClass response;
+            try
+            {
+                var ia = db.informacionAfiliado.Find(info.id);
+                if (ia == null)
+                    response = new responseClass(404, info.id, "No se encontro la informacion de afiliado", null);
+                ia.atributo = info.atributo;
+                ia.requerido = info.requerido;
+                ia.vigente = info.vigente;
+                db.SaveChanges();
+                response = new responseClass(200, ia.id, "Configuración actualizada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error actualizando la informacion de afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
         }
 
-        public paqueteReadResponse leerInfoAfiliado(int id)
-        {
 
+        public infoAfiReadResponse leerInfoAfiliado(int id)
+        {
+            infoAfiReadResponse response;
+            try
+            {
+                var ia = db.informacionAfiliado.Find(id);
+                if (ia == null)
+                    response = new infoAfiReadResponse(404, "No se encontro la informacion del afiliado", null, null);
+                infoAfiDTO iaDTO = new infoAfiDTO(ia);
+                response = new infoAfiReadResponse(200, "OK", null, iaDTO);
+            }
+            catch (Exception ex)
+            {
+                response = new infoAfiReadResponse(500, "Error obteniendo la informacion del afiliado", ex.InnerException.Message + " " + ex.StackTrace, null);
+            }
+            return response;
         }
 
         public responseClass eliminarInfoAfiliado(int id)
         {
-
+            responseClass response;
+            try
+            {
+                var ia = db.informacionAfiliado.Find(id);
+                if (ia == null)
+                    response = new responseClass(404, id, "No se encontro la informacion del afiliado", null);
+                db.informacionAfiliado.Remove(ia);
+                //Aqui hay que realizar las operaciones correspondientes para eliminar las configuracionCliente asociadas
+                db.SaveChanges();
+                response = new responseClass(200, id, "informacion de afiliado eliminada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error eliminando la informacion del afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
         }
-         */
+
 
         #endregion
 
