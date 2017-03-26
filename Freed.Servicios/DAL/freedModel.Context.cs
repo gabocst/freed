@@ -42,11 +42,11 @@ namespace Freed.Servicios.DAL
         public virtual DbSet<regla> regla { get; set; }
         public virtual DbSet<rol> rol { get; set; }
         public virtual DbSet<rolPermiso> rolPermiso { get; set; }
-        public virtual DbSet<tipoNomina> tipoNomina { get; set; }
         public virtual DbSet<afiliadoPaquete> afiliadoPaquete { get; set; }
         public virtual DbSet<informacionAfiliado> informacionAfiliado { get; set; }
         public virtual DbSet<informacionAfiliadoAfiliado> informacionAfiliadoAfiliado { get; set; }
         public virtual DbSet<informacionEmpleado> informacionEmpleado { get; set; }
         public virtual DbSet<informacionEmpleadoEmpleado> informacionEmpleadoEmpleado { get; set; }
+        public virtual DbSet<afiliado> afiliado { get; set; }
     }
 }

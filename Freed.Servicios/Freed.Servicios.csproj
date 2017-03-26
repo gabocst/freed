@@ -116,6 +116,9 @@
     <Compile Include="DAL\actividad.cs">
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\afiliado.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\afiliadoPaquete.cs">
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
@@ -192,9 +195,6 @@
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\rolPermiso.cs">
-      <DependentUpon>freedModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\tipoNomina.cs">
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO\actividadDTO.cs" />

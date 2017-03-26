@@ -22,5 +22,6 @@ namespace Freed.Servicios.DAL
         public int idPaquete { get; set; }
     
         public virtual paquete paquete { get; set; }
+        public virtual afiliado afiliado { get; set; }
     }
 }

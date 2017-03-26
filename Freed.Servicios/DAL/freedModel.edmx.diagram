@@ -26,7 +26,6 @@
         <EntityTypeShape EntityType="freedModel.regla" Width="1.5" PointX="10.625" PointY="12.875" />
         <EntityTypeShape EntityType="freedModel.rol" Width="1.5" PointX="5.375" PointY="14.875" />
         <EntityTypeShape EntityType="freedModel.rolPermiso" Width="1.5" PointX="7.625" PointY="14.875" />
-        <EntityTypeShape EntityType="freedModel.tipoNomina" Width="1.5" PointX="9.875" PointY="16.125" />
         <AssociationConnector Association="freedModel.fk_paqueteActividad_actividad" />
         <AssociationConnector Association="freedModel.fk_factura_cliente" />
         <AssociationConnector Association="freedModel.fk_persona_cliente" />
@@ -38,7 +37,6 @@
         <AssociationConnector Association="freedModel.fk_rolPermiso_idPermiso" />
         <AssociationConnector Association="freedModel.fk_persona_rol" />
         <AssociationConnector Association="freedModel.fk_rolPermiso_idRol" />
-        <AssociationConnector Association="freedModel.afiliado" />
         <AssociationConnector Association="freedModel.fk_paquete_cliente" />
         <EntityTypeShape EntityType="freedModel.afiliadoPaquete" Width="1.5" PointX="12.875" PointY="20.75" />
         <EntityTypeShape EntityType="freedModel.informacionAfiliado" Width="1.5" PointX="5.25" PointY="18.625" />
@@ -51,6 +49,10 @@
         <AssociationConnector Association="freedModel.fk_informacionEmpleadoEmpleado_empleado" />
         <AssociationConnector Association="freedModel.fk_informacionAfiliadoAfiliado_AfiliadoAfiliado" />
         <AssociationConnector Association="freedModel.fk_informacionEmpleadoEmpleado_informacionEmpleado" />
+        <EntityTypeShape EntityType="freedModel.afiliado" Width="1.5" PointX="9.875" PointY="9.625" />
+        <AssociationConnector Association="freedModel.fk_afiliado_persona" />
+        <AssociationConnector Association="freedModel.fk_afiliadoPaquete_afiliado" />
+        <AssociationConnector Association="freedModel.fk_informacionAfiliadoAfiliado_afiliado" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,19 +12,21 @@ namespace Freed.Servicios.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class tipoNomina
+    public partial class afiliado
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tipoNomina()
+        public afiliado()
         {
-            this.persona = new HashSet<persona>();
+            this.afiliadoPaquete = new HashSet<afiliadoPaquete>();
+            this.informacionAfiliadoAfiliado = new HashSet<informacionAfiliadoAfiliado>();
         }
     
-        public int id { get; set; }
-        public System.DateTime fechaCreacion { get; set; }
-        public string nombre { get; set; }
+        public int idPersonaAfiliado { get; set; }
     
+        public virtual persona persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<persona> persona { get; set; }
+        public virtual ICollection<afiliadoPaquete> afiliadoPaquete { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<informacionAfiliadoAfiliado> informacionAfiliadoAfiliado { get; set; }
     }
 }

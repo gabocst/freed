@@ -27,6 +27,6 @@ namespace Freed.Servicios.DAL
         public virtual cliente cliente { get; set; }
         public virtual empleado empleado { get; set; }
         public virtual rol rol { get; set; }
-        public virtual tipoNomina tipoNomina { get; set; }
+        public virtual afiliado afiliado { get; set; }
     }
 }
