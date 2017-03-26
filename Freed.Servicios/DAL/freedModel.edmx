@@ -60,7 +60,7 @@
           <Property Name="fechaCreacion" Type="datetime" Nullable="false" />
           <Property Name="inicio" Type="datetime" Nullable="false" />
           <Property Name="fin" Type="datetime" Nullable="false" />
-          <Property Name="costo" Type="int" Nullable="false" />
+          <Property Name="costo" Type="money" Nullable="false" />
           <Property Name="idPaquete" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="empleado">
@@ -861,7 +861,7 @@
           <Property Name="apellido" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="dni" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="sexo" Type="String" Nullable="false" />
+          <Property Name="sexo" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="false" />
           <Property Name="idCliente" Type="Int32" Nullable="false" />
           <Property Name="idRol" Type="Int32" Nullable="false" />
           <NavigationProperty Name="cliente" Relationship="freedModel.fk_persona_cliente" FromRole="persona" ToRole="cliente" />

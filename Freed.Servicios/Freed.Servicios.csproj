@@ -192,8 +192,11 @@
     <Compile Include="DTO\configuracionClienteDTO.cs" />
     <Compile Include="DTO\clienteDTO.cs" />
     <Compile Include="DTO\configuracionDTO.cs" />
+    <Compile Include="DTO\costoDTO.cs" />
+    <Compile Include="DTO\facturaDTO.cs" />
     <Compile Include="DTO\grupoDTO.cs" />
     <Compile Include="DTO\paqueteActividadDTO.cs" />
+    <Compile Include="DTO\paqueteDTO.cs" />
     <Compile Include="DTO\permisoDTO.cs" />
     <Compile Include="DTO\personaDTO.cs" />
     <Compile Include="DTO\rolDTO.cs" />
@@ -209,8 +212,12 @@
     <Compile Include="Models\configuracionCliente\configuracionClienteReadResponse.cs" />
     <Compile Include="Models\configuracion\configuracionListResponse.cs" />
     <Compile Include="Models\configuracion\configuracionReadResponse.cs" />
+    <Compile Include="Models\factura\facturaListResponse.cs" />
+    <Compile Include="Models\factura\facturaReadResponse.cs" />
     <Compile Include="Models\grupo\grupoListResponse.cs" />
     <Compile Include="Models\grupo\grupoReadResponse.cs" />
+    <Compile Include="Models\paquete\paqueteListResponse.cs" />
+    <Compile Include="Models\paquete\paqueteReadResponse.cs" />
     <Compile Include="Models\persona\personaListResponse.cs" />
     <Compile Include="Models\persona\personaReadResponse.cs" />
     <Compile Include="Models\rol\rolListResponse.cs" />

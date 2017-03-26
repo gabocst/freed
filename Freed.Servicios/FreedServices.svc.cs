@@ -15,6 +15,7 @@ using Freed.Servicios.Models.actividad;
 using Freed.Servicios.Models.persona;
 using Freed.Servicios.Models.rol;
 using Freed.Servicios.Models.factura;
+using Freed.Servicios.Models.paquete;
 
 namespace Freed.Servicios
 {
@@ -539,27 +540,6 @@ namespace Freed.Servicios
         }
         #endregion
 
-        #region PaqueteActividad
-        public responseClass crearPaqueteActividad(paqueteActividadDTO packageActiviy)
-        {
-            responseClass response;
-            try
-            {
-                paqueteActividad pa = new paqueteActividad();
-                pa.idActividad = packageActiviy.idActividad;
-                pa.idPaquete = packageActiviy.idPaquete;
-                db.paqueteActividad.Add(pa);
-                db.SaveChanges();
-                response = new responseClass(201, pa.id, "Actividad asociada exitosamente", null);
-            }
-            catch (Exception ex)
-            {
-                response = new responseClass(500, null, "Error asociado la actividad", ex.InnerException.Message + " " + ex.StackTrace);
-            }
-            return response;
-        }
-        #endregion
-
         #region Persona
         public personaListResponse listarPersona()
         {
@@ -806,33 +786,291 @@ namespace Freed.Servicios
         #endregion
 
         #region factura
-        /*public facturaListResponse listarFactura()
+        public facturaListResponse listarFactura()
         {
+            facturaListResponse pack;
+            List<facturaDTO> invoice_list = new List<facturaDTO>();
+            try
+            {
+                var invoices = db.factura.ToList();
+                foreach (var i in invoices)
+                {
+                    facturaDTO p = new facturaDTO(i);
+                    invoice_list.Add(p);
+                }
+                pack = new facturaListResponse(200, "OK", null, invoice_list);
+            }
+            catch (Exception ex)
+            {
+                pack = new facturaListResponse(500, "Error listando las facturas", ex.InnerException.Message + " " + ex.StackTrace, null);
+            }
 
+            return pack;
         }
 
-        public responseClass crearFactura(facturaDTO factura)
+        public responseClass crearFactura(facturaDTO invoice)
         {
-
+            responseClass response;
+            try
+            {
+                factura f = new factura();
+                f.desde = invoice.desde;
+                f.hasta = invoice.hasta;
+                f.fechaPago = invoice.fechaPago;
+                f.numero = invoice.numero;
+                f.idCliente = invoice.idCliente;
+                f.fechaCreacion = DateTime.Now;
+                db.factura.Add(f);
+                db.SaveChanges();
+                response = new responseClass(201, f.id, "Factura creada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error creando la factura", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
         }
 
-        public responseClass actualizarFactura(facturaDTO factura)
+        public responseClass actualizarFactura(facturaDTO invoice)
         {
+            responseClass response;
+            try
+            {
+                var f = db.factura.Find(invoice.id);
+                if (f == null)
+                    response = new responseClass(404, invoice.id, "No se encontro la factura", null);
 
+                f.desde = f.desde;
+                f.hasta = f.hasta;
+                f.idCliente = f.idCliente;
+                f.numero = f.numero;
+                f.fechaPago = f.fechaPago;
+                db.SaveChanges();
+                response = new responseClass(200, f.id, "Factura actualizada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error actualizando la factura", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
         }
 
         public facturaReadResponse leerFactura(int id)
         {
+            facturaReadResponse response;
+            try
+            {
+                var f = db.factura.Find(id);
+                if (f == null)
+                    response = new facturaReadResponse(404, "No se encontro la factura", null, null);
 
+                facturaDTO fDTO = new facturaDTO(f);
+                response = new facturaReadResponse(200, "OK", null, fDTO);
+            }
+            catch (Exception ex)
+            {
+                response = new facturaReadResponse(500, "Error obteniendo la factura", ex.InnerException.Message + " " + ex.StackTrace, null);
+            }
+            return response;
         }
 
         public responseClass eliminarFactura(int id)
         {
-
+            responseClass response;
+            try
+            {
+                var f = db.factura.Find(id);
+                if (f == null)
+                    response = new responseClass(404, id, "No se encontro la factura", null);
+                db.factura.Remove(f);
+                //Aqui hay que realizar las operaciones correspondientes para las relaciones (o no permitir si hay asociadas)
+                db.SaveChanges();
+                response = new responseClass(200, id, "Factura eliminada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error eliminando la factura", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
         }
-        */
+        
         #endregion
 
+        #region Paquete
+        public paqueteListResponse listarPaquete()
+        {
+            paqueteListResponse pack;
+            List<paqueteDTO> package_list = new List<paqueteDTO>();
+            try
+            {
+                var paquetes = db.paquete.ToList();
+                DateTime now = DateTime.Now;
+                foreach (var i in paquetes)
+                {
+                    paqueteDTO p = new paqueteDTO(i);
+                    if (i.costo.Count() > 0)
+                    {
+                        p.costo = new costoDTO(i.costo.SingleOrDefault(x => x.inicio < now && x.fin > now));
+                    }
+                    package_list.Add(p);
+                }
+                pack = new paqueteListResponse(200, "OK", null, package_list);
+            }
+            catch (Exception ex)
+            {
+                pack = new paqueteListResponse(500, "Error listando los paquetes", ex.InnerException.Message + " " + ex.StackTrace, null);
+            }
+
+            return pack;
+
+        }
+
+        public responseClass crearPaquete(paqueteDTO package)
+        {
+            responseClass response;
+            try
+            {
+                paquete p = new paquete();
+                p.nombre = package.nombre;
+                p.fechaCreacion = DateTime.Now;
+                db.paquete.Add(p);
+                db.SaveChanges();
+                foreach (var i in package.actividades)
+                {
+                    paqueteActividad pa = new paqueteActividad();
+                    pa.idPaquete = p.id;
+                    pa.idActividad = i.id;
+                    db.paqueteActividad.Add(pa);
+                }
+                db.SaveChanges();
+                response = new responseClass(201, p.id, "Paquete creado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error creando el paquete", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public responseClass actualizarPaquete(paqueteDTO package)
+        {
+            responseClass response;
+            try
+            {
+                var p = db.paquete.Find(package.id);
+                if (p == null)
+                    response = new responseClass(404, package.id, "No se encontro el paquete", null);
+
+                p.nombre = package.nombre;
+                var selectedP = new HashSet<int>(package.actividades.Select(x => x.id));
+                var currentP = new HashSet<int>(p.paqueteActividad.Select(c => c.idActividad));
+                foreach (var pa in db.actividad.ToList())
+                {
+                    if (selectedP.Contains(pa.id))
+                    {
+                        if (!currentP.Contains(pa.id))
+                        {
+                            paqueteActividad paac = new paqueteActividad();
+                            paac.idActividad = pa.id;
+                            p.paqueteActividad.Add(paac);
+                        }
+                    }
+                    else
+                    {
+                        if (currentP.Contains(pa.id))
+                        {
+                            p.paqueteActividad.Remove(p.paqueteActividad.SingleOrDefault(x => x.idActividad == pa.id));
+                        }
+                    }
+                }
+                db.SaveChanges();
+                response = new responseClass(200, p.id, "Paquete actualizado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error actualizando el paquete", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public paqueteReadResponse leerPaquete(int id)
+        {
+            paqueteReadResponse response;
+            try
+            {
+                var p = db.paquete.Find(id);
+                if (p == null)
+                    response = new paqueteReadResponse(404, "No se encontro el paquete", null, null);
+
+                paqueteDTO pDTO = new paqueteDTO(p);
+                List<actividadDTO> activity_list = new List<actividadDTO>();
+                foreach(var i in p.paqueteActividad)
+                {
+                    actividadDTO a = new actividadDTO(i.actividad);
+                    activity_list.Add(a);
+                }
+                pDTO.actividades = new List<actividadDTO>(activity_list);
+                DateTime now = DateTime.Now;
+                if (p.costo.Count() > 0)
+                {
+                    pDTO.costo = new costoDTO(p.costo.SingleOrDefault(x => x.inicio < now && x.fin > now));
+                }
+                response = new paqueteReadResponse(200, "OK", null, pDTO);
+            }
+            catch (Exception ex)
+            {
+                response = new paqueteReadResponse(500, "Error obteniendo el paquete", ex.InnerException.Message + " " + ex.StackTrace, null);
+            }
+            return response;
+        }
+
+        public responseClass eliminarPaquete(int id)
+        {
+            responseClass response;
+            try
+            {
+                var p = db.paquete.Find(id);
+                if (p == null)
+                    response = new responseClass(404, id, "No se encontro el paquete", null);
+                db.paquete.Remove(p);
+                //Aqui hay que realizar las operaciones correspondientes para las relaciones (o no permitir si hay asociadas)
+                db.SaveChanges();
+                response = new responseClass(200, id, "Paquete eliminado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error eliminando el paquete", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+        #endregion
+
+
+
+
+
+
+
+        //#region PaqueteActividad
+        //public responseClass crearPaqueteActividad(paqueteActividadDTO packageActiviy)
+        //{
+        //    responseClass response;
+        //    try
+        //    {
+        //        paqueteActividad pa = new paqueteActividad();
+        //        pa.idActividad = packageActiviy.idActividad;
+        //        pa.idPaquete = packageActiviy.idPaquete;
+        //        db.paqueteActividad.Add(pa);
+        //        db.SaveChanges();
+        //        response = new responseClass(201, pa.id, "Actividad asociada exitosamente", null);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        response = new responseClass(500, null, "Error asociado la actividad", ex.InnerException.Message + " " + ex.StackTrace);
+        //    }
+        //    return response;
+        //}
+        //#endregion
 
     }
 }

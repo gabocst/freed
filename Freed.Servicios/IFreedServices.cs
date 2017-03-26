@@ -4,7 +4,9 @@ using Freed.Servicios.Models.actividad;
 using Freed.Servicios.Models.cliente;
 using Freed.Servicios.Models.configuracion;
 using Freed.Servicios.Models.configuracionCliente;
+using Freed.Servicios.Models.factura;
 using Freed.Servicios.Models.grupo;
+using Freed.Servicios.Models.paquete;
 using Freed.Servicios.Models.persona;
 using Freed.Servicios.Models.rol;
 using Freed.Servicios.Utils;
@@ -150,19 +152,37 @@ namespace Freed.Servicios
 
         #region factura
         [OperationContract]
-        rolListResponse listarFactura();
+        facturaListResponse listarFactura();
 
         [OperationContract]
-        responseClass crearFactura(facturaDTO factura);
+        responseClass crearFactura(facturaDTO invoice);
 
         [OperationContract]
-        responseClass actualizarFactura(facturaDTO factura);
+        responseClass actualizarFactura(facturaDTO invoice);
 
         [OperationContract]
-        rolReadResponse leerFactura(int id);
+        facturaReadResponse leerFactura(int id);
 
         [OperationContract]
         responseClass eliminarFactura(int id);
+
+        #endregion
+
+        #region Paquete
+        [OperationContract]
+        paqueteListResponse listarPaquete();
+
+        [OperationContract]
+        responseClass crearPaquete(paqueteDTO package);
+
+        [OperationContract]
+        responseClass actualizarPaquete(paqueteDTO package);
+
+        [OperationContract]
+        paqueteReadResponse leerPaquete(int id);
+
+        [OperationContract]
+        responseClass eliminarPaquete(int id);
 
         #endregion
 

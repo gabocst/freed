@@ -31,8 +31,6 @@ namespace Freed.Servicios.DTO
         [DataMember]
         public int idCliente { get; set; }
 
-
-
         public facturaDTO(factura f)
         {
             this.id = f.id;

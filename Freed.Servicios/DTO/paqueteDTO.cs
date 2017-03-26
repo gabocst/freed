@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Freed.Servicios.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -17,5 +18,18 @@ namespace Freed.Servicios.DTO
 
         [DataMember]
         public string nombre { get; set; }
+
+        [DataMember]
+        public List<actividadDTO> actividades { get; set; }
+
+        [DataMember]
+        public costoDTO costo { get; set; }
+
+        public paqueteDTO(paquete p)
+        {
+            this.id = p.id;
+            this.fechaCreacion = p.fechaCreacion;
+            this.nombre = p.nombre;
+        }
     }
 }
