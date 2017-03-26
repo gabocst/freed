@@ -20,6 +20,9 @@ namespace Freed.Servicios.DAL
             this.configuracionCliente = new HashSet<configuracionCliente>();
             this.factura = new HashSet<factura>();
             this.persona = new HashSet<persona>();
+            this.paquete = new HashSet<paquete>();
+            this.informacionAfiliado = new HashSet<informacionAfiliado>();
+            this.informacionEmpleado = new HashSet<informacionEmpleado>();
         }
     
         public int id { get; set; }
@@ -35,5 +38,11 @@ namespace Freed.Servicios.DAL
         public virtual ICollection<factura> factura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<persona> persona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<paquete> paquete { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<informacionAfiliado> informacionAfiliado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<informacionEmpleado> informacionEmpleado { get; set; }
     }
 }

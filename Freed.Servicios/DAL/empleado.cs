@@ -14,10 +14,18 @@ namespace Freed.Servicios.DAL
     
     public partial class empleado
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public empleado()
+        {
+            this.informacionEmpleadoEmpleado = new HashSet<informacionEmpleadoEmpleado>();
+        }
+    
         public int idPersonaEmpleado { get; set; }
         public string cargo { get; set; }
         public decimal sueldo { get; set; }
     
         public virtual persona persona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<informacionEmpleadoEmpleado> informacionEmpleadoEmpleado { get; set; }
     }
 }

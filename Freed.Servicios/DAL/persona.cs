@@ -14,13 +14,6 @@ namespace Freed.Servicios.DAL
     
     public partial class persona
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public persona()
-        {
-            this.infoAdicional = new HashSet<infoAdicional>();
-            this.personaPaquete = new HashSet<personaPaquete>();
-        }
-    
         public int id { get; set; }
         public System.DateTime fechaCreacion { get; set; }
         public string nombre { get; set; }
@@ -33,11 +26,7 @@ namespace Freed.Servicios.DAL
     
         public virtual cliente cliente { get; set; }
         public virtual empleado empleado { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<infoAdicional> infoAdicional { get; set; }
         public virtual rol rol { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<personaPaquete> personaPaquete { get; set; }
         public virtual tipoNomina tipoNomina { get; set; }
     }
 }

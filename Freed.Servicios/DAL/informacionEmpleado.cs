@@ -12,30 +12,24 @@ namespace Freed.Servicios.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class paquete
+    public partial class informacionEmpleado
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public paquete()
+        public informacionEmpleado()
         {
-            this.costo = new HashSet<costo>();
-            this.paqueteActividad = new HashSet<paqueteActividad>();
-            this.paqueteRegla = new HashSet<paqueteRegla>();
-            this.afiliadoPaquete = new HashSet<afiliadoPaquete>();
+            this.informacionEmpleadoEmpleado = new HashSet<informacionEmpleadoEmpleado>();
         }
     
         public int id { get; set; }
         public System.DateTime fechaCreacion { get; set; }
-        public string nombre { get; set; }
+        public string atributo { get; set; }
+        public string tipoValor { get; set; }
+        public bool requerido { get; set; }
+        public bool vigente { get; set; }
         public int idCliente { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<costo> costo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<paqueteActividad> paqueteActividad { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<paqueteRegla> paqueteRegla { get; set; }
         public virtual cliente cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<afiliadoPaquete> afiliadoPaquete { get; set; }
+        public virtual ICollection<informacionEmpleadoEmpleado> informacionEmpleadoEmpleado { get; set; }
     }
 }

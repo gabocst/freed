@@ -12,16 +12,13 @@ namespace Freed.Servicios.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class infoAdicional
+    public partial class informacionEmpleadoEmpleado
     {
         public int id { get; set; }
-        public string atributo { get; set; }
-        public string valor { get; set; }
-        public string tipo { get; set; }
-        public bool requerido { get; set; }
-        public bool vigente { get; set; }
-        public int idPersona { get; set; }
+        public int idEmpleado { get; set; }
+        public int idInformacionEmpleado { get; set; }
     
-        public virtual persona persona { get; set; }
+        public virtual empleado empleado { get; set; }
+        public virtual informacionEmpleado informacionEmpleado { get; set; }
     }
 }

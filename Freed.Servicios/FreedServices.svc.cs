@@ -16,6 +16,8 @@ using Freed.Servicios.Models.persona;
 using Freed.Servicios.Models.rol;
 using Freed.Servicios.Models.factura;
 using Freed.Servicios.Models.paquete;
+using Freed.Servicios.Models.costo;
+using Freed.Servicios.Models.informacionAfiliado;
 
 namespace Freed.Servicios
 {
@@ -785,7 +787,7 @@ namespace Freed.Servicios
         }
         #endregion
 
-        #region factura
+        #region Factura
         public facturaListResponse listarFactura()
         {
             facturaListResponse pack;
@@ -897,13 +899,13 @@ namespace Freed.Servicios
         #endregion
 
         #region Paquete
-        public paqueteListResponse listarPaquete()
+        public paqueteListResponse listarPaquete(int id)
         {
             paqueteListResponse pack;
             List<paqueteDTO> package_list = new List<paqueteDTO>();
             try
             {
-                var paquetes = db.paquete.ToList();
+                var paquetes = db.paquete.Where(x => x.idCliente == id).ToList();
                 DateTime now = DateTime.Now;
                 foreach (var i in paquetes)
                 {
@@ -933,6 +935,7 @@ namespace Freed.Servicios
                 paquete p = new paquete();
                 p.nombre = package.nombre;
                 p.fechaCreacion = DateTime.Now;
+                p.idCliente = package.idCliente;
                 db.paquete.Add(p);
                 db.SaveChanges();
                 foreach (var i in package.actividades)
@@ -1045,32 +1048,173 @@ namespace Freed.Servicios
         }
         #endregion
 
+        #region Costo
+        public costoListResponse listarCosto(int id)
+        {
+            costoListResponse c;
+            List<costoDTO> cost_list = new List<costoDTO>();
+            try
+            {
+                var costos = db.costo.Where(x => x.idPaquete == id).ToList();
+                foreach (var i in costos)
+                {
+                    costoDTO co = new costoDTO(i);
+                    cost_list.Add(co);
+                }
+                c = new costoListResponse(200, "OK", null, cost_list);
+            }
+            catch (Exception ex)
+            {
+                c = new costoListResponse(500, "Error listando los costos", ex.InnerException.Message + " " + ex.StackTrace, null);
+            }
+
+            return c;
+
+        }
+
+        public responseClass crearCosto(costoDTO cost)
+        {
+            responseClass response;
+            try
+            {
+                if (cost.fin < cost.inicio)
+                {
+                    return response = new responseClass(400, null, "La fecha de fin debe ser mayor a la fecha de inicio", null);
+                }
+                else if (cost.costo1 < 0)
+                {
+                    return response = new responseClass(400, null, "El costo debe ser mayor a 0", null);
+                }
+                else if (db.costo.Any(x => (x.inicio < cost.inicio && x.fin > cost.inicio) || (x.inicio < cost.fin && x.fin > cost.fin)))
+                {
+                    return response = new responseClass(400, null, "El rango de fecha del costo coincide con un costo ya creado", null);
+                }
+                costo c = new costo();
+                c.idPaquete = cost.idPaquete;
+                c.fechaCreacion = DateTime.Now;
+                c.costo1 = cost.costo1;
+                c.inicio = cost.inicio;
+                c.fin = cost.fin;
+                db.costo.Add(c);
+                db.SaveChanges();
+                response = new responseClass(201, c.id, "Costo creado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error creando el costo", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public responseClass actualizarCosto(costoDTO cost)
+        {
+            responseClass response;
+            try
+            {
+                var c = db.costo.Find(cost.id);
+                if (c == null)
+                    response = new responseClass(404, cost.id, "No se encontro el costo", null);
+
+                c.costo1 = cost.costo1;
+                c.inicio = cost.inicio;
+                c.fin = cost.fin;
+                db.SaveChanges();
+                response = new responseClass(200, c.id, "Costo actualizado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error actualizando el costo", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public costoReadResponse leerCosto(int id)
+        {
+            costoReadResponse response;
+            try
+            {
+                var c = db.costo.Find(id);
+                if (c == null)
+                    response = new costoReadResponse(404, "No se encontro el costo", null, null);
+
+                costoDTO cDTO = new costoDTO(c);
+                response = new costoReadResponse(200, "OK", null, cDTO);
+            }
+            catch (Exception ex)
+            {
+                response = new costoReadResponse(500, "Error obteniendo el costo", ex.InnerException.Message + " " + ex.StackTrace, null);
+            }
+            return response;
+        }
+
+        public responseClass eliminarCosto(int id)
+        {
+            responseClass response;
+            try
+            {
+                var c = db.costo.Find(id);
+                if (c == null)
+                    response = new responseClass(404, id, "No se encontro el costo", null);
+                db.costo.Remove(c);
+                db.SaveChanges();
+                response = new responseClass(200, id, "Costo eliminado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new responseClass(500, null, "Error eliminando el costo", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+        #endregion
+
+        #region informacionAfiliado
+        public infoAfiListResponse listarInfoAfiliado(int id)
+        {
+            infoAfiListResponse response;
+            List<infoAfiDTO> info_list = new List<infoAfiDTO>();
+            try
+            {
+                var afiliados = db.informacionAfiliado.Where(x => x.id == id).ToList();
+                foreach (var i in afiliados)
+                {
+                    infoAfiDTO info = new infoAfiDTO(i);
+                    info_list.Add(info);
+                }
+                response = new infoAfiListResponse(200, "OK", null, info_list);
+            }
+            catch (Exception ex)
+            {
+                response = new infoAfiListResponse(500, "Error listando la informacion de los afiliados", ex.InnerException.Message + " " + ex.StackTrace, null);
+            }
+
+            return response;
+        }
+
+        /*
+        public responseClass crearInfoAfiliado(infoAfiDTO info)
+        {
+
+        }
+
+        public responseClass actualizarInfoAfiliado(infoAfiDTO info)
+        {
+
+        }
+
+        public paqueteReadResponse leerInfoAfiliado(int id)
+        {
+
+        }
+
+        public responseClass eliminarInfoAfiliado(int id)
+        {
+
+        }
+         */
+
+        #endregion
 
 
-
-
-
-
-        //#region PaqueteActividad
-        //public responseClass crearPaqueteActividad(paqueteActividadDTO packageActiviy)
-        //{
-        //    responseClass response;
-        //    try
-        //    {
-        //        paqueteActividad pa = new paqueteActividad();
-        //        pa.idActividad = packageActiviy.idActividad;
-        //        pa.idPaquete = packageActiviy.idPaquete;
-        //        db.paqueteActividad.Add(pa);
-        //        db.SaveChanges();
-        //        response = new responseClass(201, pa.id, "Actividad asociada exitosamente", null);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        response = new responseClass(500, null, "Error asociado la actividad", ex.InnerException.Message + " " + ex.StackTrace);
-        //    }
-        //    return response;
-        //}
-        //#endregion
 
     }
 }

@@ -4,6 +4,7 @@ using Freed.Servicios.Models.actividad;
 using Freed.Servicios.Models.cliente;
 using Freed.Servicios.Models.configuracion;
 using Freed.Servicios.Models.configuracionCliente;
+using Freed.Servicios.Models.costo;
 using Freed.Servicios.Models.factura;
 using Freed.Servicios.Models.grupo;
 using Freed.Servicios.Models.paquete;
@@ -170,7 +171,7 @@ namespace Freed.Servicios
 
         #region Paquete
         [OperationContract]
-        paqueteListResponse listarPaquete();
+        paqueteListResponse listarPaquete(int id);
 
         [OperationContract]
         responseClass crearPaquete(paqueteDTO package);
@@ -183,6 +184,42 @@ namespace Freed.Servicios
 
         [OperationContract]
         responseClass eliminarPaquete(int id);
+
+        #endregion
+
+        #region Costo
+        [OperationContract]
+        costoListResponse listarCosto(int id);
+
+        [OperationContract]
+        responseClass crearCosto(costoDTO cost);
+
+        [OperationContract]
+        responseClass actualizarCosto(costoDTO cost);
+
+        [OperationContract]
+        costoReadResponse leerCosto(int id);
+
+        [OperationContract]
+        responseClass eliminarCosto(int id);
+
+        #endregion
+
+        #region informacionAfiliado
+        [OperationContract]
+        paqueteListResponse listarInfoAfiliado(int id);
+
+        [OperationContract]
+        responseClass crearInfoAfiliado(infoAfiDTO info);
+
+        [OperationContract]
+        responseClass actualizarInfoAfiliado(infoAfiDTO info);
+
+        [OperationContract]
+        paqueteReadResponse leerInfoAfiliado(int id);
+
+        [OperationContract]
+        responseClass eliminarInfoAfiliado(int id);
 
         #endregion
 

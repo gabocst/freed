@@ -116,6 +116,9 @@
     <Compile Include="DAL\actividad.cs">
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\afiliadoPaquete.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\cliente.cs">
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
@@ -155,7 +158,16 @@
     <Compile Include="DAL\grupo.cs">
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\infoAdicional.cs">
+    <Compile Include="DAL\informacionAfiliado.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\informacionAfiliadoAfiliado.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\informacionEmpleado.cs">
+      <DependentUpon>freedModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\informacionEmpleadoEmpleado.cs">
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\paquete.cs">
@@ -171,9 +183,6 @@
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\persona.cs">
-      <DependentUpon>freedModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\personaPaquete.cs">
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\regla.cs">
@@ -212,6 +221,8 @@
     <Compile Include="Models\configuracionCliente\configuracionClienteReadResponse.cs" />
     <Compile Include="Models\configuracion\configuracionListResponse.cs" />
     <Compile Include="Models\configuracion\configuracionReadResponse.cs" />
+    <Compile Include="Models\costo\costoListResponse.cs" />
+    <Compile Include="Models\costo\costoReadResponse.cs" />
     <Compile Include="Models\factura\facturaListResponse.cs" />
     <Compile Include="Models\factura\facturaReadResponse.cs" />
     <Compile Include="Models\grupo\grupoListResponse.cs" />

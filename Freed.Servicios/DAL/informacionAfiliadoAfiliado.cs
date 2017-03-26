@@ -12,16 +12,12 @@ namespace Freed.Servicios.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class personaPaquete
+    public partial class informacionAfiliadoAfiliado
     {
         public int id { get; set; }
-        public Nullable<System.DateTime> desde { get; set; }
-        public Nullable<System.DateTime> hasta { get; set; }
-        public Nullable<int> cantidad { get; set; }
-        public int idPersona { get; set; }
-        public int idPaquete { get; set; }
+        public int idAfiliado { get; set; }
+        public int idInformacionAfiliado { get; set; }
     
-        public virtual paquete paquete { get; set; }
-        public virtual persona persona { get; set; }
+        public virtual informacionAfiliado informacionAfiliado { get; set; }
     }
 }

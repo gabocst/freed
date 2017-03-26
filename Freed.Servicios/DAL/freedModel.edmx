@@ -20,6 +20,17 @@
           <Property Name="idPersonaAfiliado" Type="int" Nullable="false" />
           <Property Name="idTipoNomina" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="afiliadoPaquete">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="desde" Type="date" />
+          <Property Name="hasta" Type="date" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="idAfiliado" Type="int" Nullable="false" />
+          <Property Name="idPaquete" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="cliente">
           <Key>
             <PropertyRef Name="id" />
@@ -99,17 +110,45 @@
           <Property Name="fechaCreacion" Type="datetime" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="infoAdicional">
+        <EntityType Name="informacionAfiliado">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaCreacion" Type="datetime" Nullable="false" />
           <Property Name="atributo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="valor" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="tipo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="tipoValor" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="requerido" Type="bit" Nullable="false" />
           <Property Name="vigente" Type="bit" Nullable="false" />
-          <Property Name="idPersona" Type="int" Nullable="false" />
+          <Property Name="idCliente" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="informacionAfiliadoAfiliado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAfiliado" Type="int" Nullable="false" />
+          <Property Name="idInformacionAfiliado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="informacionEmpleado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="atributo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tipoValor" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="requerido" Type="bit" Nullable="false" />
+          <Property Name="vigente" Type="bit" Nullable="false" />
+          <Property Name="idCliente" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="informacionEmpleadoEmpleado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="idInformacionEmpleado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="paquete">
           <Key>
@@ -118,6 +157,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fechaCreacion" Type="datetime" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idCliente" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="paqueteActividad">
           <Key>
@@ -156,17 +196,6 @@
           <Property Name="sexo" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="idCliente" Type="int" Nullable="false" />
           <Property Name="idRol" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="personaPaquete">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="desde" Type="datetime" />
-          <Property Name="hasta" Type="datetime" />
-          <Property Name="cantidad" Type="int" />
-          <Property Name="idPersona" Type="int" Nullable="false" />
-          <Property Name="idPaquete" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="regla">
           <Key>
@@ -224,6 +253,30 @@
             </Principal>
             <Dependent Role="afiliado">
               <PropertyRef Name="idTipoNomina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_afiliadoPaquete_afiliado">
+          <End Role="afiliado" Type="Self.afiliado" Multiplicity="1" />
+          <End Role="afiliadoPaquete" Type="Self.afiliadoPaquete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="afiliado">
+              <PropertyRef Name="idPersonaAfiliado" />
+            </Principal>
+            <Dependent Role="afiliadoPaquete">
+              <PropertyRef Name="idAfiliado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_afiliadoPaquete_paquete">
+          <End Role="paquete" Type="Self.paquete" Multiplicity="1" />
+          <End Role="afiliadoPaquete" Type="Self.afiliadoPaquete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paquete">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="afiliadoPaquete">
+              <PropertyRef Name="idPaquete" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -311,15 +364,87 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_infoAdicional_persona">
-          <End Role="persona" Type="Self.persona" Multiplicity="1" />
-          <End Role="infoAdicional" Type="Self.infoAdicional" Multiplicity="*" />
+        <Association Name="fk_informacionAfiliado_cliente">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+          <End Role="informacionAfiliado" Type="Self.informacionAfiliado" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="persona">
+            <Principal Role="cliente">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="infoAdicional">
-              <PropertyRef Name="idPersona" />
+            <Dependent Role="informacionAfiliado">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_informacionAfiliadoAfiliado_afiliado">
+          <End Role="afiliado" Type="Self.afiliado" Multiplicity="1" />
+          <End Role="informacionAfiliadoAfiliado" Type="Self.informacionAfiliadoAfiliado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="afiliado">
+              <PropertyRef Name="idPersonaAfiliado" />
+            </Principal>
+            <Dependent Role="informacionAfiliadoAfiliado">
+              <PropertyRef Name="idAfiliado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_informacionAfiliadoAfiliado_AfiliadoAfiliado">
+          <End Role="informacionAfiliado" Type="Self.informacionAfiliado" Multiplicity="1" />
+          <End Role="informacionAfiliadoAfiliado" Type="Self.informacionAfiliadoAfiliado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="informacionAfiliado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="informacionAfiliadoAfiliado">
+              <PropertyRef Name="idInformacionAfiliado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_informacionEmpleado_cliente">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+          <End Role="informacionEmpleado" Type="Self.informacionEmpleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="informacionEmpleado">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_informacionEmpleadoEmpleado_empleado">
+          <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+          <End Role="informacionEmpleadoEmpleado" Type="Self.informacionEmpleadoEmpleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idPersonaEmpleado" />
+            </Principal>
+            <Dependent Role="informacionEmpleadoEmpleado">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_informacionEmpleadoEmpleado_informacionEmpleado">
+          <End Role="informacionEmpleado" Type="Self.informacionEmpleado" Multiplicity="1" />
+          <End Role="informacionEmpleadoEmpleado" Type="Self.informacionEmpleadoEmpleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="informacionEmpleado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="informacionEmpleadoEmpleado">
+              <PropertyRef Name="idInformacionEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_paquete_cliente">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
+          <End Role="paquete" Type="Self.paquete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paquete">
+              <PropertyRef Name="idCliente" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -395,30 +520,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_personaPaquete_paquete">
-          <End Role="paquete" Type="Self.paquete" Multiplicity="1" />
-          <End Role="personaPaquete" Type="Self.personaPaquete" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="paquete">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="personaPaquete">
-              <PropertyRef Name="idPaquete" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_personaPaquete_persona">
-          <End Role="persona" Type="Self.persona" Multiplicity="1" />
-          <End Role="personaPaquete" Type="Self.personaPaquete" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="persona">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="personaPaquete">
-              <PropertyRef Name="idPersona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_rolPermiso_idPermiso">
           <End Role="permiso" Type="Self.permiso" Multiplicity="1" />
           <End Role="rolPermiso" Type="Self.rolPermiso" Multiplicity="*" />
@@ -446,6 +547,7 @@
         <EntityContainer Name="freedModelStoreContainer">
           <EntitySet Name="actividad" EntityType="Self.actividad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="afiliado" EntityType="Self.afiliado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="afiliadoPaquete" EntityType="Self.afiliadoPaquete" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="configuracion" EntityType="Self.configuracion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="configuracionCliente" EntityType="Self.configuracionCliente" Schema="dbo" store:Type="Tables" />
@@ -454,13 +556,15 @@
           <EntitySet Name="estado" EntityType="Self.estado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="factura" EntityType="Self.factura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="grupo" EntityType="Self.grupo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="infoAdicional" EntityType="Self.infoAdicional" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="informacionAfiliado" EntityType="Self.informacionAfiliado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="informacionAfiliadoAfiliado" EntityType="Self.informacionAfiliadoAfiliado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="informacionEmpleado" EntityType="Self.informacionEmpleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="informacionEmpleadoEmpleado" EntityType="Self.informacionEmpleadoEmpleado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="paquete" EntityType="Self.paquete" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="paqueteActividad" EntityType="Self.paqueteActividad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="paqueteRegla" EntityType="Self.paqueteRegla" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="permiso" EntityType="Self.permiso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="persona" EntityType="Self.persona" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="personaPaquete" EntityType="Self.personaPaquete" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="regla" EntityType="Self.regla" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rol" EntityType="Self.rol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rolPermiso" EntityType="Self.rolPermiso" Schema="dbo" store:Type="Tables" />
@@ -472,6 +576,14 @@
           <AssociationSet Name="fk_afiliado_tipoNomina" Association="Self.fk_afiliado_tipoNomina">
             <End Role="tipoNomina" EntitySet="tipoNomina" />
             <End Role="afiliado" EntitySet="afiliado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_afiliadoPaquete_afiliado" Association="Self.fk_afiliadoPaquete_afiliado">
+            <End Role="afiliado" EntitySet="afiliado" />
+            <End Role="afiliadoPaquete" EntitySet="afiliadoPaquete" />
+          </AssociationSet>
+          <AssociationSet Name="fk_afiliadoPaquete_paquete" Association="Self.fk_afiliadoPaquete_paquete">
+            <End Role="paquete" EntitySet="paquete" />
+            <End Role="afiliadoPaquete" EntitySet="afiliadoPaquete" />
           </AssociationSet>
           <AssociationSet Name="fk_cliente_estado" Association="Self.fk_cliente_estado">
             <End Role="estado" EntitySet="estado" />
@@ -501,9 +613,33 @@
             <End Role="cliente" EntitySet="cliente" />
             <End Role="factura" EntitySet="factura" />
           </AssociationSet>
-          <AssociationSet Name="fk_infoAdicional_persona" Association="Self.fk_infoAdicional_persona">
-            <End Role="persona" EntitySet="persona" />
-            <End Role="infoAdicional" EntitySet="infoAdicional" />
+          <AssociationSet Name="fk_informacionAfiliado_cliente" Association="Self.fk_informacionAfiliado_cliente">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="informacionAfiliado" EntitySet="informacionAfiliado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_informacionAfiliadoAfiliado_afiliado" Association="Self.fk_informacionAfiliadoAfiliado_afiliado">
+            <End Role="afiliado" EntitySet="afiliado" />
+            <End Role="informacionAfiliadoAfiliado" EntitySet="informacionAfiliadoAfiliado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_informacionAfiliadoAfiliado_AfiliadoAfiliado" Association="Self.fk_informacionAfiliadoAfiliado_AfiliadoAfiliado">
+            <End Role="informacionAfiliado" EntitySet="informacionAfiliado" />
+            <End Role="informacionAfiliadoAfiliado" EntitySet="informacionAfiliadoAfiliado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_informacionEmpleado_cliente" Association="Self.fk_informacionEmpleado_cliente">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="informacionEmpleado" EntitySet="informacionEmpleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_informacionEmpleadoEmpleado_empleado" Association="Self.fk_informacionEmpleadoEmpleado_empleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="informacionEmpleadoEmpleado" EntitySet="informacionEmpleadoEmpleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_informacionEmpleadoEmpleado_informacionEmpleado" Association="Self.fk_informacionEmpleadoEmpleado_informacionEmpleado">
+            <End Role="informacionEmpleado" EntitySet="informacionEmpleado" />
+            <End Role="informacionEmpleadoEmpleado" EntitySet="informacionEmpleadoEmpleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_paquete_cliente" Association="Self.fk_paquete_cliente">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="paquete" EntitySet="paquete" />
           </AssociationSet>
           <AssociationSet Name="fk_paqueteActividad_actividad" Association="Self.fk_paqueteActividad_actividad">
             <End Role="actividad" EntitySet="actividad" />
@@ -528,14 +664,6 @@
           <AssociationSet Name="fk_persona_rol" Association="Self.fk_persona_rol">
             <End Role="rol" EntitySet="rol" />
             <End Role="persona" EntitySet="persona" />
-          </AssociationSet>
-          <AssociationSet Name="fk_personaPaquete_paquete" Association="Self.fk_personaPaquete_paquete">
-            <End Role="paquete" EntitySet="paquete" />
-            <End Role="personaPaquete" EntitySet="personaPaquete" />
-          </AssociationSet>
-          <AssociationSet Name="fk_personaPaquete_persona" Association="Self.fk_personaPaquete_persona">
-            <End Role="persona" EntitySet="persona" />
-            <End Role="personaPaquete" EntitySet="personaPaquete" />
           </AssociationSet>
           <AssociationSet Name="fk_rolPermiso_idPermiso" Association="Self.fk_rolPermiso_idPermiso">
             <End Role="permiso" EntitySet="permiso" />
@@ -563,6 +691,9 @@
           <NavigationProperty Name="configuracionCliente" Relationship="Self.fk_configuracionCliente_cliente" FromRole="cliente" ToRole="configuracionCliente" />
           <NavigationProperty Name="factura" Relationship="freedModel.fk_factura_cliente" FromRole="cliente" ToRole="factura" />
           <NavigationProperty Name="persona" Relationship="freedModel.fk_persona_cliente" FromRole="cliente" ToRole="persona" />
+          <NavigationProperty Name="paquete" Relationship="freedModel.fk_paquete_cliente" FromRole="cliente" ToRole="paquete" />
+          <NavigationProperty Name="informacionAfiliado" Relationship="freedModel.fk_informacionAfiliado_cliente" FromRole="cliente" ToRole="informacionAfiliado" />
+          <NavigationProperty Name="informacionEmpleado" Relationship="freedModel.fk_informacionEmpleado_cliente" FromRole="cliente" ToRole="informacionEmpleado" />
         </EntityType>
         <EntityType Name="configuracion">
           <Key>
@@ -682,13 +813,11 @@
           <EntitySet Name="costo" EntityType="freedModel.costo" />
           <EntitySet Name="empleado" EntityType="freedModel.empleado" />
           <EntitySet Name="factura" EntityType="freedModel.factura" />
-          <EntitySet Name="infoAdicional" EntityType="freedModel.infoAdicional" />
           <EntitySet Name="paquete" EntityType="freedModel.paquete" />
           <EntitySet Name="paqueteActividad" EntityType="freedModel.paqueteActividad" />
           <EntitySet Name="paqueteRegla" EntityType="freedModel.paqueteRegla" />
           <EntitySet Name="permiso" EntityType="freedModel.permiso" />
           <EntitySet Name="persona" EntityType="freedModel.persona" />
-          <EntitySet Name="personaPaquete" EntityType="freedModel.personaPaquete" />
           <EntitySet Name="regla" EntityType="freedModel.regla" />
           <EntitySet Name="rol" EntityType="freedModel.rol" />
           <EntitySet Name="rolPermiso" EntityType="freedModel.rolPermiso" />
@@ -713,10 +842,6 @@
             <End Role="persona" EntitySet="persona" />
             <End Role="empleado" EntitySet="empleado" />
           </AssociationSet>
-          <AssociationSet Name="fk_infoAdicional_persona" Association="freedModel.fk_infoAdicional_persona">
-            <End Role="persona" EntitySet="persona" />
-            <End Role="infoAdicional" EntitySet="infoAdicional" />
-          </AssociationSet>
           <AssociationSet Name="fk_paqueteActividad_paquete" Association="freedModel.fk_paqueteActividad_paquete">
             <End Role="paquete" EntitySet="paquete" />
             <End Role="paqueteActividad" EntitySet="paqueteActividad" />
@@ -724,10 +849,6 @@
           <AssociationSet Name="fk_paqueteRegla_paquete" Association="freedModel.fk_paqueteRegla_paquete">
             <End Role="paquete" EntitySet="paquete" />
             <End Role="paqueteRegla" EntitySet="paqueteRegla" />
-          </AssociationSet>
-          <AssociationSet Name="fk_personaPaquete_paquete" Association="freedModel.fk_personaPaquete_paquete">
-            <End Role="paquete" EntitySet="paquete" />
-            <End Role="personaPaquete" EntitySet="personaPaquete" />
           </AssociationSet>
           <AssociationSet Name="fk_paqueteRegla_regla" Association="freedModel.fk_paqueteRegla_regla">
             <End Role="regla" EntitySet="regla" />
@@ -741,10 +862,6 @@
             <End Role="rol" EntitySet="rol" />
             <End Role="persona" EntitySet="persona" />
           </AssociationSet>
-          <AssociationSet Name="fk_personaPaquete_persona" Association="freedModel.fk_personaPaquete_persona">
-            <End Role="persona" EntitySet="persona" />
-            <End Role="personaPaquete" EntitySet="personaPaquete" />
-          </AssociationSet>
           <AssociationSet Name="fk_rolPermiso_idRol" Association="freedModel.fk_rolPermiso_idRol">
             <End Role="rol" EntitySet="rol" />
             <End Role="rolPermiso" EntitySet="rolPermiso" />
@@ -752,6 +869,39 @@
           <AssociationSet Name="afiliado" Association="freedModel.afiliado">
             <End Role="persona" EntitySet="persona" />
             <End Role="tipoNomina" EntitySet="tipoNomina" />
+          </AssociationSet>
+          <AssociationSet Name="fk_paquete_cliente" Association="freedModel.fk_paquete_cliente">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="paquete" EntitySet="paquete" />
+          </AssociationSet>
+          <EntitySet Name="afiliadoPaquete" EntityType="freedModel.afiliadoPaquete" />
+          <EntitySet Name="informacionAfiliado" EntityType="freedModel.informacionAfiliado" />
+          <EntitySet Name="informacionAfiliadoAfiliado" EntityType="freedModel.informacionAfiliadoAfiliado" />
+          <EntitySet Name="informacionEmpleado" EntityType="freedModel.informacionEmpleado" />
+          <EntitySet Name="informacionEmpleadoEmpleado" EntityType="freedModel.informacionEmpleadoEmpleado" />
+          <AssociationSet Name="fk_afiliadoPaquete_paquete" Association="freedModel.fk_afiliadoPaquete_paquete">
+            <End Role="paquete" EntitySet="paquete" />
+            <End Role="afiliadoPaquete" EntitySet="afiliadoPaquete" />
+          </AssociationSet>
+          <AssociationSet Name="fk_informacionAfiliado_cliente" Association="freedModel.fk_informacionAfiliado_cliente">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="informacionAfiliado" EntitySet="informacionAfiliado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_informacionEmpleado_cliente" Association="freedModel.fk_informacionEmpleado_cliente">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="informacionEmpleado" EntitySet="informacionEmpleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_informacionEmpleadoEmpleado_empleado" Association="freedModel.fk_informacionEmpleadoEmpleado_empleado">
+            <End Role="empleado" EntitySet="empleado" />
+            <End Role="informacionEmpleadoEmpleado" EntitySet="informacionEmpleadoEmpleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_informacionAfiliadoAfiliado_AfiliadoAfiliado" Association="freedModel.fk_informacionAfiliadoAfiliado_AfiliadoAfiliado">
+            <End Role="informacionAfiliado" EntitySet="informacionAfiliado" />
+            <End Role="informacionAfiliadoAfiliado" EntitySet="informacionAfiliadoAfiliado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_informacionEmpleadoEmpleado_informacionEmpleado" Association="freedModel.fk_informacionEmpleadoEmpleado_informacionEmpleado">
+            <End Role="informacionEmpleado" EntitySet="informacionEmpleado" />
+            <End Role="informacionEmpleadoEmpleado" EntitySet="informacionEmpleadoEmpleado" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="actividad">
@@ -783,6 +933,7 @@
           <Property Name="cargo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="sueldo" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="persona" Relationship="freedModel.fk_empleado_persona" FromRole="empleado" ToRole="persona" />
+          <NavigationProperty Name="informacionEmpleadoEmpleado" Relationship="freedModel.fk_informacionEmpleadoEmpleado_empleado" FromRole="empleado" ToRole="informacionEmpleadoEmpleado" />
         </EntityType>
         <EntityType Name="factura">
           <Key>
@@ -797,19 +948,6 @@
           <Property Name="idCliente" Type="Int32" Nullable="false" />
           <NavigationProperty Name="cliente" Relationship="freedModel.fk_factura_cliente" FromRole="factura" ToRole="cliente" />
         </EntityType>
-        <EntityType Name="infoAdicional">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="atributo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="valor" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="tipo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="requerido" Type="Boolean" Nullable="false" />
-          <Property Name="vigente" Type="Boolean" Nullable="false" />
-          <Property Name="idPersona" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="persona" Relationship="freedModel.fk_infoAdicional_persona" FromRole="infoAdicional" ToRole="persona" />
-        </EntityType>
         <EntityType Name="paquete">
           <Key>
             <PropertyRef Name="id" />
@@ -820,7 +958,9 @@
           <NavigationProperty Name="costo" Relationship="freedModel.fk_costo_paquete" FromRole="paquete" ToRole="costo" />
           <NavigationProperty Name="paqueteActividad" Relationship="freedModel.fk_paqueteActividad_paquete" FromRole="paquete" ToRole="paqueteActividad" />
           <NavigationProperty Name="paqueteRegla" Relationship="freedModel.fk_paqueteRegla_paquete" FromRole="paquete" ToRole="paqueteRegla" />
-          <NavigationProperty Name="personaPaquete" Relationship="freedModel.fk_personaPaquete_paquete" FromRole="paquete" ToRole="personaPaquete" />
+          <Property Name="idCliente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cliente" Relationship="freedModel.fk_paquete_cliente" FromRole="paquete" ToRole="cliente" />
+          <NavigationProperty Name="afiliadoPaquete" Relationship="freedModel.fk_afiliadoPaquete_paquete" FromRole="paquete" ToRole="afiliadoPaquete" />
         </EntityType>
         <EntityType Name="paqueteActividad">
           <Key>
@@ -866,23 +1006,8 @@
           <Property Name="idRol" Type="Int32" Nullable="false" />
           <NavigationProperty Name="cliente" Relationship="freedModel.fk_persona_cliente" FromRole="persona" ToRole="cliente" />
           <NavigationProperty Name="empleado" Relationship="freedModel.fk_empleado_persona" FromRole="persona" ToRole="empleado" />
-          <NavigationProperty Name="infoAdicional" Relationship="freedModel.fk_infoAdicional_persona" FromRole="persona" ToRole="infoAdicional" />
           <NavigationProperty Name="rol" Relationship="freedModel.fk_persona_rol" FromRole="persona" ToRole="rol" />
-          <NavigationProperty Name="personaPaquete" Relationship="freedModel.fk_personaPaquete_persona" FromRole="persona" ToRole="personaPaquete" />
           <NavigationProperty Name="tipoNomina" Relationship="freedModel.afiliado" FromRole="persona" ToRole="tipoNomina" />
-        </EntityType>
-        <EntityType Name="personaPaquete">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="desde" Type="DateTime" Precision="3" />
-          <Property Name="hasta" Type="DateTime" Precision="3" />
-          <Property Name="cantidad" Type="Int32" />
-          <Property Name="idPersona" Type="Int32" Nullable="false" />
-          <Property Name="idPaquete" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="paquete" Relationship="freedModel.fk_personaPaquete_paquete" FromRole="personaPaquete" ToRole="paquete" />
-          <NavigationProperty Name="persona" Relationship="freedModel.fk_personaPaquete_persona" FromRole="personaPaquete" ToRole="persona" />
         </EntityType>
         <EntityType Name="regla">
           <Key>
@@ -985,18 +1110,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_infoAdicional_persona">
-          <End Type="freedModel.persona" Role="persona" Multiplicity="1" />
-          <End Type="freedModel.infoAdicional" Role="infoAdicional" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="persona">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="infoAdicional">
-              <PropertyRef Name="idPersona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_paqueteActividad_paquete">
           <End Type="freedModel.paquete" Role="paquete" Multiplicity="1" />
           <End Type="freedModel.paqueteActividad" Role="paqueteActividad" Multiplicity="*" />
@@ -1017,18 +1130,6 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="paqueteRegla">
-              <PropertyRef Name="idPaquete" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_personaPaquete_paquete">
-          <End Type="freedModel.paquete" Role="paquete" Multiplicity="1" />
-          <End Type="freedModel.personaPaquete" Role="personaPaquete" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="paquete">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="personaPaquete">
               <PropertyRef Name="idPaquete" />
             </Dependent>
           </ReferentialConstraint>
@@ -1069,18 +1170,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_personaPaquete_persona">
-          <End Type="freedModel.persona" Role="persona" Multiplicity="1" />
-          <End Type="freedModel.personaPaquete" Role="personaPaquete" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="persona">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="personaPaquete">
-              <PropertyRef Name="idPersona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_rolPermiso_idRol">
           <End Type="freedModel.rol" Role="rol" Multiplicity="1" />
           <End Type="freedModel.rolPermiso" Role="rolPermiso" Multiplicity="*" />
@@ -1096,6 +1185,149 @@
         <Association Name="afiliado">
           <End Type="freedModel.persona" Role="persona" Multiplicity="*" />
           <End Type="freedModel.tipoNomina" Role="tipoNomina" Multiplicity="0..1" />
+        </Association>
+        <Association Name="fk_paquete_cliente">
+          <End Type="freedModel.cliente" Role="cliente" Multiplicity="1" />
+          <End Type="freedModel.paquete" Role="paquete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paquete">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="afiliadoPaquete">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="desde" Type="DateTime" Precision="0" />
+          <Property Name="hasta" Type="DateTime" Precision="0" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="idAfiliado" Type="Int32" Nullable="false" />
+          <Property Name="idPaquete" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="paquete" Relationship="freedModel.fk_afiliadoPaquete_paquete" FromRole="afiliadoPaquete" ToRole="paquete" />
+        </EntityType>
+        <EntityType Name="informacionAfiliado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="atributo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tipoValor" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="requerido" Type="Boolean" Nullable="false" />
+          <Property Name="vigente" Type="Boolean" Nullable="false" />
+          <Property Name="idCliente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cliente" Relationship="freedModel.fk_informacionAfiliado_cliente" FromRole="informacionAfiliado" ToRole="cliente" />
+          <NavigationProperty Name="informacionAfiliadoAfiliado" Relationship="freedModel.fk_informacionAfiliadoAfiliado_AfiliadoAfiliado" FromRole="informacionAfiliado" ToRole="informacionAfiliadoAfiliado" />
+        </EntityType>
+        <EntityType Name="informacionAfiliadoAfiliado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAfiliado" Type="Int32" Nullable="false" />
+          <Property Name="idInformacionAfiliado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="informacionAfiliado" Relationship="freedModel.fk_informacionAfiliadoAfiliado_AfiliadoAfiliado" FromRole="informacionAfiliadoAfiliado" ToRole="informacionAfiliado" />
+        </EntityType>
+        <EntityType Name="informacionEmpleado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="atributo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tipoValor" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="requerido" Type="Boolean" Nullable="false" />
+          <Property Name="vigente" Type="Boolean" Nullable="false" />
+          <Property Name="idCliente" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cliente" Relationship="freedModel.fk_informacionEmpleado_cliente" FromRole="informacionEmpleado" ToRole="cliente" />
+          <NavigationProperty Name="informacionEmpleadoEmpleado" Relationship="freedModel.fk_informacionEmpleadoEmpleado_informacionEmpleado" FromRole="informacionEmpleado" ToRole="informacionEmpleadoEmpleado" />
+        </EntityType>
+        <EntityType Name="informacionEmpleadoEmpleado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="idInformacionEmpleado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="empleado" Relationship="freedModel.fk_informacionEmpleadoEmpleado_empleado" FromRole="informacionEmpleadoEmpleado" ToRole="empleado" />
+          <NavigationProperty Name="informacionEmpleado" Relationship="freedModel.fk_informacionEmpleadoEmpleado_informacionEmpleado" FromRole="informacionEmpleadoEmpleado" ToRole="informacionEmpleado" />
+        </EntityType>
+        <Association Name="fk_afiliadoPaquete_paquete">
+          <End Type="freedModel.paquete" Role="paquete" Multiplicity="1" />
+          <End Type="freedModel.afiliadoPaquete" Role="afiliadoPaquete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paquete">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="afiliadoPaquete">
+              <PropertyRef Name="idPaquete" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_informacionAfiliado_cliente">
+          <End Type="freedModel.cliente" Role="cliente" Multiplicity="1" />
+          <End Type="freedModel.informacionAfiliado" Role="informacionAfiliado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="informacionAfiliado">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_informacionEmpleado_cliente">
+          <End Type="freedModel.cliente" Role="cliente" Multiplicity="1" />
+          <End Type="freedModel.informacionEmpleado" Role="informacionEmpleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="informacionEmpleado">
+              <PropertyRef Name="idCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_informacionEmpleadoEmpleado_empleado">
+          <End Type="freedModel.empleado" Role="empleado" Multiplicity="1" />
+          <End Type="freedModel.informacionEmpleadoEmpleado" Role="informacionEmpleadoEmpleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empleado">
+              <PropertyRef Name="idPersonaEmpleado" />
+            </Principal>
+            <Dependent Role="informacionEmpleadoEmpleado">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_informacionAfiliadoAfiliado_AfiliadoAfiliado">
+          <End Type="freedModel.informacionAfiliado" Role="informacionAfiliado" Multiplicity="1" />
+          <End Type="freedModel.informacionAfiliadoAfiliado" Role="informacionAfiliadoAfiliado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="informacionAfiliado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="informacionAfiliadoAfiliado">
+              <PropertyRef Name="idInformacionAfiliado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_informacionEmpleadoEmpleado_informacionEmpleado">
+          <End Type="freedModel.informacionEmpleado" Role="informacionEmpleado" Multiplicity="1" />
+          <End Type="freedModel.informacionEmpleadoEmpleado" Role="informacionEmpleadoEmpleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="informacionEmpleado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="informacionEmpleadoEmpleado">
+              <PropertyRef Name="idInformacionEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -1199,22 +1431,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="infoAdicional">
-            <EntityTypeMapping TypeName="freedModel.infoAdicional">
-              <MappingFragment StoreEntitySet="infoAdicional">
-                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
-                <ScalarProperty Name="vigente" ColumnName="vigente" />
-                <ScalarProperty Name="requerido" ColumnName="requerido" />
-                <ScalarProperty Name="tipo" ColumnName="tipo" />
-                <ScalarProperty Name="valor" ColumnName="valor" />
-                <ScalarProperty Name="atributo" ColumnName="atributo" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="paquete">
             <EntityTypeMapping TypeName="freedModel.paquete">
               <MappingFragment StoreEntitySet="paquete">
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -1259,18 +1479,6 @@
                 <ScalarProperty Name="apellido" ColumnName="apellido" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="personaPaquete">
-            <EntityTypeMapping TypeName="freedModel.personaPaquete">
-              <MappingFragment StoreEntitySet="personaPaquete">
-                <ScalarProperty Name="idPaquete" ColumnName="idPaquete" />
-                <ScalarProperty Name="idPersona" ColumnName="idPersona" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="hasta" ColumnName="hasta" />
-                <ScalarProperty Name="desde" ColumnName="desde" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1323,6 +1531,62 @@
             </EndProperty>
             <Condition ColumnName="idTipoNomina" IsNull="false" />
           </AssociationSetMapping>
+          <EntitySetMapping Name="afiliadoPaquete">
+            <EntityTypeMapping TypeName="freedModel.afiliadoPaquete">
+              <MappingFragment StoreEntitySet="afiliadoPaquete">
+                <ScalarProperty Name="idPaquete" ColumnName="idPaquete" />
+                <ScalarProperty Name="idAfiliado" ColumnName="idAfiliado" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="hasta" ColumnName="hasta" />
+                <ScalarProperty Name="desde" ColumnName="desde" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="informacionAfiliado">
+            <EntityTypeMapping TypeName="freedModel.informacionAfiliado">
+              <MappingFragment StoreEntitySet="informacionAfiliado">
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="vigente" ColumnName="vigente" />
+                <ScalarProperty Name="requerido" ColumnName="requerido" />
+                <ScalarProperty Name="tipoValor" ColumnName="tipoValor" />
+                <ScalarProperty Name="atributo" ColumnName="atributo" />
+                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="informacionAfiliadoAfiliado">
+            <EntityTypeMapping TypeName="freedModel.informacionAfiliadoAfiliado">
+              <MappingFragment StoreEntitySet="informacionAfiliadoAfiliado">
+                <ScalarProperty Name="idInformacionAfiliado" ColumnName="idInformacionAfiliado" />
+                <ScalarProperty Name="idAfiliado" ColumnName="idAfiliado" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="informacionEmpleado">
+            <EntityTypeMapping TypeName="freedModel.informacionEmpleado">
+              <MappingFragment StoreEntitySet="informacionEmpleado">
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+                <ScalarProperty Name="vigente" ColumnName="vigente" />
+                <ScalarProperty Name="requerido" ColumnName="requerido" />
+                <ScalarProperty Name="tipoValor" ColumnName="tipoValor" />
+                <ScalarProperty Name="atributo" ColumnName="atributo" />
+                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="informacionEmpleadoEmpleado">
+            <EntityTypeMapping TypeName="freedModel.informacionEmpleadoEmpleado">
+              <MappingFragment StoreEntitySet="informacionEmpleadoEmpleado">
+                <ScalarProperty Name="idInformacionEmpleado" ColumnName="idInformacionEmpleado" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

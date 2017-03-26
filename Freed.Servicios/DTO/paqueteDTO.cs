@@ -20,6 +20,12 @@ namespace Freed.Servicios.DTO
         public string nombre { get; set; }
 
         [DataMember]
+        public int idCliente { get; set; }
+
+        [DataMember]
+        public string cliente { get; set; }
+
+        [DataMember]
         public List<actividadDTO> actividades { get; set; }
 
         [DataMember]
@@ -30,6 +36,8 @@ namespace Freed.Servicios.DTO
             this.id = p.id;
             this.fechaCreacion = p.fechaCreacion;
             this.nombre = p.nombre;
+            this.idCliente = p.idCliente;
+            this.cliente = p.cliente.nombre;
         }
     }
 }

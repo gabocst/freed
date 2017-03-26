@@ -18,13 +18,11 @@
         <EntityTypeShape EntityType="freedModel.costo" Width="1.5" PointX="12.875" PointY="12.875" />
         <EntityTypeShape EntityType="freedModel.empleado" Width="1.5" PointX="9.875" PointY="6.875" />
         <EntityTypeShape EntityType="freedModel.factura" Width="1.5" PointX="5.25" PointY="7.625" />
-        <EntityTypeShape EntityType="freedModel.infoAdicional" Width="1.5" PointX="9.875" PointY="9.5" />
         <EntityTypeShape EntityType="freedModel.paquete" Width="1.5" PointX="10.625" PointY="3.5" />
         <EntityTypeShape EntityType="freedModel.paqueteActividad" Width="1.5" PointX="12.875" PointY="0.75" />
         <EntityTypeShape EntityType="freedModel.paqueteRegla" Width="1.5" PointX="12.875" PointY="3.75" />
         <EntityTypeShape EntityType="freedModel.permiso" Width="1.5" PointX="5.375" PointY="12" />
         <EntityTypeShape EntityType="freedModel.persona" Width="1.5" PointX="7.625" PointY="8.75" />
-        <EntityTypeShape EntityType="freedModel.personaPaquete" Width="1.5" PointX="12.875" PointY="9.5" />
         <EntityTypeShape EntityType="freedModel.regla" Width="1.5" PointX="10.625" PointY="12.875" />
         <EntityTypeShape EntityType="freedModel.rol" Width="1.5" PointX="5.375" PointY="14.875" />
         <EntityTypeShape EntityType="freedModel.rolPermiso" Width="1.5" PointX="7.625" PointY="14.875" />
@@ -34,16 +32,25 @@
         <AssociationConnector Association="freedModel.fk_persona_cliente" />
         <AssociationConnector Association="freedModel.fk_costo_paquete" />
         <AssociationConnector Association="freedModel.fk_empleado_persona" />
-        <AssociationConnector Association="freedModel.fk_infoAdicional_persona" />
         <AssociationConnector Association="freedModel.fk_paqueteActividad_paquete" />
         <AssociationConnector Association="freedModel.fk_paqueteRegla_paquete" />
-        <AssociationConnector Association="freedModel.fk_personaPaquete_paquete" />
         <AssociationConnector Association="freedModel.fk_paqueteRegla_regla" />
         <AssociationConnector Association="freedModel.fk_rolPermiso_idPermiso" />
         <AssociationConnector Association="freedModel.fk_persona_rol" />
-        <AssociationConnector Association="freedModel.fk_personaPaquete_persona" />
         <AssociationConnector Association="freedModel.fk_rolPermiso_idRol" />
         <AssociationConnector Association="freedModel.afiliado" />
+        <AssociationConnector Association="freedModel.fk_paquete_cliente" />
+        <EntityTypeShape EntityType="freedModel.afiliadoPaquete" Width="1.5" PointX="12.875" PointY="20.75" />
+        <EntityTypeShape EntityType="freedModel.informacionAfiliado" Width="1.5" PointX="5.25" PointY="18.625" />
+        <EntityTypeShape EntityType="freedModel.informacionAfiliadoAfiliado" Width="1.5" PointX="7.5" PointY="19.125" />
+        <EntityTypeShape EntityType="freedModel.informacionEmpleado" Width="1.5" PointX="12.875" PointY="16.5" />
+        <EntityTypeShape EntityType="freedModel.informacionEmpleadoEmpleado" Width="1.5" PointX="15.125" PointY="6.875" />
+        <AssociationConnector Association="freedModel.fk_afiliadoPaquete_paquete" />
+        <AssociationConnector Association="freedModel.fk_informacionAfiliado_cliente" />
+        <AssociationConnector Association="freedModel.fk_informacionEmpleado_cliente" />
+        <AssociationConnector Association="freedModel.fk_informacionEmpleadoEmpleado_empleado" />
+        <AssociationConnector Association="freedModel.fk_informacionAfiliadoAfiliado_AfiliadoAfiliado" />
+        <AssociationConnector Association="freedModel.fk_informacionEmpleadoEmpleado_informacionEmpleado" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
