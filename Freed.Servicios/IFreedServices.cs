@@ -7,6 +7,7 @@ using Freed.Servicios.Models.configuracionCliente;
 using Freed.Servicios.Models.costo;
 using Freed.Servicios.Models.factura;
 using Freed.Servicios.Models.grupo;
+using Freed.Servicios.Models.informacionAfiliado;
 using Freed.Servicios.Models.paquete;
 using Freed.Servicios.Models.persona;
 using Freed.Servicios.Models.rol;
@@ -207,7 +208,7 @@ namespace Freed.Servicios
 
         #region informacionAfiliado
         [OperationContract]
-        paqueteListResponse listarInfoAfiliado(int id);
+        infoAfiListResponse listarInfoAfiliado(int id);
 
         [OperationContract]
         responseClass crearInfoAfiliado(infoAfiDTO info);
@@ -216,7 +217,7 @@ namespace Freed.Servicios
         responseClass actualizarInfoAfiliado(infoAfiDTO info);
 
         [OperationContract]
-        paqueteReadResponse leerInfoAfiliado(int id);
+        infoAfiReadResponse leerInfoAfiliado(int id);
 
         [OperationContract]
         responseClass eliminarInfoAfiliado(int id);
