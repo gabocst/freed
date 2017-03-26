@@ -204,6 +204,7 @@
     <Compile Include="DTO\costoDTO.cs" />
     <Compile Include="DTO\facturaDTO.cs" />
     <Compile Include="DTO\grupoDTO.cs" />
+    <Compile Include="DTO\infoAfiDTO.cs" />
     <Compile Include="DTO\paqueteActividadDTO.cs" />
     <Compile Include="DTO\paqueteDTO.cs" />
     <Compile Include="DTO\permisoDTO.cs" />
@@ -227,6 +228,8 @@
     <Compile Include="Models\factura\facturaReadResponse.cs" />
     <Compile Include="Models\grupo\grupoListResponse.cs" />
     <Compile Include="Models\grupo\grupoReadResponse.cs" />
+    <Compile Include="Models\informacionAfiliado\infoAfiListResponse.cs" />
+    <Compile Include="Models\informacionAfiliado\infoAfiReadResponse.cs" />
     <Compile Include="Models\paquete\paqueteListResponse.cs" />
     <Compile Include="Models\paquete\paqueteReadResponse.cs" />
     <Compile Include="Models\persona\personaListResponse.cs" />
