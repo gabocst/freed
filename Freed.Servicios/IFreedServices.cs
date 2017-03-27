@@ -118,7 +118,7 @@ namespace Freed.Servicios
 
         #region Persona
         [OperationContract]
-        response listarPersona();
+        response listarPersona(int id);
 
         //[OperationContract]
         //responseClass crearPersona(personaDTO person);
@@ -224,5 +224,40 @@ namespace Freed.Servicios
 
         #endregion
 
+        #region informacionEmpleado
+        [OperationContract]
+        response listarInfoEmpleado(int id);
+
+        [OperationContract]
+        response crearInfoEmpleado(infoEmpleDTO info);
+
+        [OperationContract]
+        response actualizarInfoEmpleado(infoEmpleDTO info);
+
+        [OperationContract]
+        response leerInfoEmpleado(int id);
+
+        [OperationContract]
+        response eliminarInfoEmpleado(int id);
+
+        #endregion
+
+        #region Empleado
+        [OperationContract]
+        response listarEmpleado(int id);
+
+        [OperationContract]
+        response crearEmpleado(empleadoDTO employee);
+
+        [OperationContract]
+        response actualizarEmpleado(empleadoDTO employee);
+
+        [OperationContract]
+        response leerEmpleado(int id);
+
+        [OperationContract]
+        response eliminarEmpleado(int id);
+
+        #endregion
     }
 }

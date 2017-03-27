@@ -17,6 +17,7 @@ namespace Freed.Servicios.DAL
         public int id { get; set; }
         public int idAfiliado { get; set; }
         public int idInformacionAfiliado { get; set; }
+        public string valor { get; set; }
     
         public virtual informacionAfiliado informacionAfiliado { get; set; }
         public virtual afiliado afiliado { get; set; }

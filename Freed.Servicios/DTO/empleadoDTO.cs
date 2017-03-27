@@ -8,7 +8,7 @@ using System.Web;
 namespace Freed.Servicios.DTO
 {
     [DataContract]
-    public class personaDTO
+    public class empleadoDTO
     {
         [DataMember]
         public int id { get; set; }
@@ -43,19 +43,30 @@ namespace Freed.Servicios.DTO
         [DataMember]
         public string rol { get; set; }
 
-        public personaDTO(persona p)
+        [DataMember]
+        public string cargo { get; set; }
+
+        [DataMember]
+        public decimal sueldo { get; set; }
+
+        [DataMember]
+        public List<infoPersonaDTO> info { get; set; }
+
+        public empleadoDTO(empleado e)
         {
-            this.id = p.id;
-            this.fechaCreacion = p.fechaCreacion;
-            this.nombre = p.nombre;
-            this.apellido = p.apellido;
-            this.dni = p.dni;
-            this.fechaNacimiento = p.fechaNacimiento;
-            this.idCliente = p.idCliente;
-            this.idRol = p.idRol;
-            this.sexo = p.sexo;
-            this.cliente = p.cliente.nombre;
-            this.rol = p.rol.nombre;
+            this.id = e.idPersonaEmpleado;
+            this.fechaCreacion = e.persona.fechaCreacion;
+            this.nombre = e.persona.nombre;
+            this.apellido = e.persona.apellido;
+            this.dni = e.persona.dni;
+            this.fechaNacimiento = e.persona.fechaNacimiento;
+            this.idCliente = e.persona.idCliente;
+            this.idRol = e.persona.idRol;
+            this.sexo = e.persona.sexo;
+            this.cliente = e.persona.cliente.nombre;
+            this.rol = e.persona.rol.nombre;
+            this.cargo = e.cargo;
+            this.sueldo = e.sueldo;
         }
     }
 }

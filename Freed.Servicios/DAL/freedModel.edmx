@@ -128,6 +128,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idAfiliado" Type="int" Nullable="false" />
           <Property Name="idInformacionAfiliado" Type="int" Nullable="false" />
+          <Property Name="valor" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="informacionEmpleado">
           <Key>
@@ -148,6 +149,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idEmpleado" Type="int" Nullable="false" />
           <Property Name="idInformacionEmpleado" Type="int" Nullable="false" />
+          <Property Name="valor" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="paquete">
           <Key>
@@ -1203,6 +1205,7 @@
           <Property Name="idInformacionAfiliado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="informacionAfiliado" Relationship="freedModel.fk_informacionAfiliadoAfiliado_AfiliadoAfiliado" FromRole="informacionAfiliadoAfiliado" ToRole="informacionAfiliado" />
           <NavigationProperty Name="afiliado" Relationship="freedModel.fk_informacionAfiliadoAfiliado_afiliado" FromRole="informacionAfiliadoAfiliado" ToRole="afiliado" />
+          <Property Name="valor" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="informacionEmpleado">
           <Key>
@@ -1227,6 +1230,7 @@
           <Property Name="idInformacionEmpleado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="empleado" Relationship="freedModel.fk_informacionEmpleadoEmpleado_empleado" FromRole="informacionEmpleadoEmpleado" ToRole="empleado" />
           <NavigationProperty Name="informacionEmpleado" Relationship="freedModel.fk_informacionEmpleadoEmpleado_informacionEmpleado" FromRole="informacionEmpleadoEmpleado" ToRole="informacionEmpleado" />
+          <Property Name="valor" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_afiliadoPaquete_paquete">
           <End Type="freedModel.paquete" Role="paquete" Multiplicity="1" />
@@ -1557,6 +1561,7 @@
           <EntitySetMapping Name="informacionAfiliadoAfiliado">
             <EntityTypeMapping TypeName="freedModel.informacionAfiliadoAfiliado">
               <MappingFragment StoreEntitySet="informacionAfiliadoAfiliado">
+                <ScalarProperty Name="valor" ColumnName="valor" />
                 <ScalarProperty Name="idInformacionAfiliado" ColumnName="idInformacionAfiliado" />
                 <ScalarProperty Name="idAfiliado" ColumnName="idAfiliado" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -1579,6 +1584,7 @@
           <EntitySetMapping Name="informacionEmpleadoEmpleado">
             <EntityTypeMapping TypeName="freedModel.informacionEmpleadoEmpleado">
               <MappingFragment StoreEntitySet="informacionEmpleadoEmpleado">
+                <ScalarProperty Name="valor" ColumnName="valor" />
                 <ScalarProperty Name="idInformacionEmpleado" ColumnName="idInformacionEmpleado" />
                 <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
                 <ScalarProperty Name="id" ColumnName="id" />

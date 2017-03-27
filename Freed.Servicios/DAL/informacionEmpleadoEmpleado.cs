@@ -17,6 +17,7 @@ namespace Freed.Servicios.DAL
         public int id { get; set; }
         public int idEmpleado { get; set; }
         public int idInformacionEmpleado { get; set; }
+        public string valor { get; set; }
     
         public virtual empleado empleado { get; set; }
         public virtual informacionEmpleado informacionEmpleado { get; set; }

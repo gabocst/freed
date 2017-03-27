@@ -28,6 +28,9 @@ namespace Freed.Servicios.DTO
         [DataMember]
         public int idCliente { get; set; }
 
+        [DataMember]
+        public string cliente { get; set; }
+
         public infoAfiDTO(informacionAfiliado i)
         {
             this.id = i.id;
@@ -36,6 +39,7 @@ namespace Freed.Servicios.DTO
             this.requerido = i.requerido;
             this.vigente = i.vigente;
             this.idCliente = i.idCliente;
+            this.cliente = i.cliente.nombre;
         }
     }
 }

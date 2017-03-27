@@ -592,14 +592,14 @@ namespace Freed.Servicios
         }
         #endregion
 
-        #region Persona
-        public response listarPersona()
+        #region Persona Empleado
+        public response listarPersona(int id)
         {
-            response gl;
+            response pe;
             List<personaDTO> person_list = new List<personaDTO>();
             try
             {
-                var personas = db.persona.ToList();
+                var personas = db.persona.Where(x => x.idCliente == id).ToList();
                 foreach (var i in personas)
                 {
                     personaDTO p = new personaDTO(i);
@@ -607,14 +607,14 @@ namespace Freed.Servicios
                 }
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 string json = js.Serialize(person_list);
-                gl = new response(200, json, "OK", null);
+                pe = new response(200, json, "OK", null);
             }
             catch (Exception ex)
             {
-                gl = new response(500, "", "Error listando a las personas", ex.InnerException.Message + " " + ex.StackTrace);
+                pe = new response(500, "", "Error listando a las personas", ex.InnerException.Message + " " + ex.StackTrace);
             }
 
-            return gl;
+            return pe;
 
         }
 
@@ -1274,7 +1274,7 @@ namespace Freed.Servicios
             }
             catch (Exception ex)
             {
-                response = new response(500, "", "Error listando la informacion de los afiliados", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error listando la información de los afiliados", ex.InnerException.Message + " " + ex.StackTrace);
             }
 
             return response;
@@ -1295,11 +1295,11 @@ namespace Freed.Servicios
                 db.SaveChanges();
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 string json = js.Serialize(ia);
-                response = new response(201, json, "informacion de afiliado creada exitosamente", null);
+                response = new response(201, json, "Información de afiliado creada exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new response(500, "", "Error creando la informacion de afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error creando la información de afiliado", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
@@ -1311,7 +1311,7 @@ namespace Freed.Servicios
             {
                 var ia = db.informacionAfiliado.Find(info.id);
                 if (ia == null)
-                    response = new response(404, info.id.ToString(), "No se encontro la informacion de afiliado", null);
+                    response = new response(404, info.id.ToString(), "No se encontro la información de afiliado", null);
                 ia.atributo = info.atributo;
                 ia.requerido = info.requerido;
                 ia.vigente = info.vigente;
@@ -1319,15 +1319,14 @@ namespace Freed.Servicios
                 infoAfiDTO infAf = new infoAfiDTO(ia);
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 string json = js.Serialize(infAf);
-                response = new response(200, json, "Configuración actualizada exitosamente", null);
+                response = new response(200, json, "Información de afiliado actualizada exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new response(500, "", "Error actualizando la informacion de afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error actualizando la información de afiliado", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
-
 
         public response leerInfoAfiliado(int id)
         {
@@ -1336,7 +1335,7 @@ namespace Freed.Servicios
             {
                 var ia = db.informacionAfiliado.Find(id);
                 if (ia == null)
-                    response = new response(404, id.ToString(), "No se encontro la informacion del afiliado", null);
+                    response = new response(404, id.ToString(), "No se encontro la información del afiliado", null);
                 infoAfiDTO iaDTO = new infoAfiDTO(ia);
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 string json = js.Serialize(iaDTO);
@@ -1344,7 +1343,7 @@ namespace Freed.Servicios
             }
             catch (Exception ex)
             {
-                response = new response(500, "", "Error obteniendo la informacion del afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error obteniendo la informacion de afiliado", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
@@ -1356,15 +1355,130 @@ namespace Freed.Servicios
             {
                 var ia = db.informacionAfiliado.Find(id);
                 if (ia == null)
-                    response = new response(404, id.ToString(), "No se encontro la informacion del afiliado", null);
+                    response = new response(404, id.ToString(), "No se encontro la información de afiliado", null);
                 db.informacionAfiliado.Remove(ia);
-                //Aqui hay que realizar las operaciones correspondientes para eliminar las configuracionCliente asociadas
+                //Aqui hay que realizar las operaciones correspondientes para eliminar las entidades asociadas
                 db.SaveChanges();
-                response = new response(200, id.ToString(), "informacion de afiliado eliminada exitosamente", null);
+                response = new response(200, id.ToString(), "Información de afiliado eliminada exitosamente", null);
             }
             catch (Exception ex)
             {
-                response = new response(500, "", "Error eliminando la informacion del afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+                response = new response(500, "", "Error eliminando la información de afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        #endregion
+
+        #region informacionEmpleado
+        public response listarInfoEmpleado(int id)
+        {
+            response response;
+            List<infoEmpleDTO> info_list = new List<infoEmpleDTO>();
+            try
+            {
+                var empleados = db.informacionEmpleado.Where(x => x.id == id).ToList();
+                foreach (var i in empleados)
+                {
+                    infoEmpleDTO info = new infoEmpleDTO(i);
+                    info_list.Add(info);
+                }
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(info_list);
+                response = new response(200, json, "OK", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error listando la información de los empleados", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+
+            return response;
+        }
+
+        public response crearInfoEmpleado(infoEmpleDTO info)
+        {
+            response response;
+            try
+            {
+                informacionEmpleado ia = new informacionEmpleado();
+                ia.atributo = info.atributo;
+                ia.tipoValor = info.tipoValor;
+                ia.requerido = info.requerido;
+                ia.vigente = info.vigente;
+                ia.idCliente = info.idCliente;
+                db.informacionEmpleado.Add(ia);
+                db.SaveChanges();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(ia);
+                response = new response(201, json, "información de empleado creada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error creando la información del empleado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public response actualizarInfoEmpleado(infoEmpleDTO info)
+        {
+            response response;
+            try
+            {
+                var ia = db.informacionEmpleado.Find(info.id);
+                if (ia == null)
+                    response = new response(404, info.id.ToString(), "No se encontro la información de empleado", null);
+                ia.atributo = info.atributo;
+                ia.requerido = info.requerido;
+                ia.vigente = info.vigente;
+                db.SaveChanges();
+                infoEmpleDTO infEm = new infoEmpleDTO(ia);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(infEm);
+                response = new response(200, json, "Información de empleado actualizada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error actualizando la información de empleado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public response leerInfoEmpleado(int id)
+        {
+            response response;
+            try
+            {
+                var ie = db.informacionEmpleado.Find(id);
+                if (ie == null)
+                    response = new response(404, id.ToString(), "No se encontro la información de empleado", null);
+                infoEmpleDTO ieDTO = new infoEmpleDTO(ie);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(ieDTO);
+                response = new response(200, json, "OK", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error obteniendo la información de empleado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public response eliminarInfoEmpleado(int id)
+        {
+            response response;
+            try
+            {
+                var ie = db.informacionEmpleado.Find(id);
+                if (ie == null)
+                    response = new response(404, id.ToString(), "No se encontro la información de empleado", null);
+                db.informacionEmpleado.Remove(ie);
+                //Aqui hay que realizar las operaciones correspondientes para eliminar las entidades asociadas
+                db.SaveChanges();
+                response = new response(200, id.ToString(), "Información de empleado eliminada exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error eliminando la información de empleado", ex.InnerException.Message + " " + ex.StackTrace);
             }
             return response;
         }
@@ -1372,7 +1486,139 @@ namespace Freed.Servicios
 
         #endregion
 
+        #region Empleado
+        public response listarEmpleado(int id)
+        {
+            response pe;
+            List<empleadoDTO> employee_list = new List<empleadoDTO>();
+            try
+            {
+                var empleados = db.empleado.Where(x => x.persona.idCliente == id).ToList();
+                foreach (var i in empleados)
+                { 
+                    empleadoDTO e = new empleadoDTO(i);
+                    employee_list.Add(e);
+                }
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(employee_list);
+                pe = new response(200, json, "OK", null);
+            }
+            catch (Exception ex)
+            {
+                pe = new response(500, "", "Error listando a los empleados", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return pe;
+        }
 
+        public response crearEmpleado(empleadoDTO employee)
+        {
+            response response;
+            try
+            {
+                persona p = new persona();
+                p.apellido = employee.apellido;
+                p.dni = employee.dni;
+                p.fechaCreacion = DateTime.Now;
+                p.fechaNacimiento = employee.fechaNacimiento;
+                p.idCliente = employee.idCliente;
+                p.idRol = employee.idRol;
+                p.nombre = employee.nombre;
+                p.sexo = employee.sexo;
+                p.empleado = new empleado();
+                p.empleado.sueldo = employee.sueldo;
+                p.empleado.cargo = employee.cargo;
+                db.persona.Add(p);                
+                db.SaveChanges();
+                empleadoDTO emple = new empleadoDTO(p.empleado);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(emple);
+                response = new response(201, json, "Empleado creado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, null, "Error creando al empleado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public response actualizarEmpleado(empleadoDTO employee)
+        {
+            response response;
+            try
+            {
+                var e = db.empleado.Find(employee.id);
+                if (e == null)
+                    response = new response(404, employee.id.ToString(), "No se encontro al empleado", null);
+                e.cargo = employee.cargo;
+                e.sueldo = employee.sueldo;
+                e.persona.apellido = employee.apellido;
+                e.persona.dni = employee.dni;
+                e.persona.fechaNacimiento = employee.fechaNacimiento;
+                e.persona.idRol = employee.idRol;
+                e.persona.nombre = employee.nombre;
+                e.persona.sexo = employee.sexo;        
+                db.SaveChanges();
+                empleadoDTO emple = new empleadoDTO(e);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(emple);
+                response = new response(200, json, "Empleado actualizado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error actualizando al empleado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public response leerEmpleado(int id)
+        {
+            response response;
+            try
+            {
+                var e = db.empleado.Find(id);
+                if (e == null)
+                    response = new response(404, id.ToString(), "No se encontro al empleado", null);
+
+                empleadoDTO eDTO = new empleadoDTO(e);
+                List<infoPersonaDTO> info_list = new List<infoPersonaDTO>();
+                foreach (var i in e.informacionEmpleadoEmpleado)
+                {
+                    infoPersonaDTO a = new infoPersonaDTO(i);
+                    info_list.Add(a);
+                }
+                eDTO.info = new List<infoPersonaDTO>(info_list);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(eDTO);
+                response = new response(200, json, "OK", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error obteniendo el empleado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public response eliminarEmpleado(int id)
+        {
+            response response;
+            try
+            {
+                var e = db.persona.Find(id);
+                if (e == null)
+                    response = new response(404, id.ToString(), "No se encontro el empleado", null);
+                db.empleado.Remove(e.empleado);
+                db.persona.Remove(e);
+                //Aqui hay que realizar las operaciones correspondientes para las relaciones (o no permitir si hay asociadas)
+                db.SaveChanges();
+                response = new response(200, id.ToString(), "Empleado eliminado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error eliminando al empleado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+        #endregion
 
     }
 }
