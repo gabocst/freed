@@ -198,6 +198,8 @@
       <DependentUpon>freedModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO\actividadDTO.cs" />
+    <Compile Include="DTO\afiliadoDTO.cs" />
+    <Compile Include="DTO\afiliadoPaqueteDTO.cs" />
     <Compile Include="DTO\configuracionClienteDTO.cs" />
     <Compile Include="DTO\clienteDTO.cs" />
     <Compile Include="DTO\configuracionDTO.cs" />

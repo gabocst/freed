@@ -1,0 +1,1351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="FreedServices" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Freed.Servicios.Utils" />
+      <xsd:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Freed.Servicios.DTO" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IFreedServices_listarGrupo_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarGrupo" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarGrupo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarGrupoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearGrupo_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearGrupo" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearGrupo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearGrupoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarGrupo_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarGrupo" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarGrupo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarGrupoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerGrupo_InputMessage">
+    <wsdl:part name="parameters" element="tns:leerGrupo" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerGrupo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:leerGrupoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarGrupo_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarGrupo" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarGrupo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarGrupoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:leerConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:leerConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarConfiguracionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarCliente" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearCliente" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarCliente" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:leerCliente" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:leerClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarCliente" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarConfiguracionCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarConfiguracionCliente" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarConfiguracionCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarConfiguracionClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearConfiguracionCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearConfiguracionCliente" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearConfiguracionCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearConfiguracionClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarConfiguracionCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarConfiguracionCliente" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarConfiguracionCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarConfiguracionClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerConfiguracionCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:leerConfiguracionCliente" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerConfiguracionCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:leerConfiguracionClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarConfiguracionCliente_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarConfiguracionCliente" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarConfiguracionCliente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarConfiguracionClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarActividad_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarActividad" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarActividad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarActividadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearActividad_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearActividad" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearActividad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearActividadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarActividad_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarActividad" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarActividad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarActividadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerActividad_InputMessage">
+    <wsdl:part name="parameters" element="tns:leerActividad" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerActividad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:leerActividadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarActividad_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarActividad" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarActividad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarActividadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarPersona_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarPersona" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarPersona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarPersonaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarRol_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarRol" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarRol_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarRolResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearRol_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearRol" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearRol_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearRolResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarRol_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarRol" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarRol_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarRolResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerRol_InputMessage">
+    <wsdl:part name="parameters" element="tns:leerRol" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerRol_OutputMessage">
+    <wsdl:part name="parameters" element="tns:leerRolResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarRol_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarRol" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarRol_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarRolResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarFactura_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarFactura" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarFactura_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarFacturaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearFactura_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearFactura" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearFactura_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearFacturaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarFactura_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarFactura" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarFactura_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarFacturaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerFactura_InputMessage">
+    <wsdl:part name="parameters" element="tns:leerFactura" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerFactura_OutputMessage">
+    <wsdl:part name="parameters" element="tns:leerFacturaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarFactura_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarFactura" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarFactura_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarFacturaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarPaquete_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarPaquete" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarPaquete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarPaqueteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearPaquete_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearPaquete" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearPaquete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearPaqueteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarPaquete_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarPaquete" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarPaquete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarPaqueteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerPaquete_InputMessage">
+    <wsdl:part name="parameters" element="tns:leerPaquete" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerPaquete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:leerPaqueteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarPaquete_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarPaquete" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarPaquete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarPaqueteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarCosto_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarCosto" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarCosto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarCostoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearCosto_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearCosto" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearCosto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearCostoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarCosto_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarCosto" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarCosto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarCostoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerCosto_InputMessage">
+    <wsdl:part name="parameters" element="tns:leerCosto" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerCosto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:leerCostoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarCosto_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarCosto" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarCosto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarCostoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarInfoAfiliado_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarInfoAfiliado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarInfoAfiliado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarInfoAfiliadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearInfoAfiliado_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearInfoAfiliado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearInfoAfiliado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearInfoAfiliadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarInfoAfiliado_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarInfoAfiliado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarInfoAfiliado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarInfoAfiliadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerInfoAfiliado_InputMessage">
+    <wsdl:part name="parameters" element="tns:leerInfoAfiliado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerInfoAfiliado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:leerInfoAfiliadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarInfoAfiliado_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarInfoAfiliado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarInfoAfiliado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarInfoAfiliadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarInfoEmpleado_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarInfoEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarInfoEmpleado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarInfoEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearInfoEmpleado_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearInfoEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearInfoEmpleado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearInfoEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarInfoEmpleado_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarInfoEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarInfoEmpleado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarInfoEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerInfoEmpleado_InputMessage">
+    <wsdl:part name="parameters" element="tns:leerInfoEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerInfoEmpleado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:leerInfoEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarInfoEmpleado_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarInfoEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarInfoEmpleado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarInfoEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarEmpleado_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarEmpleado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearEmpleado_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearEmpleado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarEmpleado_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarEmpleado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerEmpleado_InputMessage">
+    <wsdl:part name="parameters" element="tns:leerEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerEmpleado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:leerEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarEmpleado_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarEmpleado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarEmpleado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarEmpleadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarAfiliado_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarAfiliado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarAfiliado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarAfiliadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearAfiliado_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearAfiliado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearAfiliado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearAfiliadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarAfiliado_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarAfiliado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarAfiliado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarAfiliadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerAfiliado_InputMessage">
+    <wsdl:part name="parameters" element="tns:leerAfiliado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_leerAfiliado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:leerAfiliadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarAfiliado_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarAfiliado" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarAfiliado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarAfiliadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarAfiliadoPaquete_InputMessage">
+    <wsdl:part name="parameters" element="tns:listarAfiliadoPaquete" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_listarAfiliadoPaquete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:listarAfiliadoPaqueteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearAfiliadoPaquete_InputMessage">
+    <wsdl:part name="parameters" element="tns:crearAfiliadoPaquete" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_crearAfiliadoPaquete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:crearAfiliadoPaqueteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarAfiliadoPaquete_InputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarAfiliadoPaquete" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_actualizarAfiliadoPaquete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:actualizarAfiliadoPaqueteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarAfiliadoPaquete_InputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarAfiliadoPaquete" />
+  </wsdl:message>
+  <wsdl:message name="IFreedServices_eliminarAfiliadoPaquete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:eliminarAfiliadoPaqueteResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IFreedServices">
+    <wsdl:operation name="listarGrupo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarGrupo" message="tns:IFreedServices_listarGrupo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarGrupoResponse" message="tns:IFreedServices_listarGrupo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearGrupo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearGrupo" message="tns:IFreedServices_crearGrupo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearGrupoResponse" message="tns:IFreedServices_crearGrupo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarGrupo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarGrupo" message="tns:IFreedServices_actualizarGrupo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarGrupoResponse" message="tns:IFreedServices_actualizarGrupo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="leerGrupo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/leerGrupo" message="tns:IFreedServices_leerGrupo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/leerGrupoResponse" message="tns:IFreedServices_leerGrupo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarGrupo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarGrupo" message="tns:IFreedServices_eliminarGrupo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarGrupoResponse" message="tns:IFreedServices_eliminarGrupo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarConfiguracion" message="tns:IFreedServices_listarConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarConfiguracionResponse" message="tns:IFreedServices_listarConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearConfiguracion" message="tns:IFreedServices_crearConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearConfiguracionResponse" message="tns:IFreedServices_crearConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarConfiguracion" message="tns:IFreedServices_actualizarConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarConfiguracionResponse" message="tns:IFreedServices_actualizarConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="leerConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/leerConfiguracion" message="tns:IFreedServices_leerConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/leerConfiguracionResponse" message="tns:IFreedServices_leerConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarConfiguracion" message="tns:IFreedServices_eliminarConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarConfiguracionResponse" message="tns:IFreedServices_eliminarConfiguracion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarCliente" message="tns:IFreedServices_listarCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarClienteResponse" message="tns:IFreedServices_listarCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearCliente" message="tns:IFreedServices_crearCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearClienteResponse" message="tns:IFreedServices_crearCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarCliente" message="tns:IFreedServices_actualizarCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarClienteResponse" message="tns:IFreedServices_actualizarCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="leerCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/leerCliente" message="tns:IFreedServices_leerCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/leerClienteResponse" message="tns:IFreedServices_leerCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarCliente" message="tns:IFreedServices_eliminarCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarClienteResponse" message="tns:IFreedServices_eliminarCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarConfiguracionCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarConfiguracionCliente" message="tns:IFreedServices_listarConfiguracionCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarConfiguracionClienteResponse" message="tns:IFreedServices_listarConfiguracionCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearConfiguracionCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearConfiguracionCliente" message="tns:IFreedServices_crearConfiguracionCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearConfiguracionClienteResponse" message="tns:IFreedServices_crearConfiguracionCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarConfiguracionCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarConfiguracionCliente" message="tns:IFreedServices_actualizarConfiguracionCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarConfiguracionClienteResponse" message="tns:IFreedServices_actualizarConfiguracionCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="leerConfiguracionCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/leerConfiguracionCliente" message="tns:IFreedServices_leerConfiguracionCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/leerConfiguracionClienteResponse" message="tns:IFreedServices_leerConfiguracionCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarConfiguracionCliente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarConfiguracionCliente" message="tns:IFreedServices_eliminarConfiguracionCliente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarConfiguracionClienteResponse" message="tns:IFreedServices_eliminarConfiguracionCliente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarActividad">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarActividad" message="tns:IFreedServices_listarActividad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarActividadResponse" message="tns:IFreedServices_listarActividad_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearActividad">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearActividad" message="tns:IFreedServices_crearActividad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearActividadResponse" message="tns:IFreedServices_crearActividad_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarActividad">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarActividad" message="tns:IFreedServices_actualizarActividad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarActividadResponse" message="tns:IFreedServices_actualizarActividad_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="leerActividad">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/leerActividad" message="tns:IFreedServices_leerActividad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/leerActividadResponse" message="tns:IFreedServices_leerActividad_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarActividad">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarActividad" message="tns:IFreedServices_eliminarActividad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarActividadResponse" message="tns:IFreedServices_eliminarActividad_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarPersona">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarPersona" message="tns:IFreedServices_listarPersona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarPersonaResponse" message="tns:IFreedServices_listarPersona_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarRol">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarRol" message="tns:IFreedServices_listarRol_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarRolResponse" message="tns:IFreedServices_listarRol_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearRol">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearRol" message="tns:IFreedServices_crearRol_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearRolResponse" message="tns:IFreedServices_crearRol_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarRol">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarRol" message="tns:IFreedServices_actualizarRol_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarRolResponse" message="tns:IFreedServices_actualizarRol_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="leerRol">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/leerRol" message="tns:IFreedServices_leerRol_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/leerRolResponse" message="tns:IFreedServices_leerRol_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarRol">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarRol" message="tns:IFreedServices_eliminarRol_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarRolResponse" message="tns:IFreedServices_eliminarRol_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarFactura">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarFactura" message="tns:IFreedServices_listarFactura_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarFacturaResponse" message="tns:IFreedServices_listarFactura_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearFactura">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearFactura" message="tns:IFreedServices_crearFactura_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearFacturaResponse" message="tns:IFreedServices_crearFactura_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarFactura">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarFactura" message="tns:IFreedServices_actualizarFactura_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarFacturaResponse" message="tns:IFreedServices_actualizarFactura_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="leerFactura">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/leerFactura" message="tns:IFreedServices_leerFactura_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/leerFacturaResponse" message="tns:IFreedServices_leerFactura_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarFactura">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarFactura" message="tns:IFreedServices_eliminarFactura_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarFacturaResponse" message="tns:IFreedServices_eliminarFactura_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarPaquete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarPaquete" message="tns:IFreedServices_listarPaquete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarPaqueteResponse" message="tns:IFreedServices_listarPaquete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearPaquete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearPaquete" message="tns:IFreedServices_crearPaquete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearPaqueteResponse" message="tns:IFreedServices_crearPaquete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarPaquete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarPaquete" message="tns:IFreedServices_actualizarPaquete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarPaqueteResponse" message="tns:IFreedServices_actualizarPaquete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="leerPaquete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/leerPaquete" message="tns:IFreedServices_leerPaquete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/leerPaqueteResponse" message="tns:IFreedServices_leerPaquete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarPaquete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarPaquete" message="tns:IFreedServices_eliminarPaquete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarPaqueteResponse" message="tns:IFreedServices_eliminarPaquete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarCosto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarCosto" message="tns:IFreedServices_listarCosto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarCostoResponse" message="tns:IFreedServices_listarCosto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearCosto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearCosto" message="tns:IFreedServices_crearCosto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearCostoResponse" message="tns:IFreedServices_crearCosto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarCosto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarCosto" message="tns:IFreedServices_actualizarCosto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarCostoResponse" message="tns:IFreedServices_actualizarCosto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="leerCosto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/leerCosto" message="tns:IFreedServices_leerCosto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/leerCostoResponse" message="tns:IFreedServices_leerCosto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarCosto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarCosto" message="tns:IFreedServices_eliminarCosto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarCostoResponse" message="tns:IFreedServices_eliminarCosto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarInfoAfiliado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarInfoAfiliado" message="tns:IFreedServices_listarInfoAfiliado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarInfoAfiliadoResponse" message="tns:IFreedServices_listarInfoAfiliado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearInfoAfiliado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearInfoAfiliado" message="tns:IFreedServices_crearInfoAfiliado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearInfoAfiliadoResponse" message="tns:IFreedServices_crearInfoAfiliado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarInfoAfiliado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarInfoAfiliado" message="tns:IFreedServices_actualizarInfoAfiliado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarInfoAfiliadoResponse" message="tns:IFreedServices_actualizarInfoAfiliado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="leerInfoAfiliado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/leerInfoAfiliado" message="tns:IFreedServices_leerInfoAfiliado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/leerInfoAfiliadoResponse" message="tns:IFreedServices_leerInfoAfiliado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarInfoAfiliado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarInfoAfiliado" message="tns:IFreedServices_eliminarInfoAfiliado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarInfoAfiliadoResponse" message="tns:IFreedServices_eliminarInfoAfiliado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarInfoEmpleado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarInfoEmpleado" message="tns:IFreedServices_listarInfoEmpleado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarInfoEmpleadoResponse" message="tns:IFreedServices_listarInfoEmpleado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearInfoEmpleado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearInfoEmpleado" message="tns:IFreedServices_crearInfoEmpleado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearInfoEmpleadoResponse" message="tns:IFreedServices_crearInfoEmpleado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarInfoEmpleado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarInfoEmpleado" message="tns:IFreedServices_actualizarInfoEmpleado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarInfoEmpleadoResponse" message="tns:IFreedServices_actualizarInfoEmpleado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="leerInfoEmpleado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/leerInfoEmpleado" message="tns:IFreedServices_leerInfoEmpleado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/leerInfoEmpleadoResponse" message="tns:IFreedServices_leerInfoEmpleado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarInfoEmpleado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarInfoEmpleado" message="tns:IFreedServices_eliminarInfoEmpleado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarInfoEmpleadoResponse" message="tns:IFreedServices_eliminarInfoEmpleado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarEmpleado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarEmpleado" message="tns:IFreedServices_listarEmpleado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarEmpleadoResponse" message="tns:IFreedServices_listarEmpleado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearEmpleado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearEmpleado" message="tns:IFreedServices_crearEmpleado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearEmpleadoResponse" message="tns:IFreedServices_crearEmpleado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarEmpleado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarEmpleado" message="tns:IFreedServices_actualizarEmpleado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarEmpleadoResponse" message="tns:IFreedServices_actualizarEmpleado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="leerEmpleado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/leerEmpleado" message="tns:IFreedServices_leerEmpleado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/leerEmpleadoResponse" message="tns:IFreedServices_leerEmpleado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarEmpleado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarEmpleado" message="tns:IFreedServices_eliminarEmpleado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarEmpleadoResponse" message="tns:IFreedServices_eliminarEmpleado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarAfiliado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarAfiliado" message="tns:IFreedServices_listarAfiliado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarAfiliadoResponse" message="tns:IFreedServices_listarAfiliado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearAfiliado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearAfiliado" message="tns:IFreedServices_crearAfiliado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearAfiliadoResponse" message="tns:IFreedServices_crearAfiliado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarAfiliado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarAfiliado" message="tns:IFreedServices_actualizarAfiliado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarAfiliadoResponse" message="tns:IFreedServices_actualizarAfiliado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="leerAfiliado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/leerAfiliado" message="tns:IFreedServices_leerAfiliado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/leerAfiliadoResponse" message="tns:IFreedServices_leerAfiliado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarAfiliado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarAfiliado" message="tns:IFreedServices_eliminarAfiliado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarAfiliadoResponse" message="tns:IFreedServices_eliminarAfiliado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="listarAfiliadoPaquete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/listarAfiliadoPaquete" message="tns:IFreedServices_listarAfiliadoPaquete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/listarAfiliadoPaqueteResponse" message="tns:IFreedServices_listarAfiliadoPaquete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="crearAfiliadoPaquete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/crearAfiliadoPaquete" message="tns:IFreedServices_crearAfiliadoPaquete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/crearAfiliadoPaqueteResponse" message="tns:IFreedServices_crearAfiliadoPaquete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="actualizarAfiliadoPaquete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/actualizarAfiliadoPaquete" message="tns:IFreedServices_actualizarAfiliadoPaquete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/actualizarAfiliadoPaqueteResponse" message="tns:IFreedServices_actualizarAfiliadoPaquete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="eliminarAfiliadoPaquete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFreedServices/eliminarAfiliadoPaquete" message="tns:IFreedServices_eliminarAfiliadoPaquete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFreedServices/eliminarAfiliadoPaqueteResponse" message="tns:IFreedServices_eliminarAfiliadoPaquete_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IFreedServices" type="tns:IFreedServices">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="listarGrupo">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarGrupo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearGrupo">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearGrupo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarGrupo">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarGrupo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leerGrupo">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/leerGrupo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarGrupo">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarGrupo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leerConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/leerConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarCliente">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearCliente">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarCliente">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leerCliente">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/leerCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarCliente">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarConfiguracionCliente">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarConfiguracionCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearConfiguracionCliente">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearConfiguracionCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarConfiguracionCliente">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarConfiguracionCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leerConfiguracionCliente">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/leerConfiguracionCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarConfiguracionCliente">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarConfiguracionCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarActividad">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarActividad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearActividad">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearActividad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarActividad">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarActividad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leerActividad">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/leerActividad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarActividad">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarActividad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarPersona">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarPersona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarRol">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarRol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearRol">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearRol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarRol">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarRol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leerRol">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/leerRol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarRol">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarRol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarFactura">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarFactura" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearFactura">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearFactura" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarFactura">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarFactura" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leerFactura">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/leerFactura" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarFactura">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarFactura" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarPaquete">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarPaquete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearPaquete">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearPaquete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarPaquete">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarPaquete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leerPaquete">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/leerPaquete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarPaquete">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarPaquete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarCosto">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarCosto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearCosto">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearCosto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarCosto">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarCosto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leerCosto">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/leerCosto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarCosto">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarCosto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarInfoAfiliado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarInfoAfiliado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearInfoAfiliado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearInfoAfiliado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarInfoAfiliado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarInfoAfiliado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leerInfoAfiliado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/leerInfoAfiliado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarInfoAfiliado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarInfoAfiliado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarInfoEmpleado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarInfoEmpleado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearInfoEmpleado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearInfoEmpleado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarInfoEmpleado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarInfoEmpleado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leerInfoEmpleado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/leerInfoEmpleado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarInfoEmpleado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarInfoEmpleado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarEmpleado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarEmpleado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearEmpleado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearEmpleado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarEmpleado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarEmpleado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leerEmpleado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/leerEmpleado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarEmpleado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarEmpleado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarAfiliado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarAfiliado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearAfiliado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearAfiliado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarAfiliado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarAfiliado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="leerAfiliado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/leerAfiliado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarAfiliado">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarAfiliado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listarAfiliadoPaquete">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/listarAfiliadoPaquete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="crearAfiliadoPaquete">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/crearAfiliadoPaquete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="actualizarAfiliadoPaquete">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/actualizarAfiliadoPaquete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="eliminarAfiliadoPaquete">
+      <soap:operation soapAction="http://tempuri.org/IFreedServices/eliminarAfiliadoPaquete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FreedServices">
+    <wsdl:port name="BasicHttpBinding_IFreedServices" binding="tns:BasicHttpBinding_IFreedServices">
+      <soap:address location="http://localhost:53201/FreedServices.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

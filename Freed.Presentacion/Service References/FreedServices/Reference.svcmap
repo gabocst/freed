@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d9dfbb78-abf7-44a6-ae38-a9be23cf2ac5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:53201/FreedServices.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="FreedServices.xsd" MetadataType="Schema" ID="b7eac097-4656-4e82-a9f2-0f19ea7ebeeb" SourceId="1" SourceUrl="http://localhost:53201/FreedServices.svc?xsd=xsd1" />
+    <MetadataFile FileName="FreedServices1.xsd" MetadataType="Schema" ID="f7b66967-21d3-4d63-bf5a-df94e9adc55c" SourceId="1" SourceUrl="http://localhost:53201/FreedServices.svc?xsd=xsd0" />
+    <MetadataFile FileName="FreedServices2.xsd" MetadataType="Schema" ID="cbb029f0-711b-4802-b19a-cc81c048abe2" SourceId="1" SourceUrl="http://localhost:53201/FreedServices.svc?xsd=xsd3" />
+    <MetadataFile FileName="FreedServices3.xsd" MetadataType="Schema" ID="df47c392-cf39-4c12-8638-91c2c28776e8" SourceId="1" SourceUrl="http://localhost:53201/FreedServices.svc?xsd=xsd2" />
+    <MetadataFile FileName="FreedServices.disco" MetadataType="Disco" ID="9e869b64-5917-441c-836d-317ab7397f3d" SourceId="1" SourceUrl="http://localhost:53201/FreedServices.svc?disco" />
+    <MetadataFile FileName="FreedServices.wsdl" MetadataType="Wsdl" ID="7dc9890e-9ad1-47f7-9fac-9f3b752efdb2" SourceId="1" SourceUrl="http://localhost:53201/FreedServices.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

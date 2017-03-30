@@ -1620,5 +1620,258 @@ namespace Freed.Servicios
         }
         #endregion
 
+        #region Afiliado
+        public response listarAfiliado(int id)
+        {
+            response pe;
+            List<afiliadoDTO> affiliate_list = new List<afiliadoDTO>();
+            try
+            {
+                var afiliados = db.afiliado.Where(x => x.persona.idCliente == id).ToList();
+                foreach (var i in afiliados)
+                {
+                    afiliadoDTO e = new afiliadoDTO(i);
+                    affiliate_list.Add(e);
+                }
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(affiliate_list);
+                pe = new response(200, json, "OK", null);
+            }
+            catch (Exception ex)
+            {
+                pe = new response(500, "", "Error listando a los afiliados", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return pe;
+        }
+
+        public response crearAfiliado(afiliadoDTO affiliate)
+        {
+            response response;
+            try
+            {
+                persona p = new persona();
+                p.apellido = affiliate.apellido;
+                p.dni = affiliate.dni;
+                p.fechaCreacion = DateTime.Now;
+                p.fechaNacimiento = affiliate.fechaNacimiento;
+                p.idCliente = affiliate.idCliente;
+                p.idRol = affiliate.idRol;
+                p.nombre = affiliate.nombre;
+                p.sexo = affiliate.sexo;
+                p.afiliado = new afiliado();
+                db.persona.Add(p);
+                db.SaveChanges();
+                afiliadoDTO afi = new afiliadoDTO(p.afiliado);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(afi);
+                response = new response(201, json, "Afiliado creado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, null, "Error creando al afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public response actualizarAfiliado(afiliadoDTO affiliate)
+        {
+            response response;
+            try
+            {
+                var a = db.afiliado.Find(affiliate.id);
+                if (a == null)
+                    response = new response(404, affiliate.id.ToString(), "No se encontro al afiliado", null);
+                a.persona.apellido = affiliate.apellido;
+                a.persona.dni = affiliate.dni;
+                a.persona.fechaNacimiento = affiliate.fechaNacimiento;
+                a.persona.idRol = affiliate.idRol;
+                a.persona.nombre = affiliate.nombre;
+                a.persona.sexo = affiliate.sexo;
+                db.SaveChanges();
+                afiliadoDTO emple = new afiliadoDTO(a);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(emple);
+                response = new response(200, json, "Afiliado actualizado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error actualizando al empleado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public response leerAfiliado(int id)
+        {
+            response response;
+            try
+            {
+                var a = db.afiliado.Find(id);
+                if (a == null)
+                    response = new response(404, id.ToString(), "No se encontro al afiliado", null);
+
+                afiliadoDTO aDTO = new afiliadoDTO(a);
+                List<infoPersonaDTO> info_list = new List<infoPersonaDTO>();
+                foreach (var i in a.informacionAfiliadoAfiliado)
+                {
+                    infoPersonaDTO inf = new infoPersonaDTO(i);
+                    info_list.Add(inf);
+                }
+                aDTO.info = new List<infoPersonaDTO>(info_list);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(aDTO);
+                response = new response(200, json, "OK", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error obteniendo el afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public response eliminarAfiliado(int id)
+        {
+            response response;
+            try
+            {
+                var a = db.persona.Find(id);
+                if (a == null)
+                    response = new response(404, id.ToString(), "No se encontro al afiliado", null);
+                db.afiliado.Remove(a.afiliado);
+                db.persona.Remove(a);
+                //Aqui hay que realizar las operaciones correspondientes para las relaciones (o no permitir si hay asociadas)
+                db.SaveChanges();
+                response = new response(200, id.ToString(), "Afiliado eliminado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error eliminando al afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+        #endregion
+
+        #region AfiliadoPaquete
+        public response listarAfiliadoPaquete(int? idAfiliado, int? idPaquete)
+        {
+            response response;
+            List<afiliadoPaqueteDTO> list = new List<afiliadoPaqueteDTO>();
+            try
+            {
+                if (idAfiliado == null && idPaquete == null)
+                {
+                    response = new response(400, "", "Error listando los paquetes de los afiliados", null);
+                }
+                else if (idAfiliado != null && idPaquete == null)
+                {
+                    var afiPaque = db.afiliadoPaquete.Where(x => x.idAfiliado == idAfiliado).ToList();
+                    foreach (var i in afiPaque)
+                    {
+                        afiliadoPaqueteDTO c = new afiliadoPaqueteDTO(i);
+                        list.Add(c);
+                    }
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    string json = js.Serialize(list);
+                    response = new response(200, json, "OK", null);
+                }
+                else if (idAfiliado == null && idPaquete != null)
+                {
+                    var afiPaque = db.afiliadoPaquete.Where(x => x.idPaquete == idPaquete).ToList();
+                    foreach (var i in afiPaque)
+                    {
+                        afiliadoPaqueteDTO c = new afiliadoPaqueteDTO(i);
+                        list.Add(c);
+                    }
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    string json = js.Serialize(list);
+                    response = new response(200, json, "OK", null);
+                }
+                else
+                {
+                    var afiPaque = db.afiliadoPaquete.Where(x => x.idPaquete == idPaquete && x.idAfiliado == idAfiliado).ToList();
+                    foreach (var i in afiPaque)
+                    {
+                        afiliadoPaqueteDTO c = new afiliadoPaqueteDTO(i);
+                        list.Add(c);
+                    }
+                    JavaScriptSerializer js = new JavaScriptSerializer();
+                    string json = js.Serialize(list);
+                    response = new response(200, json, "OK", null);
+                }
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error listando los paquetes de los afiliados", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+
+            return response;
+        }
+
+        public response crearAfiliadoPaquete(afiliadoPaqueteDTO afiPaque)
+        {
+            response response;
+            try
+            {
+                afiliadoPaquete ap = new afiliadoPaquete();
+                ap.idAfiliado = afiPaque.idAfiliado;
+                ap.idPaquete = afiPaque.idPaquete;
+                ap.desde = afiPaque.desde;
+                ap.hasta = afiPaque.hasta;
+                ap.cantidad = afiPaque.cantidad;
+                db.afiliadoPaquete.Add(ap);
+                db.SaveChanges();
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(ap);
+                response = new response(201, json, "Paquete asociado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error creando la configuración", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public response actualizarAfiliadoPaquete(afiliadoPaqueteDTO afiPaque)
+        {
+            response response;
+            try
+            {
+                var ap = db.afiliadoPaquete.Find(afiPaque.id);
+                if (ap == null)
+                    response = new response(404, afiPaque.id.ToString(), "No se encontro el recurso indicado", null);
+                ap.desde = afiPaque.desde;
+                ap.hasta = afiPaque.hasta;
+                ap.cantidad = afiPaque.cantidad;
+                ap.idPaquete = afiPaque.idPaquete;
+                db.SaveChanges();
+                afiliadoPaqueteDTO afp = new afiliadoPaqueteDTO(ap);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(afp);
+                response = new response(200, json, "Paquete de afiliado actualizado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error actualizando el paquete del afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+
+        public response eliminarAfiliadoPaquete(int id)
+        {
+            response response;
+            try
+            {
+                var ap = db.afiliadoPaquete.Find(id);
+                db.afiliadoPaquete.Remove(ap);
+                db.SaveChanges();
+                response = new response(200, id.ToString(), "Paquete de afiliado eliminado exitosamente", null);
+            }
+            catch (Exception ex)
+            {
+                response = new response(500, "", "Error eliminando el paquete del afiliado", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+            return response;
+        }
+        #endregion
+
     }
 }

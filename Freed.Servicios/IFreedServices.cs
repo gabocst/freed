@@ -259,5 +259,38 @@ namespace Freed.Servicios
         response eliminarEmpleado(int id);
 
         #endregion
+
+        #region Afiliado
+        [OperationContract]
+        response listarAfiliado(int id);
+
+        [OperationContract]
+        response crearAfiliado(afiliadoDTO employee);
+
+        [OperationContract]
+        response actualizarAfiliado(afiliadoDTO employee);
+
+        [OperationContract]
+        response leerAfiliado(int id);
+
+        [OperationContract]
+        response eliminarAfiliado(int id);
+
+        #endregion
+
+        #region afiliadoPaquete
+        [OperationContract]
+        response listarAfiliadoPaquete(int? idAfiliado, int? idPaquete);
+
+        [OperationContract]
+        response crearAfiliadoPaquete(afiliadoPaqueteDTO afiPa);
+
+        [OperationContract]
+        response actualizarAfiliadoPaquete(afiliadoPaqueteDTO afiPa);
+
+
+        [OperationContract]
+        response eliminarAfiliadoPaquete(int id);
+        #endregion
     }
 }

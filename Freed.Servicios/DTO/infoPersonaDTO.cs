@@ -33,5 +33,14 @@ namespace Freed.Servicios.DTO
             this.idPersona = i.idEmpleado;
             this.valor = i.valor;
         }
+
+        public infoPersonaDTO(informacionAfiliadoAfiliado i)
+        {
+            this.id = i.id;
+            this.atributo = i.informacionAfiliado.atributo;
+            this.idInformacionPersona = i.idInformacionAfiliado;
+            this.idPersona = i.idAfiliado;
+            this.valor = i.valor;
+        }
     }
 }
