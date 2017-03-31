@@ -10,15 +10,8 @@ namespace Freed.Presentacion.Controllers
 {
     public class HomeController : Controller
     {
-        FreedServicesClient db = new FreedServicesClient();
         public ActionResult Index()
         {
-            var hola = db.leerGrupo(1);
-            if (hola.code == 200)
-            {
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                grupoDTO gruop_list = (grupoDTO)js.Deserialize(hola.data, typeof(grupoDTO));
-            }
             return View();
         }
 

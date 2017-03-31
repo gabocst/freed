@@ -108,7 +108,7 @@ namespace Freed.Presentacion.FreedServices {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="grupoDTO", Namespace="http://schemas.datacontract.org/2004/07/Freed.Servicios.DTO")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="grupoDTO", Namespace="http://schemas.devtrends.co.uk/example/data")]
     [System.SerializableAttribute()]
     public partial class grupoDTO : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         

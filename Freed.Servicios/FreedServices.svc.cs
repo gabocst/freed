@@ -19,11 +19,13 @@ using Freed.Servicios.Models.paquete;
 using Freed.Servicios.Models.costo;
 using Freed.Servicios.Models.informacionAfiliado;
 using System.Web.Script.Serialization;
+using DevTrends.WCFDataAnnotations;
 
 namespace Freed.Servicios
 {
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "FreedServices" en el código, en svc y en el archivo de configuración a la vez.
     // NOTA: para iniciar el Cliente de prueba WCF para probar este servicio, seleccione FreedServices.svc o FreedServices.svc.cs en el Explorador de soluciones e inicie la depuración.
+    [ValidateDataAnnotationsBehavior]
     public class FreedServices : IFreedServices
     {
         private freedEntities db = new freedEntities();

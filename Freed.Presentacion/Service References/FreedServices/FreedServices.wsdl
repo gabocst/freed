@@ -5,7 +5,8 @@
       <xsd:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Freed.Servicios.Utils" />
-      <xsd:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Freed.Servicios.DTO" />
+      <xsd:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd3" namespace="http://schemas.devtrends.co.uk/example/data" />
+      <xsd:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Freed.Servicios.DTO" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IFreedServices_listarGrupo_InputMessage">

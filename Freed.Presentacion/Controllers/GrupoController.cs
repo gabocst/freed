@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -63,18 +64,20 @@ namespace Freed.Presentacion.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                var response = db.crearGrupo(group);
+                if (response.code == 201)
                 {
-                    var response = db.crearGrupo(group);
-                    if (response.code == 201)
-                    {
-                        return RedirectToAction("Index");
-                    }
-                    else if (response.code == 500)
-                    {
-                        ModelState.AddModelError("", response.messageDetail);
-                    }
+                    return RedirectToAction("Index");
                 }
+                else if (response.code == 500)
+                {
+                    ModelState.AddModelError("", response.messageDetail);
+                }
+            }
+            catch (FaultException ex)
+            {
+                int pos = ex.Message.IndexOf(":");
+                ModelState.AddModelError("", ex.Message.Substring(pos+2).ToString());
             }
             catch(Exception)
             {
@@ -141,6 +144,11 @@ namespace Freed.Presentacion.Controllers
                     }
                 }
             }
+            catch (FaultException ex)
+            {
+                int pos = ex.Message.IndexOf(":");
+                ModelState.AddModelError("", ex.Message.Substring(pos + 2).ToString());
+            }
             catch (Exception /* dex */)
             {
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
@@ -171,6 +179,7 @@ namespace Freed.Presentacion.Controllers
 
         // POST: Grupo/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? id)
         {
             if (id == null)

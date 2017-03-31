@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Freed.Presentacion.FreedServices.configuracionDTO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Configuraciones</h2>
+
+<p>
+    @Html.ActionLink("Crear Configuración", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.atributo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.grupo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.requerido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tipoValor)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.atributo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.grupo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.requerido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipoValor)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>

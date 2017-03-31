@@ -1,0 +1,72 @@
+﻿@model Freed.Presentacion.FreedServices.configuracionDTO
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Eliminar</h2>
+
+<h3>¿Esta seguro de querer eliminar la configuración?</h3>
+<div>
+    <h4>Configuración</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.atributo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.atributo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaCreacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaCreacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.grupo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.grupo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.requerido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.requerido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipoValor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipoValor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

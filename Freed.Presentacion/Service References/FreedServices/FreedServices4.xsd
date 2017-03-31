@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Freed.Servicios.DTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Freed.Servicios.DTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="configuracionDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="atributo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoSistema" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="grupo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idGrupo" type="xs:int" />
+      <xs:element minOccurs="0" name="requerido" type="xs:boolean" />
+      <xs:element minOccurs="0" name="tipoValor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="configuracionDTO" nillable="true" type="tns:configuracionDTO" />
+  <xs:complexType name="clienteDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="correo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="estado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idEstado" type="xs:int" />
+      <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="clienteDTO" nillable="true" type="tns:clienteDTO" />
+  <xs:complexType name="configuracionClienteDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="idConfiguracion" type="xs:int" />
+      <xs:element minOccurs="0" name="valor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="configuracionClienteDTO" nillable="true" type="tns:configuracionClienteDTO" />
+  <xs:complexType name="actividadDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="actividadDTO" nillable="true" type="tns:actividadDTO" />
+  <xs:complexType name="rolDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="permisos" nillable="true" type="tns:ArrayOfpermisoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="rolDTO" nillable="true" type="tns:rolDTO" />
+  <xs:complexType name="ArrayOfpermisoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="permisoDTO" nillable="true" type="tns:permisoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfpermisoDTO" nillable="true" type="tns:ArrayOfpermisoDTO" />
+  <xs:complexType name="permisoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="permisoDTO" nillable="true" type="tns:permisoDTO" />
+  <xs:complexType name="facturaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="desde" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="fechaPago" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="hasta" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="numero" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="facturaDTO" nillable="true" type="tns:facturaDTO" />
+  <xs:complexType name="paqueteDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="actividades" nillable="true" type="tns:ArrayOfactividadDTO" />
+      <xs:element minOccurs="0" name="cliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="costo" nillable="true" type="tns:costoDTO" />
+      <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="paqueteDTO" nillable="true" type="tns:paqueteDTO" />
+  <xs:complexType name="ArrayOfactividadDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="actividadDTO" nillable="true" type="tns:actividadDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfactividadDTO" nillable="true" type="tns:ArrayOfactividadDTO" />
+  <xs:complexType name="costoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="costo1" type="xs:int" />
+      <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="fin" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idPaquete" type="xs:int" />
+      <xs:element minOccurs="0" name="inicio" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="paquete" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="costoDTO" nillable="true" type="tns:costoDTO" />
+  <xs:complexType name="infoAfiDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="atributo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="requerido" type="xs:boolean" />
+      <xs:element minOccurs="0" name="tipoValor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="vigente" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="infoAfiDTO" nillable="true" type="tns:infoAfiDTO" />
+  <xs:complexType name="infoEmpleDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="atributo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="requerido" type="xs:boolean" />
+      <xs:element minOccurs="0" name="tipoValor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="vigente" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="infoEmpleDTO" nillable="true" type="tns:infoEmpleDTO" />
+  <xs:complexType name="empleadoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cargo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dni" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="fechaNacimiento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="idRol" type="xs:int" />
+      <xs:element minOccurs="0" name="info" nillable="true" type="tns:ArrayOfinfoPersonaDTO" />
+      <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="rol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="sexo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="sueldo" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="empleadoDTO" nillable="true" type="tns:empleadoDTO" />
+  <xs:complexType name="ArrayOfinfoPersonaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="infoPersonaDTO" nillable="true" type="tns:infoPersonaDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfinfoPersonaDTO" nillable="true" type="tns:ArrayOfinfoPersonaDTO" />
+  <xs:complexType name="infoPersonaDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="atributo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idInformacionPersona" type="xs:int" />
+      <xs:element minOccurs="0" name="idPersona" type="xs:int" />
+      <xs:element minOccurs="0" name="valor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="infoPersonaDTO" nillable="true" type="tns:infoPersonaDTO" />
+  <xs:complexType name="afiliadoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="apellido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dni" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="fechaNacimiento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idCliente" type="xs:int" />
+      <xs:element minOccurs="0" name="idRol" type="xs:int" />
+      <xs:element minOccurs="0" name="info" nillable="true" type="tns:ArrayOfinfoPersonaDTO" />
+      <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="rol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="sexo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="afiliadoDTO" nillable="true" type="tns:afiliadoDTO" />
+  <xs:complexType name="afiliadoPaqueteDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="afiliado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cantidad" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="desde" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="hasta" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="idAfiliado" type="xs:int" />
+      <xs:element minOccurs="0" name="idPaquete" type="xs:int" />
+      <xs:element minOccurs="0" name="paquete" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="afiliadoPaqueteDTO" nillable="true" type="tns:afiliadoPaqueteDTO" />
+</xs:schema>

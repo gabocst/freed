@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Freed.Servicios.Utils" />
-  <xs:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Freed.Servicios.DTO" />
+  <xs:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd3" namespace="http://schemas.devtrends.co.uk/example/data" />
+  <xs:import schemaLocation="http://localhost:53201/FreedServices.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Freed.Servicios.DTO" />
   <xs:element name="listarGrupo">
     <xs:complexType>
       <xs:sequence />
@@ -17,7 +18,7 @@
   <xs:element name="crearGrupo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Freed.Servicios.DTO" minOccurs="0" name="group" nillable="true" type="q2:grupoDTO" />
+        <xs:element xmlns:q2="http://schemas.devtrends.co.uk/example/data" minOccurs="0" name="group" nillable="true" type="q2:grupoDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -31,7 +32,7 @@
   <xs:element name="actualizarGrupo">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Freed.Servicios.DTO" minOccurs="0" name="group" nillable="true" type="q4:grupoDTO" />
+        <xs:element xmlns:q4="http://schemas.devtrends.co.uk/example/data" minOccurs="0" name="group" nillable="true" type="q4:grupoDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
