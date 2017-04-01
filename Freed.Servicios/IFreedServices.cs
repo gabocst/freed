@@ -292,5 +292,12 @@ namespace Freed.Servicios
         [OperationContract]
         response eliminarAfiliadoPaquete(int id);
         #endregion
+
+        #region estado
+        [OperationContract]
+        response listarEstado();
+
+        #endregion
+
     }
 }

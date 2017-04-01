@@ -970,4 +970,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="listarEstado">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listarEstadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q99="http://schemas.datacontract.org/2004/07/Freed.Servicios.Utils" minOccurs="0" name="listarEstadoResult" nillable="true" type="q99:response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

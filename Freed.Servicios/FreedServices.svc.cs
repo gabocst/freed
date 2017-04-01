@@ -1875,5 +1875,34 @@ namespace Freed.Servicios
         }
         #endregion
 
+        #region estado
+        public response listarEstado()
+        {
+            response el;
+            List<estadoDTO> estado_list = new List<estadoDTO>();
+            try
+            {
+                var estados = db.estado.ToList();
+                foreach (var i in estados)
+                {
+                    estadoDTO e = new estadoDTO(i);
+                    estado_list.Add(e);
+                }
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(estado_list);
+
+                el = new response(200, json, "OK", null);
+            }
+            catch (Exception ex)
+            {
+                el = new response(500, "", "Error listando los estados", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+
+            return el;
+
+        }
+
+        #endregion
+
     }
 }
