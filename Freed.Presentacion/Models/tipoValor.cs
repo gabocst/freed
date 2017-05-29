@@ -16,7 +16,8 @@ namespace Freed.Presentacion.Models
             new tipoValor{nombre="string"},
             new tipoValor{nombre="datetime"},
             new tipoValor{nombre="int"},
-            new tipoValor{nombre="bool"}
+            new tipoValor{nombre="bool"},
+            new tipoValor{nombre="List(Pais)"}
             };
 
             return types;
