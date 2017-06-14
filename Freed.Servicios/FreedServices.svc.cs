@@ -472,7 +472,7 @@ namespace Freed.Servicios
                 var c = db.configuracionCliente.Find(id);
                 db.configuracionCliente.Remove(c);
                 db.SaveChanges();
-                response = new response(200, id.ToString(), "Configuración eliminado exitosamente", null);
+                response = new response(200, id.ToString(), "Configuración eliminada exitosamente", null);
             }
             catch (Exception ex)
             {
@@ -1873,6 +1873,35 @@ namespace Freed.Servicios
             }
             return response;
         }
+        #endregion
+
+        #region Estado
+        public response listarEstado()
+        {
+            response es;
+            List<estadoDTO> state_list = new List<estadoDTO>();
+            try
+            {
+                var estados = db.estado.ToList();
+                foreach (var i in estados)
+                {
+                    estadoDTO e = new estadoDTO(i);
+                    state_list.Add(e);
+                }
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                string json = js.Serialize(state_list);
+
+                es = new response(200, json, "OK", null);
+            }
+            catch (Exception ex)
+            {
+                es = new response(500, "", "Error listando los estados", ex.InnerException.Message + " " + ex.StackTrace);
+            }
+
+            return es;
+
+        }
+
         #endregion
 
     }

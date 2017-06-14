@@ -1,4 +1,5 @@
 ﻿using Freed.Presentacion.FreedServices;
+using Freed.Presentacion.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,35 +11,35 @@ using System.Web.Script.Serialization;
 
 namespace Freed.Presentacion.Controllers
 {
-    public class GrupoController : Controller
+    public class ClienteController : Controller
     {
         FreedServicesClient db = new FreedServicesClient();
-        // GET: Grupo
+        // GET: Configuracion
         public ActionResult Index()
         {
-            var groups = db.listarGrupo();
-            List<grupoDTO> group_list = new List<grupoDTO>();
-            if (groups.code == 200)
+            var response = db.listarCliente();
+            List<clienteDTO> client_list = new List<clienteDTO>();
+            if (response.code == 200)
             {
                 JavaScriptSerializer js = new JavaScriptSerializer();
-                group_list = (List<grupoDTO>)js.Deserialize(groups.data, typeof(List<grupoDTO>));
+                client_list = (List<clienteDTO>)js.Deserialize(response.data, typeof(List<clienteDTO>));
             }
-            else if (groups.code == 500)
+            else if (response.code == 500)
             {
-                ViewBag.error = groups.messageDetail;
+                ViewBag.error = response.messageDetail;
             }
-            return View(group_list);
+            return View(client_list);
         }
 
-        // GET: Grupo/Details/5
+        // GET: Configuracion/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var response = db.leerGrupo(id.Value);
-            grupoDTO group = new grupoDTO();
+            var response = db.leerCliente(id.Value);
+            clienteDTO client = new clienteDTO();
             if (response.code == 404 || response.code == 500)
             {
                 ViewBag.error = response.messageDetail;
@@ -46,25 +47,35 @@ namespace Freed.Presentacion.Controllers
             else if (response.code == 200)
             {
                 JavaScriptSerializer js = new JavaScriptSerializer();
-                group = (grupoDTO)js.Deserialize(response.data, typeof(grupoDTO));
+                client = (clienteDTO)js.Deserialize(response.data, typeof(clienteDTO));
             }
-            return View(group);
+            return View(client);
         }
 
-        // GET: Grupo/Create
+        
+        // GET: Configuracion/Create
         public ActionResult Create()
         {
+            var states = db.listarEstado();
+            List<estadoDTO> state_list = new List<estadoDTO>();
+            if (states.code == 200)
+            {
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                state_list = (List<estadoDTO>)js.Deserialize(states.data, typeof(List<estadoDTO>));
+            }
+            ViewBag.idEstado = new SelectList(state_list, "id", "nombre");
             return View();
         }
 
-        // POST: Grupo/Create
+        
+        // POST: Configuracion/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "nombre")] grupoDTO group)
+        public ActionResult Create([Bind(Include = "nombre, correo, idEstado")] clienteDTO client)
         {
             try
             {
-                var response = db.crearGrupo(group);
+                var response = db.crearCliente(client);
                 if (response.code == 201)
                 {
                     return RedirectToAction("Index");
@@ -77,24 +88,32 @@ namespace Freed.Presentacion.Controllers
             catch (FaultException ex)
             {
                 int pos = ex.Message.IndexOf(":");
-                ModelState.AddModelError("", ex.Message.Substring(pos+2).ToString());
+                ModelState.AddModelError("", ex.Message /*ex.Message.Substring(pos + 2).ToString()*/);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 ModelState.AddModelError("", "No fue posible guardar los cambios. Intente nuevamente, y si el problema persiste comuniquese con su administrador de sistemas.");
             }
-            return View(group);
+            var states = db.listarEstado();
+            List<estadoDTO> state_list = new List<estadoDTO>();
+            if (states.code == 200)
+            {
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                state_list = (List<estadoDTO>)js.Deserialize(states.data, typeof(List<estadoDTO>));
+            }
+            ViewBag.idEstado = new SelectList(state_list, "id", "nombre", client.idEstado);
+            return View(client);
         }
-
-        // GET: Grupo/Edit/5
+        
+        // GET: Configuracion/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var response = db.leerGrupo(id.Value);
-            grupoDTO group = new grupoDTO();
+            var response = db.leerCliente(id.Value);
+            clienteDTO client = new clienteDTO();
             if (response.code == 404 || response.code == 500)
             {
                 ViewBag.error = response.messageDetail;
@@ -102,12 +121,20 @@ namespace Freed.Presentacion.Controllers
             else if (response.code == 200)
             {
                 JavaScriptSerializer js = new JavaScriptSerializer();
-                group = (grupoDTO)js.Deserialize(response.data, typeof(grupoDTO));
+                client = (clienteDTO)js.Deserialize(response.data, typeof(clienteDTO));
             }
-            return View(group);
+            var states = db.listarEstado();
+            List<estadoDTO> state_list = new List<estadoDTO>();
+            if (states.code == 200)
+            {
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                state_list = (List<estadoDTO>)js.Deserialize(states.data, typeof(List<estadoDTO>));
+            }
+            ViewBag.idEstado = new SelectList(state_list, "id", "nombre", client.idEstado);
+            return View(client);
         }
 
-        // POST: Grupo/Edit/5
+        // POST: Configuracion/Edit/5
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public ActionResult EditPost(int? id)
@@ -116,8 +143,8 @@ namespace Freed.Presentacion.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var response = db.leerGrupo(id.Value);
-            grupoDTO group = new grupoDTO();
+            var response = db.leerCliente(id.Value);
+            clienteDTO client = new clienteDTO();
             if (response.code == 404 || response.code == 500)
             {
                 ViewBag.error = response.messageDetail;
@@ -125,15 +152,15 @@ namespace Freed.Presentacion.Controllers
             else if (response.code == 200)
             {
                 JavaScriptSerializer js = new JavaScriptSerializer();
-                group = (grupoDTO)js.Deserialize(response.data, typeof(grupoDTO));
+                client = (clienteDTO)js.Deserialize(response.data, typeof(clienteDTO));
             }
             try
             {
-                if (TryUpdateModel(group, "",
-                    new string[] { "nombre"}))
+                if (TryUpdateModel(client, "",
+                    new string[] { "nombre", "correo", "idEstado" }))
                 {
 
-                    var resp = db.actualizarGrupo(group);
+                    var resp = db.actualizarCliente(client);
                     if (response.code == 200)
                     {
                         return RedirectToAction("Index");
@@ -147,24 +174,32 @@ namespace Freed.Presentacion.Controllers
             catch (FaultException ex)
             {
                 int pos = ex.Message.IndexOf(":");
-                ModelState.AddModelError("", ex.Message.Substring(pos + 2).ToString());
+                ModelState.AddModelError("", ex.Message /*ex.Message.Substring(pos + 2).ToString()*/);
             }
-            catch (Exception /* dex */)
+            catch (Exception)
             {
                 ModelState.AddModelError("", "No fue posible guardar los cambios. Intente nuevamente, y si el problema persiste comuniquese con su administrador de sistemas.");
             }
-            return View(group);
+            var states = db.listarEstado();
+            List<estadoDTO> state_list = new List<estadoDTO>();
+            if (states.code == 200)
+            {
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                state_list = (List<estadoDTO>)js.Deserialize(states.data, typeof(List<estadoDTO>));
+            }
+            ViewBag.idEstado = new SelectList(state_list, "id", "nombre", client.idEstado);
+            return View(client);
         }
-
-        // GET: Grupo/Delete/5
+        
+        // GET: Configuracion/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var response = db.leerGrupo(id.Value);
-            grupoDTO group = new grupoDTO();
+            var response = db.leerCliente(id.Value);
+            clienteDTO client = new clienteDTO();
             if (response.code == 404 || response.code == 500)
             {
                 ViewBag.error = response.messageDetail;
@@ -172,12 +207,12 @@ namespace Freed.Presentacion.Controllers
             else if (response.code == 200)
             {
                 JavaScriptSerializer js = new JavaScriptSerializer();
-                group = (grupoDTO)js.Deserialize(response.data, typeof(grupoDTO));
+                client = (clienteDTO)js.Deserialize(response.data, typeof(clienteDTO));
             }
-            return View(group);
+            return View(client);
         }
 
-        // POST: Grupo/Delete/5
+        // POST: Configuracion/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int? id)
@@ -188,7 +223,7 @@ namespace Freed.Presentacion.Controllers
             }
             try
             {
-                var response = db.eliminarGrupo(id.Value);
+                var response = db.eliminarCliente(id.Value);
                 if (response.code == 200)
                 {
                     return RedirectToAction("Index");
@@ -198,11 +233,13 @@ namespace Freed.Presentacion.Controllers
                     ViewBag.error = response.messageDetail;
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 ModelState.AddModelError("", "No fue posible guardar los cambios. Intente nuevamente, y si el problema persiste comuniquese con su administrador de sistemas.");
             }
             return View();
         }
+
+        
     }
 }

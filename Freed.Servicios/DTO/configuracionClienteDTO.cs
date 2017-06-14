@@ -22,12 +22,20 @@ namespace Freed.Servicios.DTO
         [DataMember]
         public int idCliente { get; set; }
 
+        [DataMember]
+        public string configuracion { get; set; }
+
+        [DataMember]
+        public string cliente { get; set; }
+
         public configuracionClienteDTO(configuracionCliente c)
         {
             this.id = c.id;
             this.valor = c.valor;
             this.idConfiguracion = c.idConfiguracion;
             this.idCliente = c.idCliente;
+            this.cliente = c.cliente.nombre;
+            this.configuracion = c.configuracion.atributo;
         }
     }
 }

@@ -188,7 +188,7 @@ namespace Freed.Presentacion.Controllers
             }
             catch (Exception /* dex */)
             {
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                ModelState.AddModelError("", "No fue posible guardar los cambios. Intente nuevamente, y si el problema persiste comuniquese con su administrador de sistemas.");
             }
             var groups = db.listarGrupo();
             List<grupoDTO> group_list = new List<grupoDTO>();
@@ -249,7 +249,7 @@ namespace Freed.Presentacion.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                ModelState.AddModelError("", "No fue posible guardar los cambios. Intente nuevamente, y si el problema persiste comuniquese con su administrador de sistemas.");
             }
             return View();
         }

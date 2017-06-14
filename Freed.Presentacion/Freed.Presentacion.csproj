@@ -113,12 +113,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\ConfiguracionClienteController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\GrupoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\estadoDTO.cs" />
     <Compile Include="Models\tipoValor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\FreedServices\Reference.cs">
@@ -200,6 +203,16 @@
     <Content Include="Views\Configuracion\Create.cshtml" />
     <Content Include="Views\Configuracion\Edit.cshtml" />
     <Content Include="Views\Configuracion\Delete.cshtml" />
+    <Content Include="Views\Cliente\Create.cshtml" />
+    <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Cliente\Details.cshtml" />
+    <Content Include="Views\Cliente\Edit.cshtml" />
+    <Content Include="Views\Cliente\Delete.cshtml" />
+    <Content Include="Views\ConfiguracionCliente\Index.cshtml" />
+    <Content Include="Views\ConfiguracionCliente\Details.cshtml" />
+    <Content Include="Views\ConfiguracionCliente\Create.cshtml" />
+    <Content Include="Views\ConfiguracionCliente\Edit.cshtml" />
+    <Content Include="Views\ConfiguracionCliente\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -27,6 +27,8 @@
   <xs:element name="clienteDTO" nillable="true" type="tns:clienteDTO" />
   <xs:complexType name="configuracionClienteDTO">
     <xs:sequence>
+      <xs:element minOccurs="0" name="cliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="configuracion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="id" type="xs:int" />
       <xs:element minOccurs="0" name="idCliente" type="xs:int" />
       <xs:element minOccurs="0" name="idConfiguracion" type="xs:int" />

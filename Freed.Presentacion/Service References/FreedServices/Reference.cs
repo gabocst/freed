@@ -491,6 +491,12 @@ namespace Freed.Presentacion.FreedServices {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string clienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string configuracionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -509,6 +515,32 @@ namespace Freed.Presentacion.FreedServices {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string cliente {
+            get {
+                return this.clienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.clienteField, value) != true)) {
+                    this.clienteField = value;
+                    this.RaisePropertyChanged("cliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string configuracion {
+            get {
+                return this.configuracionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.configuracionField, value) != true)) {
+                    this.configuracionField = value;
+                    this.RaisePropertyChanged("configuracion");
+                }
             }
         }
         
@@ -2689,6 +2721,12 @@ namespace Freed.Presentacion.FreedServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFreedServices/eliminarAfiliadoPaquete", ReplyAction="http://tempuri.org/IFreedServices/eliminarAfiliadoPaqueteResponse")]
         System.Threading.Tasks.Task<Freed.Presentacion.FreedServices.response> eliminarAfiliadoPaqueteAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFreedServices/listarEstado", ReplyAction="http://tempuri.org/IFreedServices/listarEstadoResponse")]
+        Freed.Presentacion.FreedServices.response listarEstado();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFreedServices/listarEstado", ReplyAction="http://tempuri.org/IFreedServices/listarEstadoResponse")]
+        System.Threading.Tasks.Task<Freed.Presentacion.FreedServices.response> listarEstadoAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -3276,6 +3314,14 @@ namespace Freed.Presentacion.FreedServices {
         
         public System.Threading.Tasks.Task<Freed.Presentacion.FreedServices.response> eliminarAfiliadoPaqueteAsync(int id) {
             return base.Channel.eliminarAfiliadoPaqueteAsync(id);
+        }
+        
+        public Freed.Presentacion.FreedServices.response listarEstado() {
+            return base.Channel.listarEstado();
+        }
+        
+        public System.Threading.Tasks.Task<Freed.Presentacion.FreedServices.response> listarEstadoAsync() {
+            return base.Channel.listarEstadoAsync();
         }
     }
 }

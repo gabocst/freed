@@ -209,6 +209,7 @@
     <Compile Include="DTO\configuracionDTO.cs" />
     <Compile Include="DTO\costoDTO.cs" />
     <Compile Include="DTO\empleadoDTO.cs" />
+    <Compile Include="DTO\estadoDTO.cs" />
     <Compile Include="DTO\facturaDTO.cs" />
     <Compile Include="DTO\grupoDTO.cs" />
     <Compile Include="DTO\infoAfiDTO.cs" />
