@@ -1,4 +1,4 @@
-﻿@model Freed.Presentacion.FreedServices.grupoDTO
+﻿@model Freed.Presentacion.FreedServices.actividadDTO
 
 @{
     ViewBag.Title = "Delete";
@@ -6,9 +6,9 @@
 
 <h2>Eliminar</h2>
 
-<h3>¿Esta seguro de querer eliminar el grupo?</h3>
+<h3>¿Esta seguro de querer eliminar la actividad?</h3>
 <div>
-    <h4>Grupo</h4>
+    <h4>Actividad</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -18,6 +18,7 @@
         <dd>
             @Html.DisplayFor(model => model.nombre)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.fechaCreacion)
         </dt>

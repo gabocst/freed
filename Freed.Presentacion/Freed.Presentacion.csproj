@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -113,6 +114,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ActividadController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ConfiguracionClienteController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />
@@ -182,6 +184,15 @@
     <Content Include="Views\Grupo\Create.cshtml" />
     <Content Include="Views\Grupo\Edit.cshtml" />
     <Content Include="Views\Grupo\Delete.cshtml" />
+    <Content Include="Views\Configuracion\Index.cshtml" />
+    <Content Include="Views\Configuracion\Details.cshtml" />
+    <Content Include="Views\Configuracion\Create.cshtml" />
+    <Content Include="Views\Configuracion\Edit.cshtml" />
+    <Content Include="Views\Configuracion\Delete.cshtml" />
+    <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Cliente\Details.cshtml" />
+    <Content Include="Views\Cliente\Create.cshtml" />
+    <Content Include="Views\Cliente\Edit.cshtml" />
     <None Include="Service References\FreedServices\FreedServices.wsdl" />
     <None Include="Service References\FreedServices\FreedServices.xsd">
       <SubType>Designer</SubType>
@@ -213,6 +224,11 @@
     <Content Include="Views\ConfiguracionCliente\Create.cshtml" />
     <Content Include="Views\ConfiguracionCliente\Edit.cshtml" />
     <Content Include="Views\ConfiguracionCliente\Delete.cshtml" />
+    <Content Include="Views\Actividad\Index.cshtml" />
+    <Content Include="Views\Actividad\Details.cshtml" />
+    <Content Include="Views\Actividad\Create.cshtml" />
+    <Content Include="Views\Actividad\Edit.cshtml" />
+    <Content Include="Views\Actividad\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
